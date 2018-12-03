@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="68dp"
+        android:text="START"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="480dp" />
 
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="68dp"
+        android:text="STOP"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="480dp" />
 </android.support.constraint.ConstraintLayout>
