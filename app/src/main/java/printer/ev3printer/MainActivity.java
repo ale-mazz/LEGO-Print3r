@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -42,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
             Button startButton = findViewById(R.id.startButton);
-            //startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
+            TextView test_text = (TextView)findViewById(R.id.test_text);
+            /*startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));*/
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    Prelude.trap(() -> ev3.run(legoMain()));
-
+                    test_text.setText("success");
                 }
             });
 
@@ -79,6 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
                     motor.start();
                     motor.setSpeed(10);
+
+                    Future<Float> speed = motor.getSpeed();
+
+                    Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
