@@ -1,20 +1,33 @@
 package printer.ev3printer;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.plugs.TachoMotor;
 import it.unive.dais.legodroid.lib.util.Prelude;
+import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = Prelude.ReTAG("MainActivity");
+    @Nullable
+    private TachoMotor motor;
+
+    private void applyMotor(@NonNull ThrowingConsumer<TachoMotor, Throwable> f) {
+        if (motor != null)
+            Prelude.trap(() -> f.call(motor));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
 
 
-            //TODO: fare un listener per i bottoni start/stop
+            //TODO: fare dei test
 
             Button stopButton = findViewById(R.id.stopButton);
             stopButton.setOnClickListener(v -> {
-                ev3.cancel();   // Fire cancellation signal to the EV3 task
+                ev3.cancel();   // Cancella l'attività in corso nel main
             });
 
         } catch (IOException e) {
@@ -46,7 +59,32 @@ public class MainActivity extends AppCompatActivity {
 
     private void legoMain(EV3.Api api) {
 
-        //TODO: far fare qualcosa ai bottoni, questo è il "main" effettivo dell'applicazione
+        final String TAG = Prelude.ReTAG("legomain");
+        motor = api.getTachoMotor(EV3.OutputPort.A);
+
+        try {
+            applyMotor(TachoMotor::resetPosition);
+
+            while (!api.ev3.isCancelled()) {
+                try {
+
+                    motor.start();
+                    motor.setSpeed(10);
+
+                    Future<Float> speed = motor.getSpeed();
+
+                    Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        } finally {
+            applyMotor(TachoMotor::stop);
+        }
+
 
     }
 }
