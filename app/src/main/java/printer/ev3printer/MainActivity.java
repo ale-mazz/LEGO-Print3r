@@ -36,21 +36,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button startButton = findViewById(R.id.startButton);
+        TextView testText = (TextView)findViewById(R.id.testText);
+        //startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testText.setText("Success");
+                Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
+
+            }
+        });
+
         try {
 
             // Connect to EV3 (HAL9000) via Bluetooth
 
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
-
-            Button startButton = findViewById(R.id.startButton);
-            TextView test_text = (TextView)findViewById(R.id.test_text);
-            /*startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));*/
-            startButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    test_text.setText("success");
-                }
-            });
 
 
             //TODO: fare dei test
@@ -81,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
                     motor.setSpeed(10);
 
                     Future<Float> speed = motor.getSpeed();
-
-                    Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
