@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -41,7 +42,15 @@ public class MainActivity extends AppCompatActivity {
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
             Button startButton = findViewById(R.id.startButton);
-            startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
+            //startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Prelude.trap(() -> ev3.run(legoMain()));
+
+                }
+            });
 
 
             //TODO: fare dei test
@@ -70,11 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
                     motor.start();
                     motor.setSpeed(10);
-
-                    Future<Float> speed = motor.getSpeed();
-
-                    Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
-
 
                 } catch (IOException e) {
                     e.printStackTrace();
