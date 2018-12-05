@@ -50,6 +50,71 @@
         android:text="MIDDLE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/stopButton"
-        app:layout_constraintHorizontal_bias="0.363"
+        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toEndOf="@+id/startButton" />
+
+    <Button
+        android:id="@+id/brakeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="36dp"
+        android:text="BRAKE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/stopButton"
+        app:layout_constraintHorizontal_bias="0.688"
+        app:layout_constraintStart_toEndOf="@+id/middleButton" />
+
+    <Button
+        android:id="@+id/leftButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="64dp"
+        android:text="Speed = -50"
+        app:layout_constraintBottom_toTopOf="@+id/middleButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/rightButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="64dp"
+        android:text="Speed = 50"
+        app:layout_constraintBottom_toTopOf="@+id/brakeButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toEndOf="@+id/leftButton" />
+
+    <Button
+        android:id="@+id/upBackMotorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Up back"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="148dp" />
+
+    <Button
+        android:id="@+id/brakeBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:text="BROKEBACK"
+        app:layout_constraintStart_toEndOf="@+id/upBackMotorButton"
+        tools:layout_editor_absoluteY="148dp" />
+
+    <Button
+        android:id="@+id/downBackMotorButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="18dp"
+        android:text="down back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/brakeBackButton"
+        tools:layout_editor_absoluteY="157dp" />
 </android.support.constraint.ConstraintLayout>

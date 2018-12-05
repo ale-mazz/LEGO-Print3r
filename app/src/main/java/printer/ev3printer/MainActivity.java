@@ -5,10 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.concurrent.Future;
@@ -35,38 +32,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button startButton = findViewById(R.id.startButton);
-        TextView testText = (TextView)findViewById(R.id.testText);
-        //startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testText.setText("Success");
-                Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
-            }
-        });
 
+        Button startButton = findViewById(R.id.startButton);
+        Button middleButton = findViewById(R.id.middleButton);
+        Button stopButton = findViewById(R.id.stopButton);
+        Button brakeButton = findViewById(R.id.brakeButton);
+        Button leftButton = findViewById(R.id.leftButton);
+        Button rightButton = findViewById(R.id.rightButton);
+        Button upBackButton = findViewById(R.id.upBackMotorButton);
+        Button downBackButton = findViewById(R.id.downBackMotorButton);
+        Button brakeBackButtonMountain = findViewById(R.id.brakeBackButton);
 
         try {
-
             // Connect to EV3 (HAL9000) via Bluetooth
-
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
-
-            //TODO: fare dei test
-
-            Button stopButton = findViewById(R.id.stopButton);
-            stopButton.//setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoStop)));
-                    setOnClickListener(v -> {
-                ev3.cancel();   // Cancella l'attività in corso nel main
-            });
-
+            stopButton.setOnClickListener(v -> ev3.cancel());
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
-
-            Button middleButton = findViewById(R.id.middleButton);
             middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::legoStop)));
-
+            brakeButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoBrake)));
+            leftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoLeft)));
+            rightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoRight)));
+            upBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorUp)));
+            downBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorDown)));
+            brakeBackButtonMountain.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoBrakeBackMotor)));
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -75,28 +64,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void legoMain(EV3.Api api) {
-
         final String TAG = Prelude.ReTAG("legoMain");
         motor = api.getTachoMotor(EV3.OutputPort.A);
-
         try {
             applyMotor(TachoMotor::resetPosition);
-
-            //while (!api.ev3.isCancelled()) {
-                try {
-                    //motor.setTimeSpeed(-100, 1000,10000,10000, true);
-                    motor.setSpeed(-50);
-                    motor.start();
-
-                    //applyMotor(TachoMotor::start);
-
-                    Future<Float> speed = motor.getSpeed();
-
-                } catch (IOException e) {
+            try {
+                motor.setSpeed(-10);
+                motor.start();
+                Future<Float> speed = motor.getSpeed();
+            } catch (IOException e) {
                     e.printStackTrace();
-                }
-            //}
-
+            }
         } finally {
             //applyMotor(TachoMotor::stop);
         }
@@ -105,15 +83,76 @@ public class MainActivity extends AppCompatActivity {
     private void legoStop(EV3.Api api){
         final String TAG = Prelude.ReTAG("legoStop");
         motor = api.getTachoMotor(EV3.OutputPort.A);
-
         try{
             motor.stop();
-            //applyMotor(TachoMotor::stop);
-            //motor.stop();
-            //applyMotor(TachoMotor::stop);
-
         } catch (IOException e){
             Log.e(TAG, "legoStop: Cannot stop!");
+        }
+    }
+
+    private void legoBrake(EV3.Api api){
+        final String TAG = Prelude.ReTAG("legoStop");
+        motor = api.getTachoMotor(EV3.OutputPort.C);
+        try{
+            motor.stop();
+        } catch (IOException e){
+            Log.e(TAG, "legoBrake: Cannot stop!");
+        }
+    }
+
+    private void legoLeft(EV3.Api api){
+        final String TAG = Prelude.ReTAG("legoLeft");
+        motor = api.getTachoMotor(EV3.OutputPort.C);
+        try{
+            motor.setSpeed(-20);
+            motor.start();
+        }
+        catch (IOException e){
+            Log.e(TAG, "legoLeft: Cannot change to speed = -50!");
+        }
+    }
+    private void legoRight(EV3.Api api){
+        final String TAG = Prelude.ReTAG("legoRight");
+        motor = api.getTachoMotor(EV3.OutputPort.C);
+        try{
+            motor.setSpeed(20);
+            motor.start();
+        }
+        catch (IOException e){
+            Log.e(TAG, "legoRight: Cannot change to speed = 50!");
+        }
+    }
+
+    private void backMotorUp(EV3.Api api){
+        final String TAG = Prelude.ReTAG("backMotor");
+        motor = api.getTachoMotor(EV3.OutputPort.B);
+        try{
+            motor.setSpeed(10);
+            motor.start();
+        }
+        catch (IOException e){
+            Log.e(TAG, "backMotorUp: too much");
+        }
+    }
+
+    private void legoBrakeBackMotor(EV3.Api api){
+        final String TAG = Prelude.ReTAG("backMotorBrake");
+        motor = api.getTachoMotor(EV3.OutputPort.B);
+        try{
+            motor.brake();
+        } catch (IOException e){
+            Log.e(TAG, "legoBrakeMotor: Cannot stop!");
+        }
+    }
+    private void backMotorDown(EV3.Api api){
+        final String TAG = Prelude.ReTAG("backMotor");
+        motor = api.getTachoMotor(EV3.OutputPort.B);
+        try{
+            motor.setSpeed(-10);
+            motor.start();
+        }
+        catch (IOException e){
+            Log.e(TAG, "backMotorDown: too much");
         }
     }
 }
