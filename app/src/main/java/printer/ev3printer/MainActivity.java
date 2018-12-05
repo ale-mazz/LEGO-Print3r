@@ -82,10 +82,10 @@ public class MainActivity extends AppCompatActivity {
         try {
             applyMotor(TachoMotor::resetPosition);
 
-            while (!api.ev3.isCancelled()) {
+            //while (!api.ev3.isCancelled()) {
                 try {
                     //motor.setTimeSpeed(-100, 1000,10000,10000, true);
-                    motor.setSpeed(-100);
+                    motor.setSpeed(-50);
                     motor.start();
 
                     //applyMotor(TachoMotor::start);
@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
+            //}
 
         } finally {
-            applyMotor(TachoMotor::stop);
+            //applyMotor(TachoMotor::stop);
         }
     }
 
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             motor.stop();
-            applyMotor(TachoMotor::stop);
+            //applyMotor(TachoMotor::stop);
             //motor.stop();
             //applyMotor(TachoMotor::stop);
 
