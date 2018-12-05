@@ -1,9 +1,9 @@
 package printer.ev3printer;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 import it.unive.dais.legodroid.lib.EV3;
@@ -44,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 testText.setText("Success");
                 Toast.makeText(getApplicationContext(),"Speed", Toast.LENGTH_LONG).show();
-
             }
         });
+
 
         try {
 
@@ -58,9 +57,16 @@ public class MainActivity extends AppCompatActivity {
             //TODO: fare dei test
 
             Button stopButton = findViewById(R.id.stopButton);
-            stopButton.setOnClickListener(v -> {
+            stopButton.//setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoStop)));
+                    setOnClickListener(v -> {
                 ev3.cancel();   // Cancella l'attività in corso nel main
             });
+
+            startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
+
+            Button middleButton = findViewById(R.id.middleButton);
+            middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::legoStop)));
+
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void legoMain(EV3.Api api) {
 
-        final String TAG = Prelude.ReTAG("legomain");
+        final String TAG = Prelude.ReTAG("legoMain");
         motor = api.getTachoMotor(EV3.OutputPort.A);
 
         try {
@@ -78,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
 
             while (!api.ev3.isCancelled()) {
                 try {
-
+                    //motor.setTimeSpeed(-100, 1000,10000,10000, true);
+                    motor.setSpeed(-100);
                     motor.start();
-                    motor.setSpeed(10);
+
+                    //applyMotor(TachoMotor::start);
 
                     Future<Float> speed = motor.getSpeed();
 
@@ -92,7 +100,20 @@ public class MainActivity extends AppCompatActivity {
         } finally {
             applyMotor(TachoMotor::stop);
         }
+    }
 
+    private void legoStop(EV3.Api api){
+        final String TAG = Prelude.ReTAG("legoStop");
+        motor = api.getTachoMotor(EV3.OutputPort.A);
 
+        try{
+            motor.stop();
+            applyMotor(TachoMotor::stop);
+            //motor.stop();
+            //applyMotor(TachoMotor::stop);
+
+        } catch (IOException e){
+            Log.e(TAG, "legoStop: Cannot stop!");
+        }
     }
 }
