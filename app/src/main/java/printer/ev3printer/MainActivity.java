@@ -13,6 +13,7 @@ import java.util.concurrent.Future;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.plugs.TachoMotor;
+import it.unive.dais.legodroid.lib.plugs.TouchSensor;
 import it.unive.dais.legodroid.lib.util.Prelude;
 import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = Prelude.ReTAG("MainActivity");
     @Nullable
     private TachoMotor motor;
+
 
     private void applyMotor(@NonNull ThrowingConsumer<TachoMotor, Throwable> f) {
         if (motor != null)
@@ -59,6 +61,26 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
+            e.printStackTrace();
+        }
+    }
+
+
+    private void touchSensor(EV3.Api api) {
+        final TouchSensor touchSensor = api.getTouchSensor(EV3.InputPort._1);
+        motor = api.getTachoMotor(EV3.OutputPort.A);
+
+        try {
+            Future<Boolean> pressed = touchSensor.getPressed();
+
+            while (!api.ev3.isCancelled()) {
+
+                if (pressed.get() == 1) {
+                    motor.setSpeed(-10);
+                    motor.start();
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
