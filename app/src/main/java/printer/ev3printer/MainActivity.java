@@ -13,7 +13,6 @@ import java.util.concurrent.Future;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.plugs.TachoMotor;
-import it.unive.dais.legodroid.lib.plugs.TouchSensor;
 import it.unive.dais.legodroid.lib.util.Prelude;
 import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
 
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void touchSensor(EV3.Api api) {
+   /* private void touchSensor(EV3.Api api) {
         final TouchSensor touchSensor = api.getTouchSensor(EV3.InputPort._1);
         motor = api.getTachoMotor(EV3.OutputPort.A);
 
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    } */
 
     private void legoMain(EV3.Api api) {
         final String TAG = Prelude.ReTAG("legoMain");
