@@ -44,7 +44,8 @@ public class GalleryActivity extends AppCompatActivity {
                 try {
                     Bitmap imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                     Bitmap bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(imageSelectedBitmap);
-
+                    BitmapConverter converter = new BitmapConverter();
+                    boolean[] bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageView);
                     imageView.setImageBitmap(imageSelectedBitmap);
@@ -57,6 +58,5 @@ public class GalleryActivity extends AppCompatActivity {
                 }
             }
         }
-
 
 }
