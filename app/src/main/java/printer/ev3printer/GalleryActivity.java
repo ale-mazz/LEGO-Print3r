@@ -42,14 +42,21 @@ public class GalleryActivity extends AppCompatActivity {
                 Uri uri = data.getData();
 
                 try {
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    // Log.d(TAG, String.valueOf(bitmap));
+                    Bitmap imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    Bitmap bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.binaryBlackAndWhite(imageSelectedBitmap);
+
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageView);
-                    imageView.setImageBitmap(bitmap);
+                    imageView.setImageBitmap(imageSelectedBitmap);
+
+                    ImageView bwImageView = (ImageView) findViewById(R.id.bwImageView);
+                    bwImageView.setImageBitmap(bwImageSelectedBitmap);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+
+
 }
