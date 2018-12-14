@@ -43,7 +43,7 @@ public class GalleryActivity extends AppCompatActivity {
 
                 try {
                     Bitmap imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    Bitmap bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.binaryBlackAndWhite(imageSelectedBitmap);
+                    Bitmap bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(imageSelectedBitmap);
 
 
                     ImageView imageView = (ImageView) findViewById(R.id.imageView);
