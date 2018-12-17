@@ -9,14 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 public class GalleryActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
-    Bitmap imageSelectedBitmap;
-    Bitmap bwImageSelectedBitmap;
+    public Bitmap imageSelectedBitmap;
+    public Bitmap bwImageSelectedBitmap;
+    public boolean[] bwImageArray;
 
 
     @Override
@@ -35,6 +37,13 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
+        final Button button1 = findViewById(R.id.testArrayButton);
+        button1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                testArray(bwImageArray);
+            }
+        });
+
     }
         @Override
         protected void onActivityResult ( int requestCode, int resultCode, Intent data){
@@ -49,7 +58,7 @@ public class GalleryActivity extends AppCompatActivity {
                     bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(imageSelectedBitmap);
 
                     BitmapConverter converter = new BitmapConverter();
-                    boolean[] bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
+                    bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
 
                     ImageView imageView = findViewById(R.id.imageView);
                     imageView.setImageBitmap(imageSelectedBitmap);
@@ -62,4 +71,19 @@ public class GalleryActivity extends AppCompatActivity {
                 }
             }
         }
+
+    public void testArray(boolean[] bwImageArray) {
+        int blackDots = 0;
+        int whiteDots = 0;
+        for (int i = 0; i < bwImageArray.length; i++) {
+            if (bwImageArray[i]) {
+                blackDots++;
+            } else {
+                whiteDots++;
+            }
+        }
+        Toast.makeText(GalleryActivity.this, blackDots, Toast.LENGTH_SHORT).show();
+        Toast.makeText(GalleryActivity.this, whiteDots, Toast.LENGTH_LONG).show();
+
+    }
 }
