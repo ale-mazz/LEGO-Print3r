@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -18,6 +17,7 @@ public class GalleryActivity extends AppCompatActivity {
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
     public Bitmap bwImageSelectedBitmap;
+    public Bitmap resizedBwImageSelectedBitmap;
     public boolean[] bwImageArray;
 
 
@@ -45,32 +45,38 @@ public class GalleryActivity extends AppCompatActivity {
         });
 
     }
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
 
-            if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+    public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
+        return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
+    }
 
-                Uri uri = data.getData();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                try {
-                    imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(imageSelectedBitmap);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-                    BitmapConverter converter = new BitmapConverter();
-                    bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
+            Uri uri = data.getData();
 
-                    ImageView imageView = findViewById(R.id.imageView);
-                    imageView.setImageBitmap(imageSelectedBitmap);
+            try {
+                imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 100, 100);
+                bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
-                    ImageView bwImageView = findViewById(R.id.bwImageView);
-                    bwImageView.setImageBitmap(bwImageSelectedBitmap);
+                BitmapConverter converter = new BitmapConverter();
+                bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                ImageView imageView = findViewById(R.id.imageView);
+                imageView.setImageBitmap(imageSelectedBitmap);
+
+                ImageView bwImageView = findViewById(R.id.bwImageView);
+                bwImageView.setImageBitmap(bwImageSelectedBitmap);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
 
     public void testArray(boolean[] bwImageArray) {
         int blackDots = 0;
@@ -82,8 +88,7 @@ public class GalleryActivity extends AppCompatActivity {
                 whiteDots++;
             }
         }
-        Toast.makeText(GalleryActivity.this, blackDots, Toast.LENGTH_SHORT).show();
-        Toast.makeText(GalleryActivity.this, whiteDots, Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(GalleryActivity.this, blackDots, Toast.LENGTH_SHORT).show();
+        System.out.println(blackDots);
     }
 }
