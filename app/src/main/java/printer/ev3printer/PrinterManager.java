@@ -60,8 +60,8 @@ public class PrinterManager {
     public void LoadSheet(){
         boolean condition = true;
         try {
-            wheelMotor.start();
             wheelMotor.setSpeed(loadingSheetSpeed);
+            wheelMotor.start();
             while (condition){
                 Future<Short> ambientValue = lightSensor.getAmbient();
                 Short currentAmbientValue = ambientValue.get();
@@ -82,8 +82,8 @@ public class PrinterManager {
     public void UnloadSheet(){
         boolean condition = true;
         try {
+            wheelMotor.setSpeed(-loadingSheetSpeed);
             wheelMotor.start();
-            wheelMotor.setSpeed(-1 * loadingSheetSpeed);
             while (condition){
                 Future<Short> ambientValue = lightSensor.getAmbient();
                 Short currentAmbientValue = ambientValue.get();
