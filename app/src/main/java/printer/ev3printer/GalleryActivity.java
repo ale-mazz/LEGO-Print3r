@@ -46,8 +46,20 @@ public class GalleryActivity extends AppCompatActivity {
 
     }
 
-    public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
-        return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
+    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = maxSize;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = maxSize;
+            width = (int) (height * bitmapRatio);
+        }
+
+        return Bitmap.createScaledBitmap(image, width, height, true);
     }
 
     @Override
@@ -60,7 +72,7 @@ public class GalleryActivity extends AppCompatActivity {
 
             try {
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 100, 100);
+                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 50);
                 bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
                 BitmapConverter converter = new BitmapConverter();
@@ -88,7 +100,8 @@ public class GalleryActivity extends AppCompatActivity {
                 whiteDots++;
             }
         }
-        //Toast.makeText(GalleryActivity.this, blackDots, Toast.LENGTH_SHORT).show();
+        System.out.println();
         System.out.println(blackDots);
+        System.out.println(whiteDots);
     }
 }
