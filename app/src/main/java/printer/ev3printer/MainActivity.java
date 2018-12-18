@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button startButton = findViewById(R.id.startButton);
         Button middleButton = findViewById(R.id.middleButton);
-        Button stopButton = findViewById(R.id.stopButton);
+        Button stopEverythingButton = findViewById(R.id.stopButton);
         Button brakeButton = findViewById(R.id.brakeButton);
         Button leftButton = findViewById(R.id.leftButton);
         Button rightButton = findViewById(R.id.rightButton);
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             // Connect to EV3 (HAL9000) via Bluetooth
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
-            stopButton.setOnClickListener(v -> ev3.cancel());
+            stopEverythingButton.setOnClickListener(v -> ev3.cancel());
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
             middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::legoStop)));
             brakeButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
@@ -67,24 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   /* private void touchSensor(EV3.Api api) {
-        final TouchSensor touchSensor = api.getTouchSensor(EV3.InputPort._1);
-        motor = api.getTachoMotor(EV3.OutputPort.A);
-
-        try {
-            Future<Boolean> pressed = touchSensor.getPressed();
-
-            while (!api.ev3.isCancelled()) {
-
-                if (pressed.get() == 1) {
-                    motor.setSpeed(-10);
-                    motor.start();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    } */
 
     private void legoMain(EV3.Api api) {
 
@@ -104,27 +86,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void legoStop(EV3.Api api){
-        final String TAG = Prelude.ReTAG("legoStop");
-        motor = api.getTachoMotor(EV3.OutputPort.A);
-        try{
-            motor.stop();
-        } catch (IOException e){
-            Log.e(TAG, "legoStop: Cannot stop!");
-        }
-    }
 
-    private void legoBrake(EV3.Api api){
-        final String TAG = Prelude.ReTAG("legoStop");
-        motor = api.getTachoMotor(EV3.OutputPort.C);
-        try{
-            motor.stop();
-        } catch (IOException e){
-            Log.e(TAG, "legoBrake: Cannot stop!");
-        }
-    }
+    //FUNZIONI PER MUOVERE DESTRA SINISTRA IL MOTORE CON LA PENNA
 
-    private void legoLeft(EV3.Api api){
+    private void movePenMotorLeft(EV3.Api api){
         final String TAG = Prelude.ReTAG("legoLeft");
         motor = api.getTachoMotor(EV3.OutputPort.C);
         try{
@@ -135,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "legoLeft: Cannot change to speed = -50!");
         }
     }
-    private void legoRight(EV3.Api api){
+    private void movePenMotorRight(EV3.Api api){
         final String TAG = Prelude.ReTAG("legoRight");
         motor = api.getTachoMotor(EV3.OutputPort.C);
         try{
@@ -147,35 +112,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void backMotorUp(EV3.Api api){
-        PrinterManager printerManager = new PrinterManager(api);
-        printerManager.RaisePen();
-    }
+    // FUNZIONI PER ALZARE/ABBASSARE IL VERTICAL MOTOR
 
-    private void legoBrakeBackMotor(EV3.Api api){
-        final String TAG = Prelude.ReTAG("backMotorBrake");
-        motor = api.getTachoMotor(EV3.OutputPort.B);
-        try{
-            motor.brake();
-        } catch (IOException e){
-            Log.e(TAG, "legoBrakeMotor: Cannot stop!");
-        }
-    }
-    private void backMotorDown(EV3.Api api){
+    private void verticalMotorDown(EV3.Api api){
         PrinterManager printerManager = new PrinterManager(api);
         printerManager.LowerPen();
     }
 
+    private void verticalMotorUp(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.RaisePen();
+    }
+
+    //FUNZIONI PER STOPPARE I MOTORI
+
+    private void stopPenMotor(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.StopPenMotor();
+    }
+
+    private void stopVerticalMotor(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.StopVerticalMotor();
+    }
+    private void stopWheelMotor(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.StopWheelMotor();
+    }
+
+    //FUNZIONI DI CARICO/SCARICO DEL FOGLIO
+
     private void loadSheet(EV3.Api api){
         PrinterManager printerManager = new PrinterManager(api);
-        final String TAG = Prelude.ReTAG("lightSensor");
-        printerManager.LoadSheet(TAG);
+        printerManager.LoadSheet();
     }
 
     private void unloadSheet(EV3.Api api){
         PrinterManager printerManager = new PrinterManager(api);
-        final String TAG = Prelude.ReTAG("lightSensorOFF");
-        printerManager.UnloadSheet(TAG);
+        printerManager.UnloadSheet();
     }
 
 }
