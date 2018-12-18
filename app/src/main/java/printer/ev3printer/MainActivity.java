@@ -148,15 +148,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void backMotorUp(EV3.Api api){
-        final String TAG = Prelude.ReTAG("backMotor");
-        motor = api.getTachoMotor(EV3.OutputPort.B);
-        try{
-            motor.setSpeed(10);
-            motor.start();
-        }
-        catch (IOException e){
-            Log.e(TAG, "backMotorUp: too much");
-        }
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.RaisePen();
     }
 
     private void legoBrakeBackMotor(EV3.Api api){
@@ -169,15 +162,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void backMotorDown(EV3.Api api){
-        final String TAG = Prelude.ReTAG("backMotor");
-        motor = api.getTachoMotor(EV3.OutputPort.B);
-        try{
-            motor.setSpeed(-10);
-            motor.start();
-        }
-        catch (IOException e){
-            Log.e(TAG, "backMotorDown: too much");
-        }
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.LowerPen();
     }
 
     private void loadSheet(EV3.Api api){
