@@ -44,6 +44,22 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
+        final Button changeActivity = findViewById(R.id.changeActivity);
+        changeActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(GalleryActivity.this, TestActivity.class);
+                startActivity(i);
+
+                Bundle b = new Bundle();
+                b.putBooleanArray("ciao", bwImageArray);
+                Intent i2 = new Intent(GalleryActivity.this, TestActivity.class);
+                i2.putExtras(b);
+            }
+        });
+
+
+
     }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
@@ -104,4 +120,5 @@ public class GalleryActivity extends AppCompatActivity {
         System.out.println(blackDots);
         System.out.println(whiteDots);
     }
+
 }
