@@ -7,7 +7,7 @@ import android.widget.Button;
 
 public class TestActivity extends AppCompatActivity {
 
-    boolean[] bwImageArray;
+    boolean[] bwImageArray1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,13 +15,13 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         Bundle b = this.getIntent().getExtras();
-        bwImageArray = b.getBooleanArray("ciao");
+        bwImageArray1 = b.getBooleanArray("ciao");
 
 
         final Button testButton = findViewById(R.id.testArrayButton1);
         testButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                testArray(bwImageArray);
+                testArray(bwImageArray1);
             }
         });
 
