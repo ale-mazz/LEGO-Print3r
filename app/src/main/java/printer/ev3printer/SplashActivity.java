@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 public class SplashActivity extends AppCompatActivity {
 
+
     private static int SPLASH_TIME = 2000;
 
     @Override
