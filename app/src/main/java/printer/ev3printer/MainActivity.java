@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
+import it.unive.dais.legodroid.lib.plugs.LightSensor;
 import it.unive.dais.legodroid.lib.plugs.TachoMotor;
 import it.unive.dais.legodroid.lib.util.Prelude;
 import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = Prelude.ReTAG("MainActivity");
     @Nullable
     private TachoMotor motor;
+    private LightSensor lightSensor;
 
 
     private void applyMotor(@NonNull ThrowingConsumer<TachoMotor, Throwable> f) {
@@ -51,12 +53,12 @@ public class MainActivity extends AppCompatActivity {
             stopButton.setOnClickListener(v -> ev3.cancel());
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
             middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::legoStop)));
-            brakeButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoBrake)));
+            brakeButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
             leftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoLeft)));
             rightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoRight)));
             upBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorUp)));
             downBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorDown)));
-            brakeBackButtonMountain.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoBrakeBackMotor)));
+            brakeBackButtonMountain.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     } */
 
     private void legoMain(EV3.Api api) {
+
         final String TAG = Prelude.ReTAG("legoMain");
         motor = api.getTachoMotor(EV3.OutputPort.A);
         try {
@@ -176,4 +179,17 @@ public class MainActivity extends AppCompatActivity {
             Log.e(TAG, "backMotorDown: too much");
         }
     }
+
+    private void loadSheet(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        final String TAG = Prelude.ReTAG("lightSensor");
+        printerManager.LoadSheet(TAG);
+    }
+
+    private void unloadSheet(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        final String TAG = Prelude.ReTAG("lightSensorOFF");
+        printerManager.UnloadSheet(TAG);
+    }
+
 }
