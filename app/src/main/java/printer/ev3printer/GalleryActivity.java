@@ -55,9 +55,6 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(i2);
             }
         });
-
-
-
     }
 
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
