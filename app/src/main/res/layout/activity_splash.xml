@@ -12,5 +12,6 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/logo_ev3"/>
+        android:background="@android:color/white"
+        app:srcCompat="@mipmap/logo_ev3" />
 </android.support.constraint.ConstraintLayout>
