@@ -36,7 +36,7 @@ public class PrinterManager {
 
 
     // Pen motor functions
-    
+
     public void KeepGoingRight(){
         try {
             penMotor.setSpeed(penMotorLeftRightSpeed);
