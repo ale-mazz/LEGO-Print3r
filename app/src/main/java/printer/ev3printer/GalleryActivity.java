@@ -48,13 +48,11 @@ public class GalleryActivity extends AppCompatActivity {
         changeActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(GalleryActivity.this, TestActivity.class);
-                startActivity(i);
-
                 Bundle b = new Bundle();
-                b.putBooleanArray("ciao", bwImageArray);
+                b.putBooleanArray("boolArray", bwImageArray);
                 Intent i2 = new Intent(GalleryActivity.this, TestActivity.class);
                 i2.putExtras(b);
+                startActivity(i2);
             }
         });
 
