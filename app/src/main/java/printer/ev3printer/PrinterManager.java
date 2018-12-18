@@ -20,8 +20,9 @@ public class PrinterManager {
 
     private static int loadingSheetSpeed = -60;
     private static int lightSensorAmbientThreshold = 3;
-    private static int verticalSpeed = 40;
+    private static int verticalSpeed = 60;
     private static int verticalDistanceInTime = 300;
+    private static int penMotorLeftRightSpeed = 20;
 
     final String TAG = "PrinterManager";
 
@@ -33,8 +34,30 @@ public class PrinterManager {
         lightSensor = brick.getLightSensor(EV3.InputPort._2);
     }
 
-    // Funzione per caricare il foglio
-    public void LoadSheet(String TAG){
+
+    // Pen motor functions
+    
+    public void KeepGoingRight(){
+        try {
+            penMotor.setSpeed(penMotorLeftRightSpeed);
+            penMotor.start();
+        } catch (IOException e){
+            Log.e(TAG, "Can't go right.");
+        }
+    }
+    public void KeepGoingLeft(){
+        try {
+            penMotor.setSpeed(-penMotorLeftRightSpeed);
+            penMotor.start();
+        } catch (IOException e){
+            Log.e(TAG, "Can't go left.");
+        }
+    }
+
+
+    // Wheel motor functions
+
+    public void LoadSheet(){
         boolean condition = true;
         try {
             wheelMotor.start();
@@ -49,15 +72,14 @@ public class PrinterManager {
             }
             System.out.println("FINITO");
         } catch (IOException e){
-            Log.e(TAG, "lightSensor not working");
+            Log.e(TAG, "Load sheet: lightSensor not working");
         } catch (ExecutionException e){
-            Log.e(TAG, "execution exception");
+            Log.e(TAG, "Load sheet: execution exception");
         } catch (InterruptedException e){
-            Log.e(TAG, "interrupted exception");
+            Log.e(TAG, "Load sheet: interrupted exception");
         }
     }
-
-    public void UnloadSheet(String TAG){
+    public void UnloadSheet(){
         boolean condition = true;
         try {
             wheelMotor.start();
@@ -65,20 +87,23 @@ public class PrinterManager {
             while (condition){
                 Future<Short> ambientValue = lightSensor.getAmbient();
                 Short currentAmbientValue = ambientValue.get();
-                if(ambientValue.get() > lightSensorAmbientThreshold){
+                if(currentAmbientValue > lightSensorAmbientThreshold){
                     System.out.println("THERE IS NO SHEET");
                     wheelMotor.stop();
                     condition = false;
                 }
             }
         }  catch (IOException e){
-            Log.e(TAG, "lightSensor not working");
+            Log.e(TAG, "Load sheet: lightSensor not working");
         } catch (ExecutionException e){
-            Log.e(TAG, "execution exception");
+            Log.e(TAG, "Load sheet: execution exception");
         } catch (InterruptedException e){
-            Log.e(TAG, "interrupted exception");
+            Log.e(TAG, "Load sheet: interrupted exception");
         }
     }
+
+    // Vertical motor functions
+
     public void LowerPen(){
         try {
             verticalMotor.start();
@@ -93,6 +118,30 @@ public class PrinterManager {
             verticalMotor.setStepSpeed(verticalSpeed, 0, verticalDistanceInTime, 0, true);
         } catch (IOException e){
             Log.e(TAG, "Cannot Raise Pen");
+        }
+    }
+
+    // Stop motors functions
+
+    public void StopVerticalMotor(){
+        try {
+            verticalMotor.stop();
+        } catch (IOException e){
+            Log.e(TAG, "Cannot stop vertical motor");
+        }
+    }
+    public void StopPenMotor(){
+        try{
+            penMotor.stop();
+        } catch (IOException e){
+            Log.e(TAG, "Cannot stop pen motor");
+        }
+    }
+    public void StopWheelMotor(){
+        try {
+            wheelMotor.stop();
+        } catch (IOException e){
+            Log.e(TAG, "Cannot stop wheel motor");
         }
     }
 }
