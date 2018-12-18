@@ -52,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
 
             stopEverythingButton.setOnClickListener(v -> ev3.cancel());
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoMain)));
-            middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::legoStop)));
+            middleButton.setOnClickListener( v-> Prelude.trap(() -> ev3.run(this::stopPenMotor)));
             brakeButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
-            leftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoLeft)));
-            rightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::legoRight)));
-            upBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorUp)));
-            downBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::backMotorDown)));
+            leftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::movePenMotorLeft)));
+            rightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::movePenMotorRight)));
+            upBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
+            downBackButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
             brakeBackButtonMountain.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
 
         } catch (IOException e) {
