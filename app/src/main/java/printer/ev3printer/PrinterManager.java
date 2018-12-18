@@ -20,6 +20,10 @@ public class PrinterManager {
 
     private static int loadingSheetSpeed = -60;
     private static int lightSensorAmbientThreshold = 3;
+    private static int verticalSpeed = 40;
+    private static int verticalDistanceInTime = 300;
+
+    final String TAG = "PrinterManager";
 
     public PrinterManager(EV3.Api brick){
         api = brick;
@@ -75,8 +79,20 @@ public class PrinterManager {
             Log.e(TAG, "interrupted exception");
         }
     }
-
+    public void LowerPen(){
+        try {
+            verticalMotor.start();
+            verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDistanceInTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Cannot Lower Pen");
+        }
+    }
     public void RaisePen(){
-        penMotor.se;
+        try {
+            verticalMotor.start();
+            verticalMotor.setStepSpeed(verticalSpeed, 0, verticalDistanceInTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Cannot Raise Pen");
+        }
     }
 }
