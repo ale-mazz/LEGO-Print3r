@@ -27,8 +27,8 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
 
 
-        final Button button = findViewById(R.id.imageSelectionButton);
-        button.setOnClickListener(new View.OnClickListener() {
+        final Button selectImageButton = findViewById(R.id.imageSelectionButton);
+        selectImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setType("image/*");
@@ -37,8 +37,8 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        final Button button1 = findViewById(R.id.testArrayButton);
-        button1.setOnClickListener(new View.OnClickListener() {
+        final Button testArrayButton = findViewById(R.id.testArrayButton);
+        testArrayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 testArray(bwImageArray);
             }
@@ -50,9 +50,9 @@ public class GalleryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle b = new Bundle();
                 b.putBooleanArray("boolArray", bwImageArray);
-                Intent i2 = new Intent(GalleryActivity.this, TestActivity.class);
-                i2.putExtras(b);
-                startActivity(i2);
+                Intent i = new Intent(GalleryActivity.this, TestActivity.class);
+                i.putExtras(b);
+                startActivity(i);
             }
         });
     }

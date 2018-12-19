@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class TestActivity extends AppCompatActivity {
 
@@ -15,7 +16,9 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
 
         Bundle b = this.getIntent().getExtras();
-        bwImageArray = b.getBooleanArray("boolArray");
+        if (b != null) {
+            bwImageArray = b.getBooleanArray("boolArray");
+        }
 
 
         final Button testButton = findViewById(R.id.testArrayButton1);
@@ -26,7 +29,6 @@ public class TestActivity extends AppCompatActivity {
         });
 
     }
-
     public void testArray(boolean[] bwImageArray) {
         int blackDots = 0;
         int whiteDots = 0;
