@@ -19,13 +19,15 @@ public class GalleryActivity extends AppCompatActivity {
     public Bitmap bwImageSelectedBitmap;
     public Bitmap resizedBwImageSelectedBitmap;
     public boolean[] bwImageArray;
-
+    public boolean[][] bidimensionalArray;
+    public static int array_size = 80;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
+        bidimensionalArray = new boolean[array_size][array_size];
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
         selectImageButton.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +42,8 @@ public class GalleryActivity extends AppCompatActivity {
         final Button testArrayButton = findViewById(R.id.testArrayButton);
         testArrayButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                testArray(bwImageArray);
+                convertArray(bwImageArray);
+                testArray(bidimensionalArray);
             }
         });
 
@@ -105,14 +108,27 @@ public class GalleryActivity extends AppCompatActivity {
         }
     }
 
-    public void testArray(boolean[] bwImageArray) {
+    public void convertArray(boolean[] bwImageArray){
+        int count = 0;
+
+        for(int i = 0; i < array_size; i++){
+            for (int j = 0; j < array_size; j++){
+                bidimensionalArray[i][j] = bwImageArray[count];
+                count++;
+            }
+        }
+    }
+
+    public void testArray(boolean[][] bidimensionalArray) {
         int blackDots = 0;
         int whiteDots = 0;
-        for (int i = 0; i < bwImageArray.length; i++) {
-            if (bwImageArray[i]) {
-                blackDots++;
-            } else {
-                whiteDots++;
+        for (int i = 0; i < array_size; i++) {
+            for (int j = 0; j < array_size; j++){
+                if (bidimensionalArray[i][j]) {
+                    blackDots++;
+                } else {
+                    whiteDots++;
+                }
             }
         }
         System.out.println();
