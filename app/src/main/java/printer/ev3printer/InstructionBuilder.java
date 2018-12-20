@@ -2,6 +2,8 @@ package printer.ev3printer;
 
 import java.util.ArrayList;
 
+// TODO: Migliorare l'algoritmo di stampa, che non faccia avanti indietro ogni volta
+
 public class InstructionBuilder {
     public static ArrayList<PrinterInstruction> BuildInstructionListFromBitmap(boolean[][] array, int width, int height){
         ArrayList<PrinterInstruction> list = new ArrayList<PrinterInstruction>();

@@ -19,6 +19,8 @@ import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
 
 public class MainActivity extends AppCompatActivity {
 
+
+    // TODO: Fix bluetooth connection issues when changing windows
     private static final String TAG = Prelude.ReTAG("MainActivity");
     @Nullable
     private TachoMotor motor;
