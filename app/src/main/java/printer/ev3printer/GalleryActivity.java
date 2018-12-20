@@ -57,7 +57,11 @@ public class GalleryActivity extends AppCompatActivity {
         });
     }
 
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+    public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
+        return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
+    }
+
+    /*public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
         int height = image.getHeight();
 
@@ -71,7 +75,7 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
         return Bitmap.createScaledBitmap(image, width, height, true);
-    }
+    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -83,7 +87,7 @@ public class GalleryActivity extends AppCompatActivity {
 
             try {
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 40);
+                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 80, 80);
                 bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
                 BitmapConverter converter = new BitmapConverter();
