@@ -16,6 +16,7 @@ public class TestActivity extends AppCompatActivity {
     boolean[] bwImageArray;
     boolean[][] biDimensionalArray;
     private static final String TAG = Prelude.ReTAG("MainActivity");
+    public int array_size = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class TestActivity extends AppCompatActivity {
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
 
-            InstructionBuilder
+            biDimensionalArray = InstructionBuilder.unidimensionalToBidimensional(bwImageArray, array_size);
 
 
         } catch (IOException e) {
@@ -49,6 +50,6 @@ public class TestActivity extends AppCompatActivity {
 
     public void printArray(EV3.Api api) {
         PrinterManager manager = new PrinterManager(api);
-
+        manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
     }
 }
