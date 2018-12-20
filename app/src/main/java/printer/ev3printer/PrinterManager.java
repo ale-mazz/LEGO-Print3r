@@ -254,11 +254,12 @@ public class PrinterManager {
         }
     }
 
-    public void ConvertInstructionToAction(PrinterInstruction instruction){
-        switch (){
-            case
+    /*public void ConvertInstructionToAction(PrinterInstruction instruction){
+        switch (instruction.getDirection()){
+            case FORWARD:
+
         }
-    }
+    }*/
     // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
 
 }
