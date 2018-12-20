@@ -37,4 +37,17 @@ public class InstructionBuilder {
         return list;
     }
 
+    public static boolean[][] unidimensionalToBidimensional(boolean[] bwImageArray, int array_size){
+        int count = 0;
+        boolean[][] bidimensionalArray = new boolean[array_size][array_size];
+
+        for(int i = 0; i < array_size; i++){
+            for (int j = 0; j < array_size; j++){
+                bidimensionalArray[i][j] = bwImageArray[count];
+                count++;
+            }
+        }
+
+        return bidimensionalArray;
+    }
 }
