@@ -24,7 +24,13 @@ public class PrinterManager {
     private static int lightSensorAmbientThresholdForUnloading = 0;
     private static int verticalSpeed = 40;
     private static int verticalDistanceInTime = 100;
+
+    //speeds
     private static int penMotorLeftRightSpeed = 20;
+    private static int wheelMotorSpeed = 20;
+    private static int penMotorStepsTime = 10;
+    private static int wheelMotorStepsTime = 10;
+
 
     final String TAG = "PrinterManager";
 
@@ -55,8 +61,6 @@ public class PrinterManager {
             Log.e(TAG, "Can't go left.");
         }
     }
-
-
     // Wheel motor functions
 
     public void LoadSheet(){
@@ -189,6 +193,49 @@ public class PrinterManager {
         }
     }
     public void StepForwardWheel(){
-        
+        try{
+            wheelMotor.start();
+            wheelMotor.setStepSpeed(wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Step wheel doesn't work");
+        }
     }
+    public void StepBackwardWheel(){
+        try{
+            wheelMotor.start();
+            wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Step wheel doesn't work");
+        }
+    }
+
+    public void StepRight(){
+        try {
+            penMotor.start();
+            penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Step pen motor Right doesn't respond");
+        }
+    }
+    public void StepLeft(){
+        try {
+            penMotor.start();
+            penMotor.setStepSpeed(-penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Step pen motor Left doesn't respond");
+        }
+    }
+
+    public void Dot(){
+        try {
+            verticalMotor.start();
+            verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDistanceInTime, 0, true);
+            verticalMotor.
+            verticalMotor.setStepSpeed(verticalSpeed,0,verticalDistanceInTime, 0, true);
+        } catch (IOException e){
+            Log.e(TAG, "Not dotting");
+        }
+    }
+    // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
+
 }

@@ -53,6 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
         Button testSpeedButton = findViewById(R.id.testSpeedStatusButton);
 
+        // TEST steps buttons
+        Button stepForwardButton = findViewById(R.id.stepForwardButton);
+        Button stepBackwardButton = findViewById(R.id.stepBackwardButton);
+        Button stepRightButton = findViewById(R.id.stepRightButton);
+        Button stepLeftButton = findViewById(R.id.stepLeftButton);
+        Button dotButton = findViewById(R.id.dotButton);
+
 
         try {
             // Connect to EV3 (HAL9000) via Bluetooth
@@ -76,6 +83,13 @@ public class MainActivity extends AppCompatActivity {
             unloadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
             stopWheelsButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stopWheelMotor)));
             testSpeedButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::testSpeed)));
+
+            // Step buttons
+            stepForwardButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepForward)));
+            stepBackwardButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepBackward)));
+            stepLeftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepLeft)));
+            stepRightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepRight)));
+            dotButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -136,5 +150,30 @@ public class MainActivity extends AppCompatActivity {
     private void testSpeed(EV3.Api api){
         PrinterManager printerManager = new PrinterManager(api);
         printerManager.StepMoveTest();
+    }
+
+    private void stepForward(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.StepForwardWheel();
+    }
+
+    private void stepBackward(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.StepBackwardWheel();
+    }
+
+    private void stepLeft(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.StepLeft();
+    }
+
+    private void stepRight(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.StepRight();
+    }
+
+    private void dot(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.Dot();
     }
 }
