@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -295,6 +296,12 @@ public class PrinterManager {
                 break;
         }
 
+    }
+
+    public void PrintImage(List<PrinterInstruction> list){
+        for (PrinterInstruction instruction : list) {
+            ConvertInstructionToAction(instruction);
+        }
     }
     // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
 
