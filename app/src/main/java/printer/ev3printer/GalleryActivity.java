@@ -83,7 +83,7 @@ public class GalleryActivity extends AppCompatActivity {
 
             try {
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 60);
+                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, 40);
                 bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
                 BitmapConverter converter = new BitmapConverter();
