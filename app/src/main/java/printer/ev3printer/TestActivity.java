@@ -2,12 +2,20 @@ package printer.ev3printer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
+
+import java.io.IOException;
+
+import it.unive.dais.legodroid.lib.EV3;
+import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
+import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class TestActivity extends AppCompatActivity {
 
     boolean[] bwImageArray;
+    boolean[][] biDimensionalArray;
+    private static final String TAG = Prelude.ReTAG("MainActivity");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +28,27 @@ public class TestActivity extends AppCompatActivity {
         }
 
 
-        final Button testButton = findViewById(R.id.printButton);
-        testButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //printArray(bwImageArray);
-            }
-        });
+
+
+        try {
+            EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+
+            Button printButton = findViewById(R.id.printButton);
+
+            printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
+
+            InstructionBuilder
+
+
+        } catch (IOException e) {
+            Log.e(TAG, "Fatal error: cannot connect to HAL9000");
+            e.printStackTrace();
+        }
 
     }
 
-    public void printArray() {
+    public void printArray(EV3.Api api) {
+        PrinterManager manager = new PrinterManager(api);
 
     }
 }
