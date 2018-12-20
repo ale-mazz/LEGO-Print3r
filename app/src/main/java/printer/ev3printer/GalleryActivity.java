@@ -112,8 +112,8 @@ public class GalleryActivity extends AppCompatActivity {
             }
         }
         System.out.println();
-        System.out.println(blackDots);
-        System.out.println(whiteDots);
+        System.out.println("number of black pixels:" + blackDots);
+        System.out.println("number of white pixels:" + whiteDots);
     }
 
 }
