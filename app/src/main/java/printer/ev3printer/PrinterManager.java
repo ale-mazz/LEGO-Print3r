@@ -3,6 +3,7 @@ package printer.ev3printer;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -29,7 +30,7 @@ public class PrinterManager {
     private static int penMotorLeftRightSpeed = 20;
     private static int wheelMotorSpeed = 20;
     private static int penMotorStepsTime = 10;
-    private static int wheelMotorStepsTime = 10;
+    private static int wheelMotorStepsTime = 5;
     private static int verticalDotMove = 50;
 
 
@@ -193,7 +194,19 @@ public class PrinterManager {
             Log.e(TAG, "Wheelmotor: interrupted exception");
         }
     }
-    public void StepForwardWheel(){
+    public void StepForwardWheel(int amount){
+        try{
+            for(int i = 0; i < amount; i++){
+                wheelMotor.start();
+                wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
+                wheelMotor.waitCompletion();
+                wheelMotor.brake();
+            }
+        } catch (IOException e){
+            Log.e(TAG, "Step wheel doesn't work");
+        }
+    }
+    public void StepBackwardWheel(){
         try{
             wheelMotor.start();
             wheelMotor.setStepSpeed(wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
@@ -203,33 +216,27 @@ public class PrinterManager {
             Log.e(TAG, "Step wheel doesn't work");
         }
     }
-    public void StepBackwardWheel(){
-        try{
-            wheelMotor.start();
-            wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
-            wheelMotor.waitCompletion();
-            wheelMotor.brake();
-        } catch (IOException e){
-            Log.e(TAG, "Step wheel doesn't work");
-        }
-    }
 
-    public void StepRight(){
+    public void StepRight(int amount){
         try {
-            penMotor.start();
-            penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
-            penMotor.waitCompletion();
-            penMotor.brake();
+            for(int i = 0; i < amount; i++) {
+                penMotor.start();
+                penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+                penMotor.waitCompletion();
+                penMotor.brake();
+            }
         } catch (IOException e){
             Log.e(TAG, "Step pen motor Right doesn't respond");
         }
     }
-    public void StepLeft(){
+    public void StepLeft(int amount){
         try {
-            penMotor.start();
-            penMotor.setStepSpeed(-penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
-            penMotor.waitCompletion();
-            penMotor.brake();
+            for(int i = 0; i < amount; i++) {
+                penMotor.start();
+                penMotor.setStepSpeed(-penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+                penMotor.waitCompletion();
+                penMotor.brake();
+            }
         } catch (IOException e){
             Log.e(TAG, "Step pen motor Left doesn't respond");
         }
@@ -248,18 +255,47 @@ public class PrinterManager {
     }
 
     public void TestMultiDot() {
-        for (int i = 0; i < 10; i++) {
-            StepLeft();
-            Dot();
+        ArrayList<PrinterInstruction> list = new ArrayList<PrinterInstruction>();
+        list.add(new PrinterInstruction(PrinterInstruction.Direction.LEFT, 5));
+        list.add(new PrinterInstruction(PrinterInstruction.Direction.POINT, 1));
+        list.add(new PrinterInstruction(PrinterInstruction.Direction.FORWARD, 15));
+        list.add(new PrinterInstruction(PrinterInstruction.Direction.POINT,1));
+
+        for (PrinterInstruction instruction: list) {
+            ConvertInstructionToAction(instruction);
         }
+
+        /*
+        int maxAmount = 5;
+        for(int y = 0; y < maxAmount; y++){
+            for (int i = 0; i < maxAmount; i++) {
+                StepLeft(1);
+                Dot();
+            }
+            StepForwardWheel(3);
+            for(int d = 0; d < maxAmount; d++){
+                StepRight(1);
+            }
+        } */
     }
 
-    /*public void ConvertInstructionToAction(PrinterInstruction instruction){
+    public void ConvertInstructionToAction(PrinterInstruction instruction){
         switch (instruction.getDirection()){
             case FORWARD:
-
+                StepForwardWheel(instruction.getAmount());
+                break;
+            case RIGHT:
+                StepRight(instruction.getAmount());
+                break;
+            case POINT:
+                Dot();
+                break;
+            case LEFT:
+                StepLeft(instruction.getAmount());
+                break;
         }
-    }*/
+
+    }
     // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
 
 }

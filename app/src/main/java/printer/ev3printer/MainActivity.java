@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void stepForward(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
-        manager.StepForwardWheel();
+        manager.StepForwardWheel(1);
     }
 
     private void stepBackward(EV3.Api api){
@@ -166,12 +166,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void stepLeft(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
-        manager.StepLeft();
+        manager.StepLeft(1);
     }
 
     private void stepRight(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
-        manager.StepRight();
+        manager.StepRight(1);
     }
 
     private void dot(EV3.Api api){
