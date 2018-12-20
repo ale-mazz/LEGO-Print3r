@@ -1,12 +1,14 @@
 package printer.ev3printer;
 
 public class PrinterInstruction {
+
     public enum Direction{
         FORWARD,
         LEFT,
         RIGHT,
         POINT
     }
+
     private Direction direction;
     private int amount;
 
@@ -44,3 +46,5 @@ public class PrinterInstruction {
         return name + " amount: " + amount;
     }
 }
+
+

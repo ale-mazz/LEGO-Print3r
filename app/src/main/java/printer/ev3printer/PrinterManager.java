@@ -22,14 +22,15 @@ public class PrinterManager {
     private static int lightSensorAmbientThresholdForLoading = 1;
     private static int reflectedValueThreshold = 3;
     private static int lightSensorAmbientThresholdForUnloading = 0;
-    private static int verticalSpeed = 40;
-    private static int verticalDistanceInTime = 100;
+    private static int verticalSpeed = 50;
+    private static int verticalDistanceInTime = 10;
 
     //speeds
     private static int penMotorLeftRightSpeed = 20;
     private static int wheelMotorSpeed = 20;
     private static int penMotorStepsTime = 10;
     private static int wheelMotorStepsTime = 10;
+    private static int verticalDotMove = 50;
 
 
     final String TAG = "PrinterManager";
@@ -83,7 +84,7 @@ public class PrinterManager {
                     condition = false;
                 }
             }
-            wheelMotor.stop();
+            wheelMotor.brake();
             System.out.println("FINITO");
         } catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
@@ -196,6 +197,8 @@ public class PrinterManager {
         try{
             wheelMotor.start();
             wheelMotor.setStepSpeed(wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
+            wheelMotor.waitCompletion();
+            wheelMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Step wheel doesn't work");
         }
@@ -204,6 +207,8 @@ public class PrinterManager {
         try{
             wheelMotor.start();
             wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
+            wheelMotor.waitCompletion();
+            wheelMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Step wheel doesn't work");
         }
@@ -213,6 +218,8 @@ public class PrinterManager {
         try {
             penMotor.start();
             penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+            penMotor.waitCompletion();
+            penMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Step pen motor Right doesn't respond");
         }
@@ -221,6 +228,8 @@ public class PrinterManager {
         try {
             penMotor.start();
             penMotor.setStepSpeed(-penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
+            penMotor.waitCompletion();
+            penMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Step pen motor Left doesn't respond");
         }
@@ -229,11 +238,25 @@ public class PrinterManager {
     public void Dot(){
         try {
             verticalMotor.start();
-            verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDistanceInTime, 0, true);
-            verticalMotor.
-            verticalMotor.setStepSpeed(verticalSpeed,0,verticalDistanceInTime, 0, true);
+            verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDotMove, 0, true);
+            verticalMotor.waitCompletion();
+            verticalMotor.setStepSpeed(verticalSpeed,0,verticalDotMove, 0, true);
+            verticalMotor.waitCompletion();
         } catch (IOException e){
             Log.e(TAG, "Not dotting");
+        }
+    }
+
+    public void TestMultiDot() {
+        for (int i = 0; i < 10; i++) {
+            StepLeft();
+            Dot();
+        }
+    }
+
+    public void ConvertInstructionToAction(PrinterInstruction instruction){
+        switch (){
+            case
         }
     }
     // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }

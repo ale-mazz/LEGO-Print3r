@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button stopEverythingButton = findViewById(R.id.stopButton);
         Button stopWheelsButton = findViewById(R.id.stopWheelMotorButton);
+        Button startButton = findViewById(R.id.startButton);
 
         // Pen motor buttons
         Button penKeepLeftButton = findViewById(R.id.penMotorKeepMovingLeftButton);
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             stepLeftButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepLeft)));
             stepRightButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepRight)));
             dotButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
+            startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::testDot)));
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -175,5 +177,10 @@ public class MainActivity extends AppCompatActivity {
     private void dot(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.Dot();
+    }
+
+    private void testDot(EV3.Api api){
+        PrinterManager manager = new PrinterManager(api);
+        manager.TestMultiDot();
     }
 }
