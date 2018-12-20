@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.Button;
 
 import java.io.IOException;
-import java.util.concurrent.Future;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
@@ -35,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Button startButton = findViewById(R.id.startButton);
-        Button middleButton = findViewById(R.id.middleButton);
         Button stopEverythingButton = findViewById(R.id.stopButton);
         Button stopWheelsButton = findViewById(R.id.stopWheelMotorButton);
 
@@ -54,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
         // Wheel motor buttons
         Button loadSheetButton = findViewById(R.id.loadSheetButton);
         Button unloadSheetButton = findViewById(R.id.unloadSheetButton);
+
+        Button testSpeedButton = findViewById(R.id.testSpeedStatusButton);
+
 
         try {
             // Connect to EV3 (HAL9000) via Bluetooth
@@ -76,31 +75,11 @@ public class MainActivity extends AppCompatActivity {
             loadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
             unloadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
             stopWheelsButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stopWheelMotor)));
-
+            testSpeedButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::testSpeed)));
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
             e.printStackTrace();
-        }
-    }
-
-
-
-    private void legoMain(EV3.Api api) {
-
-        final String TAG = Prelude.ReTAG("legoMain");
-        motor = api.getTachoMotor(EV3.OutputPort.A);
-        try {
-            applyMotor(TachoMotor::resetPosition);
-            try {
-                motor.setSpeed(-10);
-                motor.start();
-                Future<Float> speed = motor.getSpeed();
-            } catch (IOException e) {
-                    e.printStackTrace();
-            }
-        } finally {
-            //applyMotor(TachoMotor::stop);
         }
     }
 
@@ -154,4 +133,8 @@ public class MainActivity extends AppCompatActivity {
         printerManager.UnloadSheet();
     }
 
+    private void testSpeed(EV3.Api api){
+        PrinterManager printerManager = new PrinterManager(api);
+        printerManager.StepMoveTest();
+    }
 }

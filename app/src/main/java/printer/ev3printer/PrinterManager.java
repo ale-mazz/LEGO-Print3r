@@ -19,9 +19,11 @@ public class PrinterManager {
     LightSensor lightSensor;
 
     private static int loadingSheetSpeed = -60;
-    private static int lightSensorAmbientThreshold = 3;
-    private static int verticalSpeed = 60;
-    private static int verticalDistanceInTime = 300;
+    private static int lightSensorAmbientThresholdForLoading = 1;
+    private static int reflectedValueThreshold = 3;
+    private static int lightSensorAmbientThresholdForUnloading = 0;
+    private static int verticalSpeed = 40;
+    private static int verticalDistanceInTime = 100;
     private static int penMotorLeftRightSpeed = 20;
 
     final String TAG = "PrinterManager";
@@ -63,13 +65,21 @@ public class PrinterManager {
             wheelMotor.setSpeed(loadingSheetSpeed);
             wheelMotor.start();
             while (condition){
-                Future<Short> ambientValue = lightSensor.getAmbient();
+                /*Future<Short> ambientValue = lightSensor.getAmbient();
                 Short currentAmbientValue = ambientValue.get();
-                if(currentAmbientValue < lightSensorAmbientThreshold){
+                Future<LightSensor.Color> colorValue = lightSensor.getColor();
+                LightSensor.Color currentColor = colorValue.get(); */
+                Future<Short> reflectedValue = lightSensor.getReflected();
+                Short currentReflected = reflectedValue.get();
+                /*System.out.println("'REFLECTED' letto: " + currentReflected);
+                System.out.println("'COLORE' letto: " + currentColor.toString());
+                System.out.println("'AMBIENT' letto: " + currentAmbientValue);*/
+                if(currentReflected < reflectedValueThreshold){
                     wheelMotor.brake();
                     condition = false;
                 }
             }
+            wheelMotor.stop();
             System.out.println("FINITO");
         } catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
@@ -82,17 +92,21 @@ public class PrinterManager {
     public void UnloadSheet(){
         boolean condition = true;
         try {
-            wheelMotor.setSpeed(-loadingSheetSpeed);
             wheelMotor.start();
+            wheelMotor.setSpeed(-loadingSheetSpeed);
             while (condition){
-                Future<Short> ambientValue = lightSensor.getAmbient();
-                Short currentAmbientValue = ambientValue.get();
-                if(currentAmbientValue > lightSensorAmbientThreshold){
+                //Future<Short> ambientValue = lightSensor.getAmbient();
+                //Short currentAmbientValue = ambientValue.get();
+                Future<Short> reflectedValue = lightSensor.getReflected();
+                Short currentReflected = reflectedValue.get();
+                //System.out.println("Valore letto in espulsione: " + currentAmbientValue);
+                if(currentReflected > reflectedValueThreshold){
                     System.out.println("THERE IS NO SHEET");
                     wheelMotor.stop();
                     condition = false;
                 }
             }
+            wheelMotor.stop();
         }  catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
         } catch (ExecutionException e){
@@ -143,5 +157,38 @@ public class PrinterManager {
         } catch (IOException e){
             Log.e(TAG, "Cannot stop wheel motor");
         }
+    }
+
+    // Testing running status
+    public void StepMoveTest(){
+        int condition = 1000;
+        boolean firstLoop = true;
+        try{
+            wheelMotor.start();
+            wheelMotor.setStepSpeed(30, 0, 100, 0, true);
+            while(condition > 0){
+                Future<Float> speedValue = wheelMotor.getSpeed();
+                Float currentSpeed = speedValue.get();
+                System.out.println("Speed: " + currentSpeed);
+                condition--;
+                if(!firstLoop && currentSpeed == 0.0){
+                    System.out.println("Speed == 0.0 - Exit while loop");
+                    condition = 0;
+                    wheelMotor.stop();
+                }
+                if(firstLoop){
+                    firstLoop = false;
+                }
+            }
+        } catch (IOException e){
+            Log.e(TAG, "Wheelmotor cannot step");
+        } catch (ExecutionException e){
+            Log.e(TAG, "Wheelmotor: execution exception");
+        } catch (InterruptedException e){
+            Log.e(TAG, "Wheelmotor: interrupted exception");
+        }
+    }
+    public void StepForwardWheel(){
+        
     }
 }
