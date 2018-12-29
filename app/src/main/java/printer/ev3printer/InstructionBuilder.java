@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class InstructionBuilder {
     public static ArrayList<PrinterInstruction> BuildInstructionListFromBitmap(boolean[][] array, int width, int height){
-        ArrayList<PrinterInstruction> list = new ArrayList<PrinterInstruction>();
+        ArrayList<PrinterInstruction> list = new ArrayList<>();
         int emptyLeft = 0;
         int emptyRight = 0;
         int rightAmount = 0;
@@ -15,7 +15,7 @@ public class InstructionBuilder {
         for (int y = 0; y<height; y++) {
             if (y % 2 == 0) {
                 for (int x = 0; x < width; x++) {
-                    if (array[y][x] == true) {
+                    if (array[y][x]) {
                         amIADot = true;
                     }
                     if (emptyLeft > 0 && amIADot) {
@@ -41,7 +41,7 @@ public class InstructionBuilder {
             }
             else{
                 for (int x = width - 1; x >= 0; x--) {
-                    if (array[y][x] == true) {
+                    if (array[y][x]) {
                         amIADot = true;
                     }
                     if (emptyRight > 0 && amIADot) {

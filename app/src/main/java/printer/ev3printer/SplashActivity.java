@@ -17,13 +17,10 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent mySuperIntent = new Intent(SplashActivity.this, StartActivity.class);
-                startActivity(mySuperIntent);
-                finish();
-            }
+        new Handler().postDelayed(() -> {
+            Intent mySuperIntent = new Intent(SplashActivity.this, StartActivity.class);
+            startActivity(mySuperIntent);
+            finish();
         }, SPLASH_TIME);
     }
 }
