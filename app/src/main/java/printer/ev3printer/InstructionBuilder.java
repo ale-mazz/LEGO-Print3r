@@ -8,12 +8,12 @@ public class InstructionBuilder {
     public static ArrayList<PrinterInstruction> BuildInstructionListFromBitmap(boolean[][] array, int width, int height){
         ArrayList<PrinterInstruction> list = new ArrayList<>();
         int emptyLeft = 0;
-        int emptyRight = 0;
+        //int emptyRight = 0;
         int rightAmount = 0;
-        int leftAmount = 0;
+        //int leftAmount = 0;
         boolean amIADot = false;
         for (int y = 0; y<height; y++) {
-            if (y % 2 == 0) {
+            //if (y % 2 == 0) {
                 for (int x = 0; x < width; x++) {
                     if (array[y][x]) {
                         amIADot = true;
@@ -32,13 +32,13 @@ public class InstructionBuilder {
                     }
                 }
                 //devo tornare indietro di rightAmount
-                /*if (rightAmount > 0) {
+                if (rightAmount > 0) {
                     list.add(new PrinterInstruction(PrinterInstruction.Direction.LEFT, rightAmount));
                     rightAmount = 0;
                 }
                 emptyLeft = 0;
-                list.add(new PrinterInstruction(PrinterInstruction.Direction.FORWARD, 1));*/
-            }
+                list.add(new PrinterInstruction(PrinterInstruction.Direction.FORWARD, 1));
+            /*}
             else{
                 for (int x = width - 1; x >= 0; x--) {
                     if (array[y][x]) {
@@ -65,7 +65,7 @@ public class InstructionBuilder {
                 emptyLeft = 0;
                 list.add(new PrinterInstruction(PrinterInstruction.Direction.FORWARD, 1));*/
             }
-        }
+        //}
         return list;
     }
 
