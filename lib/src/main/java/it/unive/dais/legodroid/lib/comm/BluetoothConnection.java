@@ -38,7 +38,6 @@ public class BluetoothConnection implements Connection<BluetoothConnection.Bluet
 
     /**
      * Create an object given the name of the EV3 device, as configured on the brick settings.
-     *
      * @param name the name of the EV3 device. LEGO factory settings default to "EV3".
      */
     public BluetoothConnection(@NonNull String name) {
@@ -49,10 +48,9 @@ public class BluetoothConnection implements Connection<BluetoothConnection.Bluet
      * Create a channel for communication.
      * Multiple calls to this method do not produce multiple channels: only one active channel is supported.
      * This method internally performs the bluetooth discovery, searching among paired devices for the device whose name has been passed as argument to the constructor.
-     *
+     * @apiNote The EV3 device must be first paired with the mobile Android device; refer to the device Bluetooth settings for more info.
      * @return an object of type {@link BluetoothChannel}.
      * @throws IOException thrown when communication errors occur.
-     * @apiNote The EV3 device must be first paired with the mobile Android device; refer to the device Bluetooth settings for more info.
      */
     @NonNull
     @Override
@@ -80,7 +78,6 @@ public class BluetoothConnection implements Connection<BluetoothConnection.Bluet
 
     /**
      * This inner non-static class represents an active bluetooth channel through which the two connected devices communicate sending commands and receiving replies.
-     *
      * @see Channel
      */
     public class BluetoothChannel implements Channel {

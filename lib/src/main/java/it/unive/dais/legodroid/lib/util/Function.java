@@ -10,7 +10,6 @@ package it.unive.dais.legodroid.lib.util;
 public interface Function<T, R> {
     /**
      * Call the function.
-     *
      * @param x the parameter.
      * @return the result.
      */
@@ -18,7 +17,6 @@ public interface Function<T, R> {
 
     /**
      * The generic identity function.
-     *
      * @param <T> the type of both the parameter and the result type.
      * @return the result.
      */

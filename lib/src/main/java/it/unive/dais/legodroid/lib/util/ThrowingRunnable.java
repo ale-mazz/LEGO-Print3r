@@ -2,7 +2,6 @@ package it.unive.dais.legodroid.lib.util;
 
 /**
  * Functional interface that represents {@link Runnable}'s that can throw exceptions.
- *
  * @param <E>
  */
 @FunctionalInterface
@@ -21,7 +20,6 @@ public interface ThrowingRunnable<E extends Throwable> extends Runnable {
 
     /**
      * Invoke the function.
-     *
      * @throws E the exception.
      */
 

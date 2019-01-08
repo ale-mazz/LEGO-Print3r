@@ -1,1 +1,1 @@
-include ':app', ':libLego'
+include ':app', ':lib'
