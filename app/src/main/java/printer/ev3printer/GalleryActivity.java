@@ -56,6 +56,7 @@ public class GalleryActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putBooleanArray("boolArray", bwImageArray);
                 Intent i = new Intent(GalleryActivity.this, TestActivity.class);
+                i.putExtra("BitmapImage", bwImageSelectedBitmap);
                 i.putExtras(b);
                 startActivity(i);
             }
