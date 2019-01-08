@@ -16,7 +16,7 @@ public class TestActivity extends AppCompatActivity {
     boolean[] bwImageArray;
     boolean[][] biDimensionalArray;
     private static final String TAG = Prelude.ReTAG("MainActivity");
-    public int array_size = 60;
+    public int array_size = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

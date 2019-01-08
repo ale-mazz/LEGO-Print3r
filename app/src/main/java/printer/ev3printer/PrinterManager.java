@@ -24,7 +24,7 @@ public class PrinterManager {
     private static int lightSensorAmbientThresholdForLoading = 1;
     private static int reflectedValueThreshold = 3;
     private static int lightSensorAmbientThresholdForUnloading = 0;
-    private static int verticalSpeed = 25;
+    private static int verticalSpeed = 20;
     private static int verticalDistanceInTime = 10;
 
     //speeds
@@ -32,7 +32,7 @@ public class PrinterManager {
     private static int wheelMotorSpeed = 15;
     private static int penMotorStepsTime = 10;
     private static int wheelMotorStepsTime = 5;
-    private static int verticalDotMove = 50;
+    private static int verticalDotMove = 100;
 
 
     final String TAG = "PrinterManager";

@@ -20,7 +20,7 @@ public class GalleryActivity extends AppCompatActivity {
     public Bitmap resizedBwImageSelectedBitmap;
     public boolean[] bwImageArray;
     public boolean[][] bidimensionalArray;
-    public static int array_size = 60;
+    public static int array_size = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -50,4 +50,8 @@ public class BitmapConverter {
         return getBooleanValuesFromIntArray(getPixelsFromBitMap(bitmap));
     }
 
+    //public Bitmap ConvertImageToBNW(Bitmap imageToConvert){
+
+    //}
+
 }
