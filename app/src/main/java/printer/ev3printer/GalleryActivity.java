@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 
 import java.io.IOException;
 
@@ -59,6 +60,33 @@ public class GalleryActivity extends AppCompatActivity {
                 i.putExtra("BitmapImage", bwImageSelectedBitmap);
                 i.putExtras(b);
                 startActivity(i);
+            }
+        });
+
+        SeekBar sb = findViewById(R.id.seekbar);
+        sb.setProgress(0);
+        sb.setMax(100);
+
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+
+                //doBrightness change here
             }
         });
     }
