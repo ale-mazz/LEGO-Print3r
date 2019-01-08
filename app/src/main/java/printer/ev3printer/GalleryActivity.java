@@ -1,6 +1,7 @@
 package printer.ev3printer;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         bidimensionalArray = new boolean[array_size][array_size];
 
@@ -54,6 +56,7 @@ public class GalleryActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putBooleanArray("boolArray", bwImageArray);
                 Intent i = new Intent(GalleryActivity.this, TestActivity.class);
+                i.putExtra("BitmapImage", bwImageSelectedBitmap);
                 i.putExtras(b);
                 startActivity(i);
             }

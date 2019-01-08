@@ -1,9 +1,13 @@
 package printer.ev3printer;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import java.io.IOException;
 
@@ -14,6 +18,7 @@ import it.unive.dais.legodroid.lib.util.Prelude;
 public class TestActivity extends AppCompatActivity {
 
     boolean[] bwImageArray;
+    Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
     private static final String TAG = Prelude.ReTAG("MainActivity");
     public int array_size = 30;
@@ -22,13 +27,16 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        Intent intent = getIntent();
+        bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
             bwImageArray = b.getBooleanArray("boolArray");
         }
 
-
+        ImageView bitmapImageView = findViewById(R.id.bitmapImageView);
+        bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
 
         try {
