@@ -21,7 +21,7 @@ public class TestActivity extends AppCompatActivity {
     Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
     private static final String TAG = Prelude.ReTAG("MainActivity");
-    public int array_size = 30;
+    public int array_size = 40;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

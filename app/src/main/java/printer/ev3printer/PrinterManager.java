@@ -35,6 +35,8 @@ public class PrinterManager {
     private static int verticalDotMove = 100;
 
 
+    private int numOfDots= 0;
+
     final String TAG = "PrinterManager";
 
     public PrinterManager(EV3.Api brick){
@@ -248,8 +250,11 @@ public class PrinterManager {
             verticalMotor.start();
             verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDotMove, 0, true);
             verticalMotor.waitCompletion();
+            numOfDots += 1;
+            System.out.println("Cazzi dot: " + numOfDots);
             verticalMotor.setStepSpeed(verticalSpeed,0,verticalDotMove, 0, true);
             verticalMotor.waitCompletion();
+            verticalMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Not dotting");
         }
@@ -265,19 +270,6 @@ public class PrinterManager {
         for (PrinterInstruction instruction: list) {
             ConvertInstructionToAction(instruction);
         }
-
-        /*
-        int maxAmount = 5;
-        for(int y = 0; y < maxAmount; y++){
-            for (int i = 0; i < maxAmount; i++) {
-                StepLeft(1);
-                Dot();
-            }
-            StepForwardWheel(3);
-            for(int d = 0; d < maxAmount; d++){
-                StepRight(1);
-            }
-        } */
     }
 
     public void ConvertInstructionToAction(PrinterInstruction instruction){
