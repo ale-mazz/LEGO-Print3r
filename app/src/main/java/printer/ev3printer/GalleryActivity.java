@@ -60,7 +60,7 @@ public class GalleryActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putBooleanArray("boolArray", bwImageArray);
                 Intent i = new Intent(GalleryActivity.this, TestActivity.class);
-                i.putExtra("BitmapImage", bwImageSelectedBitmap);
+                i.putExtra("BitmapImage", convertedImageBitmap);
                 i.putExtras(b);
                 startActivity(i);
             }
@@ -120,6 +120,15 @@ public class GalleryActivity extends AppCompatActivity {
         }
     }
 
+    public void setImageView() {
+
+        ImageView imageView = findViewById(R.id.imageView);
+        imageView.setImageBitmap(imageSelectedBitmap);
+
+        ImageView bwImageView = findViewById(R.id.bwImageView);
+        bwImageView.setImageBitmap(convertedImageBitmap);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,11 +145,6 @@ public class GalleryActivity extends AppCompatActivity {
 
                 convertBitmapToFinal();
 
-                ImageView imageView = findViewById(R.id.imageView);
-                imageView.setImageBitmap(imageSelectedBitmap);
-
-                ImageView bwImageView = findViewById(R.id.bwImageView);
-                bwImageView.setImageBitmap(convertedImageBitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();
