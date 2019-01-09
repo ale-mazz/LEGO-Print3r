@@ -21,7 +21,7 @@ public class GalleryActivity extends AppCompatActivity {
     public Bitmap imageSelectedBitmap;
     public Bitmap convertedImageBitmap;
     public Bitmap resizedImageBitmap;
-    public boolean[] bwImageArray;
+    public boolean[] convertedImageBoolArray;
     public boolean[][] bidimensionalArray;
     public static int array_size = 40;
     public static int MAX_VALUE = 60;
@@ -52,15 +52,9 @@ public class GalleryActivity extends AppCompatActivity {
         //slider overrides for dimension choice
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                                                        @Override
-                                                       public void onStopTrackingTouch(SeekBar seekBar) {
-
-                                                       }
-
+                                                       public void onStopTrackingTouch(SeekBar seekBar) { }
                                                        @Override
-                                                       public void onStartTrackingTouch(SeekBar seekBar) {
-
-                                                       }
-
+                                                       public void onStartTrackingTouch(SeekBar seekBar) { }
                                                        @Override
                                                        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                                                            int value = progress + MIN_VALUE;
@@ -69,18 +63,13 @@ public class GalleryActivity extends AppCompatActivity {
                                                            if(convertBitmapToFinal()){
                                                                setImageView();
                                                            }
-
                                                        }
-
                                                    });
 
         // Bottone per entrare in galleria
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                OpenGallery();
             }
         });
 
@@ -88,19 +77,30 @@ public class GalleryActivity extends AppCompatActivity {
         changeActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle b = new Bundle();
-                b.putBooleanArray("boolArray", bwImageArray);
-                Intent i = new Intent(GalleryActivity.this, TestActivity.class);
-                i.putExtra("BitmapImage", convertedImageBitmap);
-                i.putExtras(b);
-                startActivity(i);
+                SendBitmapAndArrayToNextActivity();
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        //Controllo se il percorso dell'immagine selezionata è corretto e in quel caso lo passo dentro uri
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            try {
+                //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
+                imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                convertBitmapToFinal();
+                setImageView();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     // FUNZIONI
-
-
     public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
         return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
     }
@@ -114,8 +114,7 @@ public class GalleryActivity extends AppCompatActivity {
             convertedImageBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedImageBitmap);
 
             BitmapConverter converter = new BitmapConverter();
-            bwImageArray = converter.readBitmapPixelsAsBooleans(convertedImageBitmap);
-
+            convertedImageBoolArray = converter.readBitmapPixelsAsBooleans(convertedImageBitmap);
             return true;
         } else {
             return false;
@@ -127,25 +126,20 @@ public class GalleryActivity extends AppCompatActivity {
         convertedImageView.setImageBitmap(convertedImageBitmap);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
+    public void SendBitmapAndArrayToNextActivity(){
+        Bundle b = new Bundle();
+        b.putBooleanArray("boolArray", convertedImageBoolArray);
+        Intent i = new Intent(GalleryActivity.this, TestActivity.class);
+        i.putExtra("BitmapImage", convertedImageBitmap);
+        i.putExtras(b);
+        startActivity(i);
+    }
 
-        //Controllo se il percorso dell'immagine selezionata è corretto e in quel caso lo passo dentro uri
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            Uri uri = data.getData();
-
-            try {
-                //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
-                imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                convertBitmapToFinal();
-                setImageView();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void OpenGallery(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 }
