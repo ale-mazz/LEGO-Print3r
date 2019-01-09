@@ -51,20 +51,24 @@ public class GalleryActivity extends AppCompatActivity {
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
         //slider overrides for dimension choice
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                                                       @Override
-                                                       public void onStopTrackingTouch(SeekBar seekBar) { }
-                                                       @Override
-                                                       public void onStartTrackingTouch(SeekBar seekBar) { }
-                                                       @Override
-                                                       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                                                           int value = progress + MIN_VALUE;
-                                                           textViewSlider.setText(String.valueOf("Dimensione: " + value));
-                                                           array_size = value;
-                                                           if(convertBitmapToFinal()){
-                                                               setImageView();
-                                                           }
-                                                       }
-                                                   });
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int value = progress + MIN_VALUE;
+                textViewSlider.setText(String.valueOf("Dimensione: " + value));
+                array_size = value;
+                if (convertBitmapToFinal()) {
+                    setImageView();
+                }
+            }
+        });
 
         // Bottone per entrare in galleria
         selectImageButton.setOnClickListener(new View.OnClickListener() {
