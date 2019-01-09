@@ -27,6 +27,9 @@ public class GalleryActivity extends AppCompatActivity {
     public static int MAX_VALUE = 60;
     public static int MIN_VALUE = 30;
 
+    public ImageView galleryImageView;
+    public ImageView convertedImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,42 @@ public class GalleryActivity extends AppCompatActivity {
         bidimensionalArray = new boolean[array_size][array_size];
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
+        final Button testArrayButton = findViewById(R.id.testArrayButton);
+        final Button changeActivity = findViewById(R.id.changeActivity);
+
+        galleryImageView = findViewById(R.id.imageView);
+        convertedImageView = findViewById(R.id.bwImageView);
+
+        TextView textViewSlider = findViewById(R.id.textViewSlider);
+
+        SeekBar dimensionSlider = findViewById(R.id.seekbar);
+        dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
+        //slider overrides for dimension choice
+        dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                                                       @Override
+                                                       public void onStopTrackingTouch(SeekBar seekBar) {
+
+                                                       }
+
+                                                       @Override
+                                                       public void onStartTrackingTouch(SeekBar seekBar) {
+
+                                                       }
+
+                                                       @Override
+                                                       public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                                                           int value = progress + MIN_VALUE;
+                                                           textViewSlider.setText(String.valueOf("Dimensione: " + value));
+                                                           array_size = value;
+                                                           if(convertBitmapToFinal()){
+                                                               setImageView();
+                                                           }
+
+                                                       }
+
+                                                   });
+
+        // Bottone per entrare in galleria
         selectImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -45,15 +84,7 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        final Button testArrayButton = findViewById(R.id.testArrayButton);
-        testArrayButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                convertArray(bwImageArray);
-                testArray(bidimensionalArray);
-            }
-        });
-
-        final Button changeActivity = findViewById(R.id.changeActivity);
+        // Cambia in activity per mandare in stampa
         changeActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,39 +96,10 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-        TextView textViewSlider = findViewById(R.id.textViewSlider);
-
-
-        SeekBar sb = findViewById(R.id.seekbar);
-        //sb.setProgress(30);
-        //sb.setMax(60);
-        sb.setMax(MAX_VALUE - MIN_VALUE);
-        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-                int value = progress + MIN_VALUE;
-                textViewSlider.setText(String.valueOf("Dimensione: " + value));
-                array_size = value;
-
-
-            }
-        });
     }
+
+    // FUNZIONI
+
 
     public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
         return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
@@ -121,12 +123,8 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     public void setImageView() {
-
-        ImageView imageView = findViewById(R.id.imageView);
-        imageView.setImageBitmap(imageSelectedBitmap);
-
-        ImageView bwImageView = findViewById(R.id.bwImageView);
-        bwImageView.setImageBitmap(convertedImageBitmap);
+        galleryImageView.setImageBitmap(imageSelectedBitmap);
+        convertedImageView.setImageBitmap(convertedImageBitmap);
     }
 
     @Override
@@ -142,42 +140,12 @@ public class GalleryActivity extends AppCompatActivity {
             try {
                 //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-
                 convertBitmapToFinal();
-
+                setImageView();
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
-    public void convertArray(boolean[] bwImageArray){
-        int count = 0;
-
-        for(int i = 0; i < array_size; i++){
-            for (int j = 0; j < array_size; j++){
-                bidimensionalArray[i][j] = bwImageArray[count];
-                count++;
-            }
-        }
-    }
-
-    public void testArray(boolean[][] bidimensionalArray) {
-        int blackDots = 0;
-        int whiteDots = 0;
-        for (int i = 0; i < array_size; i++) {
-            for (int j = 0; j < array_size; j++){
-                if (bidimensionalArray[i][j]) {
-                    blackDots++;
-                } else {
-                    whiteDots++;
-                }
-            }
-        }
-        System.out.println();
-        System.out.println("number of black pixels:" + blackDots);
-        System.out.println("number of white pixels:" + whiteDots);
-    }
-
 }
