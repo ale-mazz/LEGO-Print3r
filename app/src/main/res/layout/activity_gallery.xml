@@ -44,15 +44,18 @@
         android:layout_width="282dp"
         android:layout_height="165dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/colorPrimary"
         android:contentDescription="test immagine convertita"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/seekbar"
+        app:layout_constraintBottom_toTopOf="@+id/textViewSlider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.942" />
 
     <Button
         android:id="@+id/testArrayButton"
@@ -83,13 +86,25 @@
 
     <SeekBar
         android:id="@+id/seekbar"
-        style="@android:style/Widget.Material.SeekBar"
+        style="@android:style/Widget.DeviceDefault.Light.SeekBar"
         android:layout_width="219dp"
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="52dp"
         app:layout_constraintBottom_toTopOf="@+id/changeActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSlider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        android:text="Dimensione: 30"
+        app:layout_constraintBottom_toTopOf="@+id/seekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

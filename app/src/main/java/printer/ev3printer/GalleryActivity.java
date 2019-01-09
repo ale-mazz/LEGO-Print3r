@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -23,6 +24,8 @@ public class GalleryActivity extends AppCompatActivity {
     public boolean[] bwImageArray;
     public boolean[][] bidimensionalArray;
     public static int array_size = 40;
+    public static int MAX_VALUE = 60;
+    public static int MIN_VALUE = 30;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +66,13 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-        SeekBar sb = findViewById(R.id.seekbar);
-        sb.setProgress(0);
-        sb.setMax(100);
+        TextView textViewSlider = findViewById(R.id.textViewSlider);
 
+
+        SeekBar sb = findViewById(R.id.seekbar);
+        //sb.setProgress(30);
+        //sb.setMax(60);
+        sb.setMax(MAX_VALUE - MIN_VALUE);
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
@@ -82,11 +88,13 @@ public class GalleryActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                // TODO Auto-generated method stub
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                //doBrightness change here
+                int value = progress + MIN_VALUE;
+                textViewSlider.setText(String.valueOf("Dimensione: " + value));
+                array_size = value;
+
+
             }
         });
     }
@@ -115,13 +123,18 @@ public class GalleryActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+        //Controllo se il percorso dell'immagine selezionata è corretto e in quel caso lo passo dentro uri
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
 
             try {
+                //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                //Faccio il resize della bitmap
                 resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, array_size, array_size);
+                //Uso l'algoritmo di FS per convertire l'immagine
                 bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
                 BitmapConverter converter = new BitmapConverter();
