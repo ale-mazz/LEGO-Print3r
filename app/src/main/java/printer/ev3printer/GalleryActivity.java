@@ -19,8 +19,8 @@ public class GalleryActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
-    public Bitmap bwImageSelectedBitmap;
-    public Bitmap resizedBwImageSelectedBitmap;
+    public Bitmap convertedImageBitmap;
+    public Bitmap resizedImageBitmap;
     public boolean[] bwImageArray;
     public boolean[][] bidimensionalArray;
     public static int array_size = 40;
@@ -103,21 +103,22 @@ public class GalleryActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
     }
 
-    /*public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
+    public boolean convertBitmapToFinal() {
 
-        float bitmapRatio = (float) width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
+        if (imageSelectedBitmap != null) {
+            //Faccio il resize della bitmap
+            resizedImageBitmap = getResizedBitmap(imageSelectedBitmap, array_size, array_size);
+            //Uso l'algoritmo di FS per convertire l'immagine
+            convertedImageBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedImageBitmap);
+
+            BitmapConverter converter = new BitmapConverter();
+            bwImageArray = converter.readBitmapPixelsAsBooleans(convertedImageBitmap);
+
+            return true;
         } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
+            return false;
         }
-
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }*/
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -132,19 +133,14 @@ public class GalleryActivity extends AppCompatActivity {
             try {
                 //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                //Faccio il resize della bitmap
-                resizedBwImageSelectedBitmap = getResizedBitmap(imageSelectedBitmap, array_size, array_size);
-                //Uso l'algoritmo di FS per convertire l'immagine
-                bwImageSelectedBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedBwImageSelectedBitmap);
 
-                BitmapConverter converter = new BitmapConverter();
-                bwImageArray = converter.readBitmapPixelsAsBooleans(bwImageSelectedBitmap);
+                convertBitmapToFinal();
 
                 ImageView imageView = findViewById(R.id.imageView);
                 imageView.setImageBitmap(imageSelectedBitmap);
 
                 ImageView bwImageView = findViewById(R.id.bwImageView);
-                bwImageView.setImageBitmap(bwImageSelectedBitmap);
+                bwImageView.setImageBitmap(convertedImageBitmap);
 
             } catch (IOException e) {
                 e.printStackTrace();
