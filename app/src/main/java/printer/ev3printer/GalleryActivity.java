@@ -42,8 +42,8 @@ public class GalleryActivity extends AppCompatActivity {
         final Button testArrayButton = findViewById(R.id.testArrayButton);
         final Button changeActivity = findViewById(R.id.changeActivity);
 
-        galleryImageView = findViewById(R.id.imageView);
-        convertedImageView = findViewById(R.id.bwImageView);
+        galleryImageView = findViewById(R.id.normalImageView);
+        convertedImageView = findViewById(R.id.convertedImageView);
 
         TextView textViewSlider = findViewById(R.id.textViewSlider);
 
