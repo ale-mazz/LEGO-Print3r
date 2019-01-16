@@ -17,12 +17,11 @@ public class BluetoothErrorActivity extends AppCompatActivity {
         ImageView alertImageView = findViewById(R.id.alertImageView);
         Button exitButton = findViewById(R.id.exitButton);
         TextView alertTextView = findViewById(R.id.alertTextView);
+    }
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); 
-            }
-        });
+    public void clickexit (View v){
+        moveTaskToBack(true);
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(1);
     }
 }
