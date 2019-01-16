@@ -1,6 +1,5 @@
 package printer.ev3printer;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -23,7 +22,8 @@ public class BluetoothErrorActivity extends AppCompatActivity {
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Activity.finish();
+                finish();
+                System.exit(0);
             }
         });
     }

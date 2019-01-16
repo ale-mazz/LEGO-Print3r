@@ -1,5 +1,6 @@
 package printer.ev3printer;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -42,11 +43,12 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, BluetoothErrorActivity.class);
                 startActivity(i);
-                /*BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                finish();
+                BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                     if (!mBluetoothAdapter.isEnabled()) {
                         startActivity(i);
                     }
-                */
+
             }
         });
 
