@@ -1,5 +1,6 @@
 package printer.ev3printer;
 
+import android.util.DebugUtils;
 import android.util.Log;
 
 import java.io.IOException;
@@ -24,11 +25,11 @@ public class PrinterManager {
     private static int lightSensorAmbientThresholdForLoading = 1;
     private static int reflectedValueThreshold = 3;
     private static int lightSensorAmbientThresholdForUnloading = 0;
-    private static int verticalSpeed = 20;
+    private static int verticalSpeed = 50;
     private static int verticalDistanceInTime = 10;
 
     //speeds
-    private static int penMotorLeftRightSpeed = 15;
+    private static int penMotorLeftRightSpeed = 20;
     private static int wheelMotorSpeed = 15;
     private static int penMotorStepsTime = 10;
     private static int wheelMotorStepsTime = 5;
@@ -248,16 +249,18 @@ public class PrinterManager {
     public void Dot(){
         try {
             verticalMotor.start();
-            verticalMotor.setStepSpeed(- verticalSpeed,0,verticalDotMove, 0, true);
+            verticalMotor.setStepPower(- verticalSpeed,0,verticalDotMove, 0, true);
             verticalMotor.waitCompletion();
-            numOfDots += 1;
-            System.out.println("Cazzi dot: " + numOfDots);
-            verticalMotor.setStepSpeed(verticalSpeed,0,verticalDotMove, 0, true);
+            //System.out.println(verticalMotor.getPosition().get());
+            verticalMotor.setStepPower(verticalSpeed,0,verticalDotMove -2, 0, true);
             verticalMotor.waitCompletion();
-            verticalMotor.brake();
         } catch (IOException e){
             Log.e(TAG, "Not dotting");
-        }
+        }/* catch (ExecutionException e){
+            Log.e(TAG, "exex");
+        } catch (InterruptedException e){
+            Log.e(TAG, "Int Exp");
+        }*/
     }
 
     public void TestMultiDot() {
