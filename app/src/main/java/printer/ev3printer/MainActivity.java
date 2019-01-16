@@ -97,12 +97,14 @@ public class MainActivity extends AppCompatActivity {
             dotButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
             startButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::testDot)));
 
+
+
+
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
             e.printStackTrace();
         }
     }
-
 
     //FUNZIONI PER MUOVERE DESTRA SINISTRA IL MOTORE CON LA PENNA
 

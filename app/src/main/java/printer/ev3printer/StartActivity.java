@@ -19,6 +19,7 @@ public class StartActivity extends AppCompatActivity {
 
         Button ev3Button = findViewById(R.id.ev3ActivityButton);
         Button galleryButton = findViewById(R.id.galleryActivityButton);
+        Button bluetoothButton = findViewById(R.id.BluetoothErrorActivityButton);
 
         ev3Button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +33,14 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, GalleryActivity.class);
+                startActivity(i);
+            }
+        });
+
+        bluetoothButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(StartActivity.this, BluetoothErrorActivity.class);
                 startActivity(i);
             }
         });
