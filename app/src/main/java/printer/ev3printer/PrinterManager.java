@@ -290,13 +290,15 @@ public class PrinterManager {
                 StepLeft(instruction.getAmount());
                 break;
         }
-
     }
 
     public void PrintImage(List<PrinterInstruction> list){
-        for (PrinterInstruction instruction : list) {
-            ConvertInstructionToAction(instruction);
+        while(!api.ev3.isCancelled()){
+            for (PrinterInstruction instruction : list) {
+                ConvertInstructionToAction(instruction);
+            }
         }
+
     }
     // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
 
