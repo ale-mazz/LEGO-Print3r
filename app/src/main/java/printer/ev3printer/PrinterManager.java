@@ -256,11 +256,7 @@ public class PrinterManager {
             verticalMotor.waitCompletion();
         } catch (IOException e){
             Log.e(TAG, "Not dotting");
-        }/* catch (ExecutionException e){
-            Log.e(TAG, "exex");
-        } catch (InterruptedException e){
-            Log.e(TAG, "Int Exp");
-        }*/
+        }
     }
 
     public void TestMultiDot() {
@@ -298,8 +294,5 @@ public class PrinterManager {
                 ConvertInstructionToAction(instruction);
             }
         }
-
     }
-    // public ArrayList<PrinterInstruction> ConvertArrayToInstructions(boolean[] imageArray){ }
-
 }
