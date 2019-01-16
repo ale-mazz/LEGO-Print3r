@@ -42,6 +42,11 @@ public class StartActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, BluetoothErrorActivity.class);
                 startActivity(i);
+                /*BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+                    if (!mBluetoothAdapter.isEnabled()) {
+                        startActivity(i);
+                    }
+                */
             }
         });
 
