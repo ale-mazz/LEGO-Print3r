@@ -21,15 +21,17 @@ public class TestActivity extends AppCompatActivity {
     Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
     private static final String TAG = Prelude.ReTAG("MainActivity");
-    public int array_size = 40;
+    public int array_size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         Intent intent = getIntent();
         bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
+        array_size = intent.getIntExtra("Array_size", 0);
         Bundle b = this.getIntent().getExtras();
         if (b != null) {
             bwImageArray = b.getBooleanArray("boolArray");
