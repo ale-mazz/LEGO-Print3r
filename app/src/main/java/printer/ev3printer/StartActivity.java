@@ -38,18 +38,26 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
+
         bluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, BluetoothErrorActivity.class);
                 BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-                    if (!mBluetoothAdapter.isEnabled()) {
+                if (!isBluetoothAvailable()) {
                         startActivity(i);
                         finish();
                     }
-
             }
         });
 
+    }
+
+    public boolean isBluetoothAvailable() {
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        return (bluetoothAdapter != null
+                && bluetoothAdapter.isEnabled()
+                && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
     }
 }
