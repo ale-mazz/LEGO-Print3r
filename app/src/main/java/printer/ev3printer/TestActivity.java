@@ -53,8 +53,7 @@ public class TestActivity extends AppCompatActivity {
             printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
             cancelButton.setOnClickListener(v -> Prelude.trap(() -> ev3.cancel()));
 
-            biDimensionalArray = InstructionBuilder.unidimensionalToBidimensional(bwImageArray, array_size);
-
+            biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
         } catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
@@ -63,8 +62,10 @@ public class TestActivity extends AppCompatActivity {
 
     }
 
+
     public void printArray(EV3.Api api) {
         PrinterManager manager = new PrinterManager(api);
         manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
+
     }
 }

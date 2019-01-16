@@ -19,7 +19,6 @@ public class BitmapConverter {
         return pixels;
     }
 
-
     /**
      * Given an array of colors as non-premultiplied ARGB values in the sRGB color space, returns
      * a boolean array with the same size where
@@ -38,7 +37,6 @@ public class BitmapConverter {
         return booleanValues;
     }
 
-
     /**
      * Given a bitmap, reads the pixels of that bitmap and returns a boolean array with size
      * width * height where:
@@ -50,8 +48,38 @@ public class BitmapConverter {
         return getBooleanValuesFromIntArray(getPixelsFromBitMap(bitmap));
     }
 
-    //public Bitmap ConvertImageToBNW(Bitmap imageToConvert){
+    /**
+     * Given a single dimention boolean array and its size this method returns a bidimentional boolean array
+     * of size [array_size][array_size]
+     * @param bwImageArray The boolean array to convert to two dimention boolean array
+     * @param array_size The size of the new array
+     */
 
-    //}
+    public static boolean[][] unidimensionalToBidimensional(boolean[] bwImageArray, int array_size){
+        int count = 0;
+        boolean[][] bidimensionalArray = new boolean[array_size][array_size];
+
+        for(int i = 0; i < array_size; i++){
+            for (int j = 0; j < array_size; j++){
+                bidimensionalArray[i][j] = bwImageArray[count];
+                count++;
+            }
+        }
+        return bidimensionalArray;
+    }
+    /*
+    public static boolean[][] deleteAlonePoint(boolean[][] originalArray, int array_size, int aloneDistance){
+        boolean[][] newArray = new boolean[array_size][array_size];
+        newArray = originalArray;
+        if(aloneDistance>0){
+            for(int x=0; x<array_size; x++){
+                for(int y=0; y<array_size;y++){
+                    for(int i = x-aloneDistance; i < a){}
+                }
+            }
+        }
+        return newArray;
+
+    }*/
 
 }
