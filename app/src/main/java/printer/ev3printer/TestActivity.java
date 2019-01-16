@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -27,6 +28,7 @@ public class TestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Button printButton = findViewById(R.id.printButton);
@@ -48,6 +50,7 @@ public class TestActivity extends AppCompatActivity {
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
+            printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
             cancelButton.setOnClickListener(v -> Prelude.trap(() -> ev3.cancel()));
 
             biDimensionalArray = InstructionBuilder.unidimensionalToBidimensional(bwImageArray, array_size);
