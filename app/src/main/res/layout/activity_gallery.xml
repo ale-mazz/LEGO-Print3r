@@ -13,49 +13,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@android:color/white"
         android:text="Seleziona Immagine"
         app:layout_constraintEnd_toStartOf="@+id/testArrayButton"
-        app:layout_constraintHorizontal_bias="0.439"
+        app:layout_constraintHorizontal_bias="0.424"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="263dp"
-        android:layout_height="168dp"
+        android:id="@+id/normalImageView"
+        android:layout_width="121dp"
+        android:layout_height="99dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="15dp"
         android:background="@color/colorPrimary"
         android:contentDescription="test immagine "
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/bwImageView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.901"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSelectionButton"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintTop_toBottomOf="@+id/imageSelectionButton" />
 
     <ImageView
-        android:id="@+id/bwImageView"
-        android:layout_width="282dp"
-        android:layout_height="165dp"
+        android:id="@+id/convertedImageView"
+        android:layout_width="343dp"
+        android:layout_height="192dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="12dp"
         android:background="@color/colorPrimary"
         android:contentDescription="test immagine convertita"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/textViewSlider"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintTop_toBottomOf="@+id/normalImageView" />
 
     <Button
         android:id="@+id/testArrayButton"
@@ -91,7 +88,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/changeActivity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -102,10 +99,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="24dp"
         android:text="Dimensione: 30"
         app:layout_constraintBottom_toTopOf="@+id/seekbar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

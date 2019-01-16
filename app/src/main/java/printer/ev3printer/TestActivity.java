@@ -37,7 +37,7 @@ public class TestActivity extends AppCompatActivity {
             bwImageArray = b.getBooleanArray("boolArray");
         }
 
-        ImageView bitmapImageView = findViewById(R.id.bitmapImageView);
+        ImageView bitmapImageView = findViewById(R.id.convertedImageView);
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
 
