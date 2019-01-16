@@ -2,6 +2,9 @@ package printer.ev3printer;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class BluetoothErrorActivity extends AppCompatActivity {
 
@@ -9,5 +12,9 @@ public class BluetoothErrorActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_error);
+
+        ImageView alertImageView = findViewById(R.id.alertImageView);
+        Button exitButton = findViewById(R.id.exitButton);
+        TextView alertTextView = findViewById(R.id.alertTextView);
     }
 }
