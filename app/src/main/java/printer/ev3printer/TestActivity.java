@@ -50,7 +50,7 @@ public class TestActivity extends AppCompatActivity {
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
-            printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
+            //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
             cancelButton.setOnClickListener(v -> Prelude.trap(() -> ev3.cancel()));
 
             biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);

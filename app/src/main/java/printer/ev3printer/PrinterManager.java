@@ -289,10 +289,9 @@ public class PrinterManager {
     }
 
     public void PrintImage(List<PrinterInstruction> list){
-        while(!api.ev3.isCancelled()){
-            for (PrinterInstruction instruction : list) {
+            for (int index = 0; index < list.size() && !api.ev3.isCancelled(); index++) {
+                PrinterInstruction instruction = list.get(index);
                 ConvertInstructionToAction(instruction);
             }
-        }
     }
 }
