@@ -26,7 +26,7 @@ public class GalleryActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
-        final Button convertActivity = findViewById(R.id.convertButton);
+        final Button convertButton = findViewById(R.id.convertButton);
 
         galleryImageView = findViewById(R.id.normalImageView);
 
@@ -34,7 +34,7 @@ public class GalleryActivity extends AppCompatActivity {
         selectImageButton.setOnClickListener(v -> OpenGallery());
 
         // Cambia in activity per settare i parametri
-        convertActivity.setOnClickListener(v -> SendBitmapToNextActivity());
+        convertButton.setOnClickListener(v -> SendBitmapToNextActivity());
     }
 
     @Override
@@ -66,7 +66,6 @@ public class GalleryActivity extends AppCompatActivity {
         // Inserisco variabili all'interno del bundle da passare
         i.putExtra("BitmapImage", imageSelectedBitmap);
         i.putExtras(b);
-
         startActivity(i);
     }
 

@@ -27,8 +27,10 @@ public class PrintPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_preview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         Intent intent = getIntent();
         imageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
+
         bidimensionalArray = new boolean[array_size][array_size];
         convertedImageView = findViewById(R.id.convertedImageView);
 
