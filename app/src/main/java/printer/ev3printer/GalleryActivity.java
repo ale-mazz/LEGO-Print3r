@@ -31,21 +31,21 @@ public class GalleryActivity extends AppCompatActivity {
 
         galleryImageView = findViewById(R.id.normalImageView);
 
-        // Bottone per entrare in galleria
+        //Enter gallery
         selectImageButton.setOnClickListener(v -> OpenGallery());
 
-        // Cambia in activity per settare i parametri
+        //Enter PrintPreviewActivity
         convertButton.setOnClickListener(v -> SendBitmapToNextActivity());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        //Controllo se il percorso dell'immagine selezionata è corretto e in quel caso lo passo dentro uri
+        //Check if selected image path is correct and store it to uri variable
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
             try {
-                //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
+                //Select image on the selected URI and store it into bitmap
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
                 setImageView();
 
@@ -55,7 +55,7 @@ public class GalleryActivity extends AppCompatActivity {
         }
     }
 
-    // FUNZIONI UTILIZZATE
+    // FUNCTIONS
 
     public void setImageView() {
         galleryImageView.setImageBitmap(imageSelectedBitmap);
@@ -64,7 +64,7 @@ public class GalleryActivity extends AppCompatActivity {
     public void SendBitmapToNextActivity() {
         Bundle b = new Bundle();
         Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
-        // Inserisco variabili all'interno del bundle da passare
+        //Store variables into passed bundle
         i.putExtra("imagePath", uri.toString());
         i.putExtras(b);
         startActivity(i);
