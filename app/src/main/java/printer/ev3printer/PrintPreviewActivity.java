@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
     public static int MAX_VALUE = 60;
     public static int MIN_VALUE = 30;
     public ImageView convertedImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class PrintPreviewActivity extends AppCompatActivity {
 
         SeekBar dimensionSlider = findViewById(R.id.seekbar);
 
+        Button printButton = findViewById(R.id.printButton);
+
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
         //slider overrides for dimension choice
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -70,6 +74,8 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
+        printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
+
     }
 
     //FUNZIONI UTILIZZATE

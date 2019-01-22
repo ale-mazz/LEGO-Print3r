@@ -13,28 +13,32 @@
         android:layout_width="187dp"
         android:layout_height="69dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Seleziona Immagine"
-        app:layout_constraintBottom_toTopOf="@+id/convertButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/convertButton"
+        app:layout_constraintTop_toBottomOf="@id/normalImageView" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/normalImageView"
         android:layout_width="369dp"
         android:layout_height="387dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="test immagine "
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/imageSelectionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@mipmap/caricamento_img" />
+        app:layout_constraintVertical_bias="0.674"
+        app:srcCompat="@mipmap/caricamento_img" />
 
     <Button
         android:id="@+id/convertButton"
@@ -43,13 +47,15 @@
         android:layout_height="61dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@android:color/white"
         android:text="Converti"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageSelectionButton"
+        app:layout_constraintVertical_bias="0.577" />
 
 
 </android.support.constraint.ConstraintLayout>
