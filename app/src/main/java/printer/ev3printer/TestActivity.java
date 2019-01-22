@@ -24,6 +24,8 @@ public class TestActivity extends AppCompatActivity {
     private static final String TAG = Prelude.ReTAG("MainActivity");
     public int array_size;
 
+    //try
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
