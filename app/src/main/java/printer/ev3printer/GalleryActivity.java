@@ -16,27 +16,25 @@ public class GalleryActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
-
     public ImageView galleryImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
         final Button convertActivity = findViewById(R.id.convertButton);
 
         galleryImageView = findViewById(R.id.normalImageView);
 
-
         // Bottone per entrare in galleria
         selectImageButton.setOnClickListener(v -> OpenGallery());
 
-        // Cambia in activity per mandare in stampa
-        convertActivity.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
+        // Cambia in activity per settare i parametri
+        convertActivity.setOnClickListener(v -> SendBitmapToNextActivity());
     }
 
     @Override
@@ -56,15 +54,21 @@ public class GalleryActivity extends AppCompatActivity {
         }
     }
 
-    // FUNZIONI
-
+    // FUNZIONI UTILIZZATE
 
     public void setImageView() {
         galleryImageView.setImageBitmap(imageSelectedBitmap);
     }
 
+    public void SendBitmapToNextActivity() {
+        Bundle b = new Bundle();
+        Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
+        // Inserisco variabili all'interno del bundle da passare
+        i.putExtra("BitmapImage", imageSelectedBitmap);
+        i.putExtras(b);
 
-
+        startActivity(i);
+    }
 
     public void OpenGallery(){
         Intent intent = new Intent();
