@@ -32,7 +32,6 @@ public class PrintActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Button printButton = findViewById(R.id.printButton);
-        Button cancelButton = findViewById(R.id.cancelPrintButton);
 
         Intent intent = getIntent();
         bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
@@ -51,7 +50,6 @@ public class PrintActivity extends AppCompatActivity {
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
             //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
-            cancelButton.setOnClickListener(v -> Prelude.trap(() -> ev3.cancel()));
 
             biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
