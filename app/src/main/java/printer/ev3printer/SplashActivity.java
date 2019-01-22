@@ -1,5 +1,6 @@
 package printer.ev3printer;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,8 +18,23 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Intent mySuperIntent = new Intent(SplashActivity.this, GalleryActivity.class);
-            startActivity(mySuperIntent);
-            finish();
+            Intent i = new Intent(SplashActivity.this, BluetoothErrorActivity.class);
+            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            if (!isBluetoothAvailable()) {
+                startActivity(i);
+                finish();
+            } else {
+                startActivity(mySuperIntent);
+                finish();
+            }
         }, SPLASH_TIME);
+    }
+
+    public boolean isBluetoothAvailable() {
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        return (bluetoothAdapter != null
+                && bluetoothAdapter.isEnabled()
+                && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
     }
 }

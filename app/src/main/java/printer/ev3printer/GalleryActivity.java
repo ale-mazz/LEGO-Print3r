@@ -17,6 +17,7 @@ public class GalleryActivity extends AppCompatActivity {
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
     public ImageView galleryImageView;
+    public static Uri uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class GalleryActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         //Controllo se il percorso dell'immagine selezionata è corretto e in quel caso lo passo dentro uri
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-            Uri uri = data.getData();
+            uri = data.getData();
             try {
                 //Seleziono effettivamente l'immagine dal percorso selezionato e la passo dentro un bitmap
                 imageSelectedBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -64,7 +65,7 @@ public class GalleryActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
         // Inserisco variabili all'interno del bundle da passare
-        i.putExtra("BitmapImage", imageSelectedBitmap);
+        i.putExtra("imagePath", uri.toString());
         i.putExtras(b);
         startActivity(i);
     }

@@ -3,11 +3,15 @@ package printer.ev3printer;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.io.IOException;
 
 public class PrintPreviewActivity extends AppCompatActivity {
 
@@ -21,7 +25,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
     public static int MIN_VALUE = 30;
     public ImageView convertedImageView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,14 +32,23 @@ public class PrintPreviewActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Intent intent = getIntent();
-        imageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
-
-        bidimensionalArray = new boolean[array_size][array_size];
+        String image_path = intent.getStringExtra("imagePath");
+        Uri fileUri = Uri.parse(image_path);
+        try {
+            System.out.println(fileUri.toString());
+            imageSelectedBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         convertedImageView = findViewById(R.id.convertedImageView);
+        bidimensionalArray = new boolean[array_size][array_size];
+        convertBitmapToFinal();
+        setImageView();
 
         TextView textViewSlider = findViewById(R.id.textViewSlider);
 
         SeekBar dimensionSlider = findViewById(R.id.seekbar);
+
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
         //slider overrides for dimension choice
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -60,6 +72,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         });
     }
 
+    //FUNZIONI UTILIZZATE
 
     public Bitmap getResizedBitmap(Bitmap bwImageSelectedBitmap, int bitmapWidth, int bitmapHeight) {
         return Bitmap.createScaledBitmap(bwImageSelectedBitmap, bitmapWidth, bitmapHeight, true);
