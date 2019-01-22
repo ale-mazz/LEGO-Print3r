@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -20,12 +21,21 @@ public class StartActivity extends AppCompatActivity {
 
         Button ev3Button = findViewById(R.id.ev3ActivityButton);
         Button galleryButton = findViewById(R.id.galleryActivityButton);
-        Button bluetoothButton = findViewById(R.id.BluetoothErrorActivityButton);
+        Button bluetoothButton = findViewById(R.id.bluetoothErrorActivityButton);
+        ImageButton helpButton = findViewById(R.id.helpActivityButton);
 
         ev3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(StartActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(StartActivity.this, HelpActivity.class);
                 startActivity(i);
             }
         });
@@ -38,7 +48,6 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-
         bluetoothButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +56,7 @@ public class StartActivity extends AppCompatActivity {
                 if (!isBluetoothAvailable()) {
                         startActivity(i);
                         finish();
-                    }
+                }
             }
         });
 

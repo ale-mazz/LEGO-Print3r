@@ -71,19 +71,10 @@ public class GalleryActivity extends AppCompatActivity {
         });
 
         // Bottone per entrare in galleria
-        selectImageButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                OpenGallery();
-            }
-        });
+        selectImageButton.setOnClickListener(v -> OpenGallery());
 
         // Cambia in activity per mandare in stampa
-        changeActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SendBitmapAndArrayToNextActivity();
-            }
-        });
+        changeActivity.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
     }
 
     @Override
