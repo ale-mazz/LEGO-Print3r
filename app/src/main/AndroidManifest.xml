@@ -17,10 +17,11 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PrintPreviewActivity"></activity>
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme.HelpBox"></activity>
+            android:theme="@style/AppTheme.HelpBox" />
         <activity android:name=".BluetoothErrorActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".GalleryActivity" />
