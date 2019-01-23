@@ -23,8 +23,8 @@
 
     <ImageView
         android:id="@+id/convertedImageView"
-        android:layout_width="326dp"
-        android:layout_height="340dp"
+        android:layout_width="319dp"
+        android:layout_height="314dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -34,7 +34,7 @@
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@android:color/white" />
 
 
     <ProgressBar
