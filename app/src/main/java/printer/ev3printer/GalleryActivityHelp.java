@@ -11,6 +11,7 @@ public class GalleryActivityHelp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("GalleryActivityHelp");
         setContentView(R.layout.activity_gallery_help);
 
         DisplayMetrics dm = new DisplayMetrics();

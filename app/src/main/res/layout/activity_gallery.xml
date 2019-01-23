@@ -14,19 +14,19 @@
         android:layout_height="69dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="44dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Seleziona Immagine"
+        app:layout_constraintBottom_toTopOf="@id/convertButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/convertButton"
         app:layout_constraintTop_toBottomOf="@id/normalImageView" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/normalImageView"
-        android:layout_width="369dp"
-        android:layout_height="387dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
@@ -35,6 +35,7 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/imageSelectionButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.674"
@@ -56,6 +57,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageSelectionButton"
         app:layout_constraintVertical_bias="0.577" />
+
+    <ImageButton
+        android:id="@+id/helpGalleryActivityButton"
+        android:layout_width="41dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/ic_launcher_background"
+        android:src="@mipmap/question_mark"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </android.support.constraint.ConstraintLayout>

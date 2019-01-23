@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -28,8 +29,17 @@ public class GalleryActivity extends AppCompatActivity {
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
         final Button convertButton = findViewById(R.id.convertButton);
+        final ImageView help = findViewById(R.id.helpGalleryActivityButton);
 
         galleryImageView = findViewById(R.id.normalImageView);
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(GalleryActivity.this, GalleryActivityHelp.class);
+                startActivity(i);
+            }
+        });
 
         //Enter gallery
         selectImageButton.setOnClickListener(v -> OpenGallery());

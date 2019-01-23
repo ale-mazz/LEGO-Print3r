@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -32,6 +33,16 @@ public class PrintPreviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_preview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
+
+        help.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(PrintPreviewActivity.this, PrintPreviewActivityHelp.class);
+                startActivity(i);
+            }
+        });
 
         Intent intent = getIntent();
         String image_path = intent.getStringExtra("imagePath");
