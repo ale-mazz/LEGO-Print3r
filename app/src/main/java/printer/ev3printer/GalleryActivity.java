@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -19,6 +20,7 @@ public class GalleryActivity extends AppCompatActivity {
     public Bitmap imageSelectedBitmap;
     public ImageView galleryImageView;
     public static Uri uri;
+    public boolean image_selected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,12 +74,20 @@ public class GalleryActivity extends AppCompatActivity {
     }
 
     public void SendBitmapToNextActivity() {
-        Bundle b = new Bundle();
-        Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
-        //Store variables into passed bundle
-        i.putExtra("imagePath", uri.toString());
-        i.putExtras(b);
-        startActivity(i);
+        if (image_selected)
+        {
+            Bundle b = new Bundle();
+            Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
+            //Store variables into passed bundle
+            i.putExtra("imagePath", uri.toString());
+            i.putExtras(b);
+            startActivity(i);
+        }
+        else
+        {
+            Toast.makeText(getBaseContext(), "Scegliere un'immagine" , Toast.LENGTH_SHORT ).show();
+        }
+
     }
 
     public void OpenGallery(){
@@ -85,5 +95,6 @@ public class GalleryActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+        image_selected = true;
     }
 }
