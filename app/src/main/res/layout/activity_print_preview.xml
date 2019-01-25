@@ -76,10 +76,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/convertedImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintHorizontal_bias="0.982"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.363" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/xd"
