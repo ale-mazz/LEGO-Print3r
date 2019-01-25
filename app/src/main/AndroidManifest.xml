@@ -17,10 +17,11 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".CalibrationActivity"></activity>
         <activity
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"
-            android:theme="@style/AppTheme.HelpBox"/>
+            android:theme="@style/AppTheme.HelpBox" />
         <activity android:name=".PrintActivity" />
         <activity android:name=".PrintPreviewActivity" />
         <activity
@@ -29,11 +30,13 @@
             android:theme="@style/AppTheme.HelpBox">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
-                    android:scheme="https"
-                    android:host="github.com" />
+                    android:host="github.com"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
         <activity android:name=".BluetoothErrorActivity" />
