@@ -4,15 +4,21 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
+
+import java.io.IOException;
 
 import it.unive.dais.legodroid.lib.EV3;
+import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 
 public class EV3Service extends Service {
 
-    // binder
     private final IBinder mBinder = new LocalBinder();
-    EV3 ev3Brick = null;
-    PrinterManager manager = null;
+    private EV3 ev3Brick = null;
+    private final String legoBrickName = "HAL9000";
+
+    private BluetoothConnection connection = new BluetoothConnection("HAL9000");
+    private BluetoothConnection.BluetoothChannel channel = null;
 
     public EV3Service() {
         System.out.println("EV3 service created");
@@ -24,9 +30,9 @@ public class EV3Service extends Service {
     }
 
     public void setBrickConnection(EV3 brick){
-        if(brick == null){
+        if(ev3Brick == null){
             ev3Brick = brick;
-            //manager = new PrinterManager(EV3.Api);
+            //connection = new BluetoothConnection("HAL9000");
         }
     }
 
@@ -56,8 +62,19 @@ public class EV3Service extends Service {
     }
 
     public EV3 GetBrick(){
+        if (channel == null) {
+            try {
+                connection = new BluetoothConnection(legoBrickName);
+                channel = connection.connect();
+            } catch (IOException exception) {
+                Log.w("Service", exception);
+            }
+        }
+        if (ev3Brick == null) {
+            ev3Brick = new EV3(channel);
+        }
+
         return ev3Brick;
     }
-
 
 }

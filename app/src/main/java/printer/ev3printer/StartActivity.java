@@ -97,16 +97,11 @@ public class StartActivity extends AppCompatActivity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
-            if(mService.isBrickNull()){
-                try {
-                    btConnection = new BluetoothConnection(legoBrickName);
-                    EV3 ev3 = new EV3(btConnection.connect());
-                    mService.setBrickConnection(ev3);
-                    ev3 = mService.GetBrick();
-                } catch (IOException e){
-                    Log.e(TAG, "Cannot connect.");
-                }
+
+            if(!mService.isBrickNull()){
+                ev3 = mService.GetBrick();
             }
+
             mBound = true;
         }
 
@@ -125,7 +120,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        //unbindService(mConnection);
-        //mBound = false;
+        unbindService(mConnection);
+        mBound = false;
     }
 }
