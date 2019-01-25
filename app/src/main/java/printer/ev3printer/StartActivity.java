@@ -98,9 +98,9 @@ public class StartActivity extends AppCompatActivity {
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
 
-            if(!mService.isBrickNull()){
-                ev3 = mService.GetBrick();
-            }
+
+            ev3 = mService.GetBrick();
+
 
             mBound = true;
         }

@@ -22,6 +22,16 @@ public class EV3Service extends Service {
 
     public EV3Service() {
         System.out.println("EV3 service created");
+        connection = new BluetoothConnection("HAL9000");
+        try {
+            connection = new BluetoothConnection(legoBrickName);
+            channel = connection.connect();
+        } catch (IOException exception) {
+            Log.w("Service", exception);
+        }
+        if (ev3Brick == null) {
+            ev3Brick = new EV3(channel);
+        }
     }
 
     @Override
@@ -62,18 +72,18 @@ public class EV3Service extends Service {
     }
 
     public EV3 GetBrick(){
-        if (channel == null) {
+    /*
             try {
                 connection = new BluetoothConnection(legoBrickName);
                 channel = connection.connect();
             } catch (IOException exception) {
                 Log.w("Service", exception);
             }
-        }
+
         if (ev3Brick == null) {
             ev3Brick = new EV3(channel);
         }
-
+    */
         return ev3Brick;
     }
 
