@@ -1,7 +1,13 @@
 package printer.ev3printer;
 
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +23,14 @@ import it.unive.dais.legodroid.lib.plugs.TachoMotor;
 import it.unive.dais.legodroid.lib.util.Prelude;
 import it.unive.dais.legodroid.lib.util.ThrowingConsumer;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
+
+    EV3Service mService;
+    boolean mBound = false;
+    EV3 ev3;
+    BluetoothConnection btConnection;
+    String legoBrickName = "HAL9000";
 
     // TODO: Fix bluetooth connection issues when changing windows
     private static final String TAG = Prelude.ReTAG("MainActivity");
@@ -66,9 +78,9 @@ public class MainActivity extends AppCompatActivity {
         Button dotButton = findViewById(R.id.dotButton);
 
 
-        try {
+        //try {
             // Connect to EV3 (HAL9000) via Bluetooth
-            EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+
 
             stopEverythingButton.setOnClickListener(v -> ev3.cancel());
 
@@ -100,10 +112,70 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        } catch (IOException e) {
+        /*} catch (IOException e) {
             Log.e(TAG, "Fatal error: cannot connect to HAL9000");
             e.printStackTrace();
+        } */
+    }
+    @Override
+    public void onStart(){
+        super.onStart();
+        // Bind to EV3 Service
+        Intent intent = new Intent(this, EV3Service.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        if(!mService.isBrickActive()){
+            btConnection = new BluetoothConnection(legoBrickName);
+            try{
+                mService.setBrickConnection(new EV3(btConnection.connect()));
+            } catch (IOException e){
+                Log.e(TAG, "Cannot connect");
+            }
+        } else {
+            System.out.println("SONO GIA' CONNESSO");
         }
+
+
+
+
+        /*try{
+            if(ev3 == null || btConnection == null) {
+                btConnection = new BluetoothConnection(legoBrickName);
+                ev3 = new EV3(btConnection.connect());
+            }
+        } catch (IOException e){
+            Log.e(TAG, "Fatal error: cannot connect to HAL9000");
+            e.printStackTrace();
+        }*/
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
+            mService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        unbindService(mConnection);
+        mBound = false;
+        /*
+        if(ev3 != null || btConnection != null){
+            ev3.cancel();
+            btConnection = null;
+            ev3 = null;
+        }*/
     }
 
     //FUNZIONI PER MUOVERE DESTRA SINISTRA IL MOTORE CON LA PENNA
@@ -182,11 +254,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void dot(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
-        manager.Dot();
+        manager.DotDown();
+        manager.DotUp();
     }
 
     private void testDot(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
-        manager.TestMultiDot();
+
     }
 }

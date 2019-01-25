@@ -22,10 +22,8 @@ public class PrinterManager {
     LightSensor lightSensor;
 
     private static int loadingSheetSpeed = -60;
-    private static int lightSensorAmbientThresholdForLoading = 1;
     private static int reflectedValueThreshold = 3;
-    private static int lightSensorAmbientThresholdForUnloading = 0;
-    private static int verticalSpeed = 50;
+    private static int verticalSpeed = 30;
     private static int verticalDistanceInTime = 10;
 
     //speeds
@@ -33,7 +31,8 @@ public class PrinterManager {
     private static int wheelMotorSpeed = 15;
     private static int penMotorStepsTime = 10;
     private static int wheelMotorStepsTime = 5;
-    private static int verticalDotMove = 100;
+    private static int verticalDotMove = 40;
+    private static int verticalStepBuildOutAndIn = 15;
 
 
     private int numOfDots= 0;
@@ -224,6 +223,7 @@ public class PrinterManager {
     public void StepRight(int amount){
         try {
             for(int i = 0; i < amount; i++) {
+
                 penMotor.start();
                 penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
                 penMotor.waitCompletion();
@@ -249,27 +249,46 @@ public class PrinterManager {
     public void Dot(){
         try {
             verticalMotor.start();
-            verticalMotor.setStepPower(- verticalSpeed,0,verticalDotMove, 0, true);
+            verticalMotor.setStepPower(- verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove, verticalStepBuildOutAndIn, true);
             verticalMotor.waitCompletion();
             //System.out.println(verticalMotor.getPosition().get());
-            verticalMotor.setStepPower(verticalSpeed,0,verticalDotMove -2, 0, true);
+            verticalMotor.setStepPower(verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove -2, verticalStepBuildOutAndIn, true);
             verticalMotor.waitCompletion();
         } catch (IOException e){
             Log.e(TAG, "Not dotting");
         }
     }
 
-    public void TestMultiDot() {
-        ArrayList<PrinterInstruction> list = new ArrayList<PrinterInstruction>();
-        list.add(new PrinterInstruction(PrinterInstruction.Direction.LEFT, 5));
-        list.add(new PrinterInstruction(PrinterInstruction.Direction.POINT, 1));
-        list.add(new PrinterInstruction(PrinterInstruction.Direction.FORWARD, 15));
-        list.add(new PrinterInstruction(PrinterInstruction.Direction.POINT,1));
+    public void DotDown(){
+        try{
+            verticalMotor.waitUntilReady();
+            verticalMotor.start();
+            verticalMotor.setStepSpeed(- verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove, verticalStepBuildOutAndIn, true);
+            verticalMotor.waitCompletion();
+        } catch (IOException e){
+            Log.e(TAG, "Problems dotting down.");
+        } catch (ExecutionException e){
+            Log.e(TAG,"Ex excep in dotdown");
+        } catch(InterruptedException e){
+            Log.e(TAG,"Int excep in dotdown");
+        }
 
-        for (PrinterInstruction instruction: list) {
-            ConvertInstructionToAction(instruction);
+    }
+    public void DotUp(){
+        try{
+            verticalMotor.waitUntilReady();
+            verticalMotor.start();
+            verticalMotor.setStepSpeed(verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove, verticalStepBuildOutAndIn, true);
+            verticalMotor.waitCompletion();
+        } catch (IOException e){
+            Log.e(TAG, "Problems dotting up.");
+        } catch (ExecutionException e){
+            Log.e(TAG,"Ex excep in dotup");
+        } catch(InterruptedException e){
+            Log.e(TAG,"Int excep in dotup");
         }
     }
+
 
     public void ConvertInstructionToAction(PrinterInstruction instruction){
         switch (instruction.getDirection()){
@@ -280,7 +299,9 @@ public class PrinterManager {
                 StepRight(instruction.getAmount());
                 break;
             case POINT:
-                Dot();
+                //Dot();
+                DotDown();
+                DotUp();
                 break;
             case LEFT:
                 StepLeft(instruction.getAmount());
@@ -289,9 +310,12 @@ public class PrinterManager {
     }
 
     public void PrintImage(List<PrinterInstruction> list){
-            for (int index = 0; index < list.size() && !api.ev3.isCancelled(); index++) {
-                PrinterInstruction instruction = list.get(index);
+        if(list.size() > 0){
+            for (PrinterInstruction instruction : list) {
                 ConvertInstructionToAction(instruction);
             }
+        }
+        UnloadSheet();
+
     }
 }

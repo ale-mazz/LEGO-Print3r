@@ -25,7 +25,7 @@ public class GalleryActivity extends AppCompatActivity {
     public boolean[][] bidimensionalArray;
     public static int array_size = 40;
     public static int MAX_VALUE = 60;
-    public static int MIN_VALUE = 30;
+    public static int MIN_VALUE = 10;
 
     public ImageView galleryImageView;
     public ImageView convertedImageView;
