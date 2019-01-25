@@ -82,7 +82,7 @@ public class MainActivity extends Activity {
             // Connect to EV3 (HAL9000) via Bluetooth
 
 
-            stopEverythingButton.setOnClickListener(v -> ev3.cancel());
+            stopEverythingButton.setOnClickListener(v ->  mService.PrintBrickStatus());
 
 
             // Pen motor buttons
@@ -123,29 +123,7 @@ public class MainActivity extends Activity {
         // Bind to EV3 Service
         Intent intent = new Intent(this, EV3Service.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-        if(!mService.isBrickActive()){
-            btConnection = new BluetoothConnection(legoBrickName);
-            try{
-                mService.setBrickConnection(new EV3(btConnection.connect()));
-            } catch (IOException e){
-                Log.e(TAG, "Cannot connect");
-            }
-        } else {
-            System.out.println("SONO GIA' CONNESSO");
-        }
 
-
-
-
-        /*try{
-            if(ev3 == null || btConnection == null) {
-                btConnection = new BluetoothConnection(legoBrickName);
-                ev3 = new EV3(btConnection.connect());
-            }
-        } catch (IOException e){
-            Log.e(TAG, "Fatal error: cannot connect to HAL9000");
-            e.printStackTrace();
-        }*/
     }
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -156,6 +134,16 @@ public class MainActivity extends Activity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
+            if(mService.isBrickNull()){
+                try {
+                    btConnection = new BluetoothConnection(legoBrickName);
+                    EV3 ev3OfService = new EV3(btConnection.connect());
+                    mService.setBrickConnection(ev3);
+                    ev3 = mService.GetBrick();
+                } catch (IOException e){
+                    Log.e(TAG, "Cannot connect.");
+                }
+            }
             mBound = true;
         }
 
@@ -170,12 +158,6 @@ public class MainActivity extends Activity {
         super.onStop();
         unbindService(mConnection);
         mBound = false;
-        /*
-        if(ev3 != null || btConnection != null){
-            ev3.cancel();
-            btConnection = null;
-            ev3 = null;
-        }*/
     }
 
     //FUNZIONI PER MUOVERE DESTRA SINISTRA IL MOTORE CON LA PENNA

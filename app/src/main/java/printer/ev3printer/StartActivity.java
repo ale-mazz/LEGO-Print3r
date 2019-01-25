@@ -1,15 +1,34 @@
 package printer.ev3printer;
 
 import android.bluetooth.BluetoothAdapter;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import java.io.IOException;
+
+import it.unive.dais.legodroid.lib.EV3;
+import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
+import it.unive.dais.legodroid.lib.util.Prelude;
+
 public class StartActivity extends AppCompatActivity {
+
+    EV3Service mService;
+    boolean mBound = false;
+    EV3 ev3;
+    BluetoothConnection btConnection;
+    String legoBrickName = "HAL9000";
+
+    private static final String TAG = Prelude.ReTAG("StartActivity");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,5 +87,45 @@ public class StartActivity extends AppCompatActivity {
         return (bluetoothAdapter != null
                 && bluetoothAdapter.isEnabled()
                 && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
+            mService = binder.getService();
+            if(mService.isBrickNull()){
+                try {
+                    btConnection = new BluetoothConnection(legoBrickName);
+                    EV3 ev3 = new EV3(btConnection.connect());
+                    mService.setBrickConnection(ev3);
+                    ev3 = mService.GetBrick();
+                } catch (IOException e){
+                    Log.e(TAG, "Cannot connect.");
+                }
+            }
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Intent intent = new Intent(this, EV3Service.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        //unbindService(mConnection);
+        //mBound = false;
     }
 }
