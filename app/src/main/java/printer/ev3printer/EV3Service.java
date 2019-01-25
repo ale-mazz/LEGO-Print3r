@@ -17,7 +17,7 @@ public class EV3Service extends Service {
     private EV3 ev3Brick = null;
     private final String legoBrickName = "HAL9000";
 
-    private BluetoothConnection connection = new BluetoothConnection("HAL9000");
+    private BluetoothConnection connection;
     private BluetoothConnection.BluetoothChannel channel = null;
 
     public EV3Service() {
@@ -39,12 +39,6 @@ public class EV3Service extends Service {
         return mBinder;
     }
 
-    public void setBrickConnection(EV3 brick){
-        if(ev3Brick == null){
-            ev3Brick = brick;
-            //connection = new BluetoothConnection("HAL9000");
-        }
-    }
 
     public boolean isBrickNull(){
         if(ev3Brick == null){
@@ -72,18 +66,6 @@ public class EV3Service extends Service {
     }
 
     public EV3 GetBrick(){
-    /*
-            try {
-                connection = new BluetoothConnection(legoBrickName);
-                channel = connection.connect();
-            } catch (IOException exception) {
-                Log.w("Service", exception);
-            }
-
-        if (ev3Brick == null) {
-            ev3Brick = new EV3(channel);
-        }
-    */
         return ev3Brick;
     }
 

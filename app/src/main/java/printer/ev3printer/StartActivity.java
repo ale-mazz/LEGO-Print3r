@@ -24,9 +24,8 @@ public class StartActivity extends AppCompatActivity {
 
     EV3Service mService;
     boolean mBound = false;
+
     EV3 ev3;
-    BluetoothConnection btConnection;
-    String legoBrickName = "HAL9000";
 
     private static final String TAG = Prelude.ReTAG("StartActivity");
 
@@ -35,8 +34,6 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
 
         Button ev3Button = findViewById(R.id.ev3ActivityButton);
         Button galleryButton = findViewById(R.id.galleryActivityButton);
@@ -89,6 +86,8 @@ public class StartActivity extends AppCompatActivity {
                 && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
     }
 
+
+    // Servizio di connessione all'EV3Service
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -97,11 +96,7 @@ public class StartActivity extends AppCompatActivity {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
-
-
             ev3 = mService.GetBrick();
-
-
             mBound = true;
         }
 
@@ -114,7 +109,9 @@ public class StartActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
+        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
     @Override
