@@ -8,12 +8,14 @@
 
     <TextView
         android:id="@+id/calibInstructions"
-        android:layout_width="206dp"
-        android:layout_height="58dp"
+        android:layout_width="351dp"
+        android:layout_height="96dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="8dp"
         android:text="@string/XYcalibration"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/arrowUp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,13 +27,14 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginBottom="20dp"
         android:text="Button"
         app:layout_constraintBottom_toTopOf="@id/arrowDown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calibInstructions" />
+        app:layout_constraintTop_toBottomOf="@+id/calibInstructions"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/arrowLeft"
@@ -66,14 +69,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="20dp"
         android:text="Button"
+        app:layout_constraintBottom_toTopOf="@id/sheetCalibration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/sheetCalibration"
         app:layout_constraintTop_toBottomOf="@id/arrowUp" />
 
     <TextView
@@ -81,40 +84,43 @@
         android:layout_width="165dp"
         android:layout_height="55dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="150dp"
         android:text="@string/sheetcalibration"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@id/dotButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrowDown"
-        app:layout_constraintBottom_toTopOf="@id/finishButton"
-        app:layout_constraintVertical_bias="0.754" />
+        app:layout_constraintTop_toBottomOf="@+id/arrowDown" />
 
     <Button
         android:id="@+id/finishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="40dp"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dotButton" />
 
     <Button
         android:id="@+id/dotButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="30dp"
         android:layout_marginEnd="8dp"
         android:text="Punto"
-        app:layout_constraintEnd_toStartOf="@+id/arrowDown"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/arrowLeft" />
+        app:layout_constraintBottom_toTopOf="@id/finishButton"
+        app:layout_constraintTop_toBottomOf="@+id/sheetCalibration" />
 
 </android.support.constraint.ConstraintLayout>
