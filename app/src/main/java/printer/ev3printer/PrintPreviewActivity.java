@@ -44,6 +44,15 @@ public class PrintPreviewActivity extends AppCompatActivity {
             }
         });
 
+        Button xd = findViewById(R.id.xd);
+        xd.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
+                startActivity(i);
+            }
+        });
+
         Intent intent = getIntent();
         String image_path = intent.getStringExtra("imagePath");
         Uri fileUri = Uri.parse(image_path);
