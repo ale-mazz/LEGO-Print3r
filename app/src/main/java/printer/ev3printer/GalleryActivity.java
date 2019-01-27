@@ -50,7 +50,7 @@ public class GalleryActivity extends AppCompatActivity {
         bidimensionalArray = new boolean[array_size][array_size];
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
-        final Button testArrayButton = findViewById(R.id.testArrayButton);
+        final Button LoadSheet = findViewById(R.id.LoadSheetButton);
         final Button changeActivity = findViewById(R.id.changeActivity);
 
         galleryImageView = findViewById(R.id.normalImageView);
@@ -78,6 +78,14 @@ public class GalleryActivity extends AppCompatActivity {
                 if (convertBitmapToFinal()) {
                     setImageView();
                 }
+            }
+        });
+
+        LoadSheet.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick (View v){
+                Intent i = new Intent (GalleryActivity.this, LoadSheetActivity.class);
+                startActivity(i);
             }
         });
 

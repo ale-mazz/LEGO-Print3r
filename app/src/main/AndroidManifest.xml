@@ -17,10 +17,12 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LoadSheetActivity"></activity>
+
         <service
             android:name=".EV3Service"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
 
         <activity
             android:name=".HelpActivity"

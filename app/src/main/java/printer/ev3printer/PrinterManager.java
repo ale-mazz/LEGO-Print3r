@@ -12,6 +12,7 @@ import java.util.concurrent.Future;
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.plugs.LightSensor;
 import it.unive.dais.legodroid.lib.plugs.TachoMotor;
+import it.unive.dais.legodroid.lib.plugs.TouchSensor;
 
 public class PrinterManager {
 
@@ -20,6 +21,7 @@ public class PrinterManager {
     TachoMotor penMotor;
     TachoMotor verticalMotor;
     LightSensor lightSensor;
+    TouchSensor touchSensor;
 
     private static int loadingSheetSpeed = -60;
     private static int reflectedValueThreshold = 3;
@@ -45,6 +47,7 @@ public class PrinterManager {
         verticalMotor = brick.getTachoMotor(EV3.OutputPort.B);
         penMotor = brick.getTachoMotor(EV3.OutputPort.C);
         lightSensor = brick.getLightSensor(EV3.InputPort._2);
+        touchSensor = brick.getTouchSensor(EV3.InputPort._1);
     }
 
 
@@ -122,6 +125,25 @@ public class PrinterManager {
             Log.e(TAG, "Load sheet: execution exception");
         } catch (InterruptedException e){
             Log.e(TAG, "Load sheet: interrupted exception");
+        }
+    }
+
+    public void LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
+        boolean condition = true;
+        Future<Boolean> loadButtonPresses = touchSensor.getPressed();
+        boolean redButtonPressed = loadButtonPresses.get();
+        if (redButtonPressed){
+            System.out.println("Button is pressed");
+            wheelMotor.setSpeed(loadingSheetSpeed);
+            wheelMotor.start();
+            while(condition){
+                Future<Short> reflectedValue = lightSensor.getReflected();
+                Short currentReflected = reflectedValue.get();
+                if(currentReflected < reflectedValueThreshold){
+                    wheelMotor.brake();
+                    condition = false;
+                }
+            }
         }
     }
 
