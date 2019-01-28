@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
     boolean mBound = false;
     EV3 ev3;
     BluetoothConnection btConnection;
-    String legoBrickName = "HAL9000";
+    String legoBrickName = "EV3_Printer";
 
     private static final String TAG = Prelude.ReTAG("MainActivity");
     @Nullable

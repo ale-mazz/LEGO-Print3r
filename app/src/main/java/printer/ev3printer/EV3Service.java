@@ -15,14 +15,14 @@ public class EV3Service extends Service {
 
     private final IBinder mBinder = new LocalBinder();
     private EV3 ev3Brick = null;
-    private final String legoBrickName = "HAL9000";
+    private final String legoBrickName = "EV3_Printer";
 
     private BluetoothConnection connection;
     private BluetoothConnection.BluetoothChannel channel = null;
 
     public EV3Service() {
         System.out.println("EV3 service created");
-        connection = new BluetoothConnection("HAL9000");
+        connection = new BluetoothConnection(legoBrickName);
         try {
             connection = new BluetoothConnection(legoBrickName);
             channel = connection.connect();

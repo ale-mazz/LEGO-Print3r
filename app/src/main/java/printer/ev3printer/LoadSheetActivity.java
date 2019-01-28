@@ -46,6 +46,8 @@ public class LoadSheetActivity extends AppCompatActivity {
         loadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
     }
 
+
+
     // Passaggio EV3Service
     private ServiceConnection mConnection = new ServiceConnection() {
 

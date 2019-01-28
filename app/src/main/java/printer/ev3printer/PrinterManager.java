@@ -147,7 +147,7 @@ public class PrinterManager {
         }
     }
 
-    // Vertical motor functions
+    // Vertical motor functionsb
 
     public void LowerPen(){
         try {
