@@ -32,21 +32,26 @@ public class CalibrationActivity extends AppCompatActivity {
         try {
             EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
 
+            //moves the pen one step up when the button is pressed
             penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
+            //move the pen one step down when the button is pressed
             penDown.setOnClickListener(v->Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
+            //test dot to calibrate the printer
             dot.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
+
+            //keeps moving the pen left while the button is pressed, then stops when it's released
 
             penLeft.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    if(event.getAction() == MotionEvent.ACTION_DOWN){           //if the button is being pressed
                         try {
                             ev3.run(this::goLeft);
                         } catch (EV3.AlreadyRunningException e) {
                             e.printStackTrace();
                         }
                     }
-                    if (event.getAction() == MotionEvent.ACTION_UP){
+                    if (event.getAction() == MotionEvent.ACTION_UP){            //if it gets released
                         try {
                             ev3.run(this::stopPenMotor);
                         } catch (EV3.AlreadyRunningException e) {
@@ -67,16 +72,18 @@ public class CalibrationActivity extends AppCompatActivity {
                 }
             });
 
+            //keeps moving the pen right while the button is pressed, then stops when it's released
+
             penRight.setOnTouchListener(new View.OnTouchListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event) {
+                public boolean onTouch(View v, MotionEvent event) {             //if the button is pressed
                     if(event.getAction() == MotionEvent.ACTION_DOWN){
                         try {
                             ev3.run(this::goRight);
                         } catch (EV3.AlreadyRunningException e) {
                             e.printStackTrace();
                         }
-                    }
+                    }                                                           //if it gets released
                     if (event.getAction() == MotionEvent.ACTION_UP){
                         try {
                             ev3.run(this::stopPenMotor);
