@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             // Connect to EV3 (HAL9000) via Bluetooth
-            EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+            EV3 ev3 = new EV3(new BluetoothConnection("EV3_Printer").connect());
 
             stopEverythingButton.setOnClickListener(v -> ev3.cancel());
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         } catch (IOException e) {
-            Log.e(TAG, "Fatal error: cannot connect to HAL9000");
+            Log.e(TAG, "Fatal error: cannot connect to EV3_Printer");
             e.printStackTrace();
         }
     }

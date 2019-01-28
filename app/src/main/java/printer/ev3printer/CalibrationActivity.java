@@ -30,7 +30,7 @@ public class CalibrationActivity extends AppCompatActivity {
         Button dot = findViewById(R.id.dotButton);
 
         try {
-            EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+            EV3 ev3 = new EV3(new BluetoothConnection("EV3_Printer").connect());
 
             //moves the pen one step up when the button is pressed
             penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));

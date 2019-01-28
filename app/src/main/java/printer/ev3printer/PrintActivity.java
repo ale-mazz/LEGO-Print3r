@@ -46,7 +46,7 @@ public class PrintActivity extends AppCompatActivity {
 
 
         try {
-            EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+            EV3 ev3 = new EV3(new BluetoothConnection("EV3_Printer").connect());
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
             //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
@@ -54,7 +54,7 @@ public class PrintActivity extends AppCompatActivity {
             biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
         } catch (IOException e) {
-            Log.e(TAG, "Fatal error: cannot connect to HAL9000");
+            Log.e(TAG, "Fatal error: cannot connect to EV3_Printer");
             e.printStackTrace();
         }
 
