@@ -51,14 +51,14 @@ public class PrintPreviewActivity extends AppCompatActivity {
         SeekBar dimensionSlider = findViewById(R.id.seekbar);
 
         Button printButton = findViewById(R.id.printButton);
-        Button xd = findViewById(R.id.xd);
+        Button calibra = findViewById(R.id.calibrationButton);
 
         help.setOnClickListener(v -> {
                 Intent i = new Intent(PrintPreviewActivity.this, PrintPreviewActivityHelp.class);
                 startActivity(i);
             });
 
-        xd.setOnClickListener(v -> {
+        calibra.setOnClickListener(v -> {
                 Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
                 startActivity(i);
             });
