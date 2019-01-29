@@ -51,7 +51,7 @@ public class StartActivity extends AppCompatActivity {
         helpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent i = new Intent(StartActivity.this, HelpActivity.class);
+                Intent i = new Intent(StartActivity.this, GalleryActivityHelp.class);
                 startActivity(i);
             }
         });

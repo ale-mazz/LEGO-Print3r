@@ -10,46 +10,42 @@
     <Button
         android:id="@+id/imageSelectionButton"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="187dp"
+        android:layout_height="69dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="8dp"
-        android:backgroundTint="@android:color/white"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="@font/simplifica"
         android:text="Seleziona Immagine"
+<<<<<<< HEAD
         app:layout_constraintEnd_toStartOf="@+id/LoadSheetButton"
         app:layout_constraintHorizontal_bias="0.424"
+=======
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@id/convertButton"
+        app:layout_constraintEnd_toEndOf="parent"
+>>>>>>> final-UI
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/normalImageView" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/normalImageView"
-        android:layout_width="121dp"
-        android:layout_height="99dp"
+        android:layout_width="369dp"
+        android:layout_height="387dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="test immagine "
         android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/imageSelectionButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageSelectionButton" />
-
-    <ImageView
-        android:id="@+id/convertedImageView"
-        android:layout_width="343dp"
-        android:layout_height="192dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
-        android:contentDescription="test immagine convertita"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/textViewSlider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toStartOf="parent"
+<<<<<<< HEAD
         app:layout_constraintTop_toBottomOf="@+id/normalImageView" />
 
     <Button
@@ -62,48 +58,50 @@
         android:text="Load Sheet"
         app:layout_constraintBottom_toBottomOf="@+id/imageSelectionButton"
         app:layout_constraintEnd_toEndOf="parent"
+=======
+>>>>>>> final-UI
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.674"
+        app:srcCompat="@mipmap/caricamento_img" />
 
     <Button
-        android:id="@+id/changeActivity"
+        android:id="@+id/convertButton"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="124dp"
+        android:layout_height="61dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@android:color/white"
-        android:text="Cambia activity"
+        android:fontFamily="@font/simplifica"
+        android:text="Converti"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageSelectionButton"
+        app:layout_constraintVertical_bias="0.577" />
 
-    <SeekBar
-        android:id="@+id/seekbar"
-        style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="219dp"
-        android:layout_height="47dp"
+    <ImageButton
+        android:id="@+id/helpGalleryActivityButton"
+        android:layout_width="41dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:progressTint="@color/colorPrimaryDark"
-        android:thumbTint="@android:color/black"
-        app:layout_constraintBottom_toTopOf="@+id/changeActivity"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/transparent"
+        android:src="@mipmap/help_icon"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/normalImageView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textViewSlider"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
-        android:text="Dimensione: 30"
-        app:layout_constraintBottom_toTopOf="@+id/seekbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

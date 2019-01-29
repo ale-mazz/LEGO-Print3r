@@ -20,7 +20,7 @@ import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.util.Prelude;
 
-public class TestActivity extends AppCompatActivity {
+public class PrintActivity extends AppCompatActivity {
 
     // Service ev3
     EV3Service mService;
@@ -37,12 +37,11 @@ public class TestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+        //setContentView(R.layout.activity_test);
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Button printButton = findViewById(R.id.printButton);
-        Button cancelButton = findViewById(R.id.cancelPrintButton);
 
         Intent intent = getIntent();
         bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
@@ -56,14 +55,19 @@ public class TestActivity extends AppCompatActivity {
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
 
+<<<<<<< HEAD:app/src/main/java/printer/ev3printer/TestActivity.java
             //EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
+=======
+        try {
+            EV3 ev3 = new EV3(new BluetoothConnection("EV3_Printer").connect());
+>>>>>>> final-UI:app/src/main/java/printer/ev3printer/PrintActivity.java
 
             printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
             //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
-            cancelButton.setOnClickListener(v -> Prelude.trap(() -> ev3.cancel()));
 
             biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
+<<<<<<< HEAD:app/src/main/java/printer/ev3printer/TestActivity.java
 
     }
     // Passaggio EV3Service
@@ -77,6 +81,11 @@ public class TestActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
+=======
+        } catch (IOException e) {
+            Log.e(TAG, "Fatal error: cannot connect to EV3_Printer");
+            e.printStackTrace();
+>>>>>>> final-UI:app/src/main/java/printer/ev3printer/PrintActivity.java
         }
 
         @Override

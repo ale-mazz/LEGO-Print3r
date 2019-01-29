@@ -17,6 +17,7 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
         <activity android:name=".LoadSheetActivity"></activity>
 
         <service
@@ -28,6 +29,30 @@
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
             android:theme="@style/AppTheme.HelpBox" />
+=======
+        <activity android:name=".CalibrationActivity"></activity>
+        <activity
+            android:name=".PrintPreviewActivityHelp"
+            android:label="PrintPreviewActivityHelp"
+            android:theme="@style/AppTheme.HelpBox" />
+        <activity android:name=".PrintActivity" />
+        <activity android:name=".PrintPreviewActivity" />
+        <activity
+            android:name=".GalleryActivityHelp"
+            android:label="GalleryActivityHelp"
+            android:theme="@style/AppTheme.HelpBox">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="github.com"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
+>>>>>>> final-UI
         <activity android:name=".BluetoothErrorActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".GalleryActivity" />
@@ -39,7 +64,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TestActivity" />
     </application>
 
 </manifest>
