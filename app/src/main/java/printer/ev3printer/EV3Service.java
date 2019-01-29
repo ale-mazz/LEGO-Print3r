@@ -14,9 +14,9 @@ import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 public class EV3Service extends Service {
 
     private final IBinder mBinder = new LocalBinder();
-    private EV3 ev3Brick = null;
     private final String legoBrickName = "EV3_Printer";
 
+    private EV3 ev3Brick = null;
     private BluetoothConnection connection;
     private BluetoothConnection.BluetoothChannel channel = null;
 
@@ -39,6 +39,24 @@ public class EV3Service extends Service {
         return mBinder;
     }
 
+    public class LocalBinder extends Binder {
+        EV3Service getService() {
+            // Return this instance of LocalService so clients can call public methods
+            return EV3Service.this;
+        }
+    }
+
+    public EV3 GetBrick(){
+        return ev3Brick;
+    }
+
+    public void PrintBrickStatus(){
+        if(ev3Brick != null){
+            System.out.println("Brick PRESENTE.");
+        } else {
+            System.out.println("Brick ASSENTE.");
+        }
+    }
 
     public boolean isBrickNull(){
         if(ev3Brick == null){
@@ -50,23 +68,7 @@ public class EV3Service extends Service {
         }
     }
 
-    public class LocalBinder extends Binder {
-        EV3Service getService() {
-            // Return this instance of LocalService so clients can call public methods
-            return EV3Service.this;
-        }
+    public boolean IsBrickRunning(){
+        return !ev3Brick.isCancelled();
     }
-
-    public void PrintBrickStatus(){
-        if(ev3Brick != null){
-            System.out.println("Brick PRESENTE.");
-        } else {
-            System.out.println("Brick ASSENTE.");
-        }
-    }
-
-    public EV3 GetBrick(){
-        return ev3Brick;
-    }
-
 }

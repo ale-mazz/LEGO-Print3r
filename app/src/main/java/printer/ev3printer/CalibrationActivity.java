@@ -67,7 +67,6 @@ public class CalibrationActivity extends AppCompatActivity {
                     }
                     return false;
                 }
-
             });
 
             //keeps moving the pen right while the button is pressed, then stops when it's released
