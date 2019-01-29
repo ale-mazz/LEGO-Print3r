@@ -94,7 +94,6 @@ public class MainActivity extends Activity {
             loadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
             unloadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::unloadSheet)));
             stopWheelsButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stopWheelMotor)));
-            testSpeedButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::testSpeed)));
 
             // Step buttons
             stepForwardButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::stepForward)));
@@ -190,10 +189,6 @@ public class MainActivity extends Activity {
         printerManager.UnloadSheet();
     }
 
-    private void testSpeed(EV3.Api api){
-        PrinterManager printerManager = new PrinterManager(api);
-        printerManager.StepMoveTest();
-    }
 
     private void stepForward(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);

@@ -9,22 +9,19 @@ import android.widget.TextView;
 
 public class BluetoothErrorActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_error);
 
         ImageView alertImageView = findViewById(R.id.alertImageView);
-        Button exitButton = findViewById(R.id.exitButton);
         TextView alertTextView = findViewById(R.id.alertTextView);
+        Button exitButton = findViewById(R.id.exitButton);
 
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+        exitButton.setOnClickListener(v-> {
                 finish();
                 System.exit(0);
-            }
-        });
+            });
     }
 }

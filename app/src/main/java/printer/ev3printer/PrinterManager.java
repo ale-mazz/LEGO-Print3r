@@ -45,7 +45,6 @@ public class PrinterManager {
      * Printer manager constructor.
      * @param brick the EV3 brick
      */
-
     public PrinterManager(EV3.Api brick){
         api = brick;
         wheelMotor = brick.getTachoMotor(EV3.OutputPort.A);
@@ -172,35 +171,6 @@ public class PrinterManager {
         }
     }
 
-    // Testing running status
-    public void StepMoveTest(){
-        int condition = 1000;
-        boolean firstLoop = true;
-        try{
-            wheelMotor.start();
-            wheelMotor.setStepSpeed(30, 0, 100, 0, true);
-            while(condition > 0){
-                Future<Float> speedValue = wheelMotor.getSpeed();
-                Float currentSpeed = speedValue.get();
-                System.out.println("Speed: " + currentSpeed);
-                condition--;
-                if(!firstLoop && currentSpeed == 0.0){
-                    System.out.println("Speed == 0.0 - Exit while loop");
-                    condition = 0;
-                    wheelMotor.stop();
-                }
-                if(firstLoop){
-                    firstLoop = false;
-                }
-            }
-        } catch (IOException e){
-            Log.e(TAG, "Wheelmotor cannot step");
-        } catch (ExecutionException e){
-            Log.e(TAG, "Wheelmotor: execution exception");
-        } catch (InterruptedException e){
-            Log.e(TAG, "Wheelmotor: interrupted exception");
-        }
-    }
     public void StepForwardWheel(int amount){
         try{
             for(int i = 0; i < amount; i++){
@@ -312,7 +282,7 @@ public class PrinterManager {
     }
 
     /**
-     * Convert the list of print instruction to EV3 atomic instruction to print the full image
+     * Convert the list of print instruction to EV3 atomic instructions to print the full image
      * @param list is a list of PrinterInstruction
      */
     public void PrintImage(List<PrinterInstruction> list){

@@ -27,7 +27,6 @@ public class PrintActivity extends AppCompatActivity {
     EV3 ev3;
     boolean mBound = false;
 
-
     boolean[] bwImageArray;
     Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
@@ -62,7 +61,8 @@ public class PrintActivity extends AppCompatActivity {
         biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
     }
-    // Passaggio EV3Service
+
+    //region EV3Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -95,6 +95,7 @@ public class PrintActivity extends AppCompatActivity {
         unbindService(mConnection);
         mBound = false;
     }
+    //endregion
 
 
     public void printArray(EV3.Api api) {

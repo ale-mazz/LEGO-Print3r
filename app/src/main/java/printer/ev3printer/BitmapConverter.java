@@ -54,7 +54,6 @@ public class BitmapConverter {
      * @param bwImageArray The boolean array to convert to two dimention boolean array
      * @param array_size The size of the new array
      */
-
     public static boolean[][] unidimensionalToBidimensional(boolean[] bwImageArray, int array_size){
         int count = 0;
         boolean[][] bidimensionalArray = new boolean[array_size][array_size];
@@ -67,19 +66,4 @@ public class BitmapConverter {
         }
         return bidimensionalArray;
     }
-    /*
-    public static boolean[][] deleteAlonePoint(boolean[][] originalArray, int array_size, int aloneDistance){
-        boolean[][] newArray = new boolean[array_size][array_size];
-        newArray = originalArray;
-        if(aloneDistance>0){
-            for(int x=0; x<array_size; x++){
-                for(int y=0; y<array_size;y++){
-                    for(int i = x-aloneDistance; i < a){}
-                }
-            }
-        }
-        return newArray;
-
-    }*/
-
 }

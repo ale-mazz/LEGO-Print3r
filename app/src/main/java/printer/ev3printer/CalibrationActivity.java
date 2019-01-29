@@ -26,7 +26,6 @@ public class CalibrationActivity extends AppCompatActivity {
     boolean mBound;
     EV3Service mService;
 
-
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,22 +36,18 @@ public class CalibrationActivity extends AppCompatActivity {
         Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
         startActivity(i);
 
+        //region Buttons declaration
         Button penUp = findViewById(R.id.arrowUp);
         Button penDown = findViewById(R.id.arrowDown);
         Button penLeft = findViewById(R.id.arrowLeft);
         Button penRight = findViewById(R.id.arrowRight);
         Button dot = findViewById(R.id.dotButton);
+        //endregion
 
-            //moves the pen one step up when the button is pressed
-            penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
-            //move the pen one step down when the button is pressed
-            penDown.setOnClickListener(v->Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
-            //test dot to calibrate the printer
-            dot.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
-
-            //keeps moving the pen left while the button is pressed, then stops when it's released
-
-            penLeft.setOnTouchListener(new View.OnTouchListener() {
+        penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
+        penDown.setOnClickListener(v->Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
+        dot.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
+        penLeft.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if(event.getAction() == MotionEvent.ACTION_DOWN){  //if the button is being pressed
@@ -72,10 +67,7 @@ public class CalibrationActivity extends AppCompatActivity {
                     return false;
                 }
             });
-
-            //keeps moving the pen right while the button is pressed, then stops when it's released
-
-            penRight.setOnTouchListener(new View.OnTouchListener() {
+        penRight.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {             //if the button is pressed
                     if(event.getAction() == MotionEvent.ACTION_DOWN){
@@ -97,6 +89,7 @@ public class CalibrationActivity extends AppCompatActivity {
             });
     }
 
+    //region Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -107,21 +100,7 @@ public class CalibrationActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
-
-            /*EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
-            mService = binder.getService();
-            ev3 = mService.GetBrick();
-            try{
-                if(!ev3.isCancelled())
-                    System.out.println("I'm calling the ev3 method.");
-                ev3.run(CalibrationActivity.this::loadSheet);
-            } catch (EV3.AlreadyRunningException e){
-                Log.e("EV3", "EV3 task is already running.");
-            }*/
-
-            mBound = true;
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;
@@ -131,9 +110,7 @@ public class CalibrationActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
-        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
     @Override
@@ -142,32 +119,28 @@ public class CalibrationActivity extends AppCompatActivity {
         unbindService(mConnection);
         mBound = false;
     }
-
+    //endregion
+    //region Utility methods to send instruction to the EV3 brick
     private void goRight(EV3.Api api) {
         PrinterManager manager = new PrinterManager(api);
         manager.KeepGoingRight();
     }
-
     private void goLeft(EV3.Api api) {
         PrinterManager manager = new PrinterManager(api);
         manager.KeepGoingLeft();
     }
-
     private void stopPenMotor (EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.StopPenMotor();
     }
-
     private void verticalMotorUp(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.RaisePen();
     }
-
     private void verticalMotorDown(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.LowerPen();
     }
-
     private void dot(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.Dot();
@@ -186,4 +159,5 @@ public class CalibrationActivity extends AppCompatActivity {
 
         }
     }
+    //endregion
 }
