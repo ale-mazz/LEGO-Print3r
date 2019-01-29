@@ -17,20 +17,19 @@
         android:roundIcon="@mipmap/app_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-<<<<<<< HEAD
-        <activity android:name=".LoadSheetActivity"></activity>
+
+        <activity android:name=".LoadSheetActivity">
+
+        </activity>
 
         <service
             android:name=".EV3Service"
             android:enabled="true"
             android:exported="true" />
 
-        <activity
-            android:name=".HelpActivity"
-            android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme.HelpBox" />
-=======
-        <activity android:name=".CalibrationActivity"></activity>
+        <activity android:name=".CalibrationActivity">
+
+        </activity>
         <activity
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"
@@ -52,7 +51,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
->>>>>>> final-UI
+
         <activity android:name=".BluetoothErrorActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".GalleryActivity" />

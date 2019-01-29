@@ -19,15 +19,10 @@
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="@font/simplifica"
         android:text="Seleziona Immagine"
-<<<<<<< HEAD
-        app:layout_constraintEnd_toStartOf="@+id/LoadSheetButton"
-        app:layout_constraintHorizontal_bias="0.424"
-=======
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@id/convertButton"
         app:layout_constraintEnd_toEndOf="parent"
->>>>>>> final-UI
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/normalImageView" />
 
@@ -45,21 +40,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toBottomOf="@+id/normalImageView" />
-
-    <Button
-        android:id="@+id/LoadSheetButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="52dp"
-        android:backgroundTint="@android:color/white"
-        android:text="Load Sheet"
-        app:layout_constraintBottom_toBottomOf="@+id/imageSelectionButton"
-        app:layout_constraintEnd_toEndOf="parent"
-=======
->>>>>>> final-UI
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.674"
         app:srcCompat="@mipmap/caricamento_img" />

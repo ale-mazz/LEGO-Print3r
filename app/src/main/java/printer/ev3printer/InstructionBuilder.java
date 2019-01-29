@@ -2,9 +2,6 @@ package printer.ev3printer;
 
 import java.util.ArrayList;
 
-// TODO: Migliorare l'algoritmo di stampa, che non faccia avanti indietro ogni volta
-
-
 public class InstructionBuilder {
     /**
      * Given a boolean array with its size, this method returns a list of Printer Instruction
@@ -45,6 +42,4 @@ public class InstructionBuilder {
             }
         return list;
     }
-
-
 }

@@ -1,10 +1,14 @@
 package printer.ev3printer;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,7 +19,15 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import it.unive.dais.legodroid.lib.EV3;
+import it.unive.dais.legodroid.lib.util.Prelude;
+
 public class PrintPreviewActivity extends AppCompatActivity {
+
+    EV3Service mService;
+    EV3 ev3;
+    boolean mBound;
+
 
     public Bitmap imageSelectedBitmap;
     public Bitmap convertedImageBitmap;
@@ -34,24 +46,23 @@ public class PrintPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print_preview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        TextView textViewSlider = findViewById(R.id.textViewSlider);
         final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
+        SeekBar dimensionSlider = findViewById(R.id.seekbar);
 
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
+        Button printButton = findViewById(R.id.printButton);
+        Button xd = findViewById(R.id.xd);
+
+        help.setOnClickListener(v -> {
                 Intent i = new Intent(PrintPreviewActivity.this, PrintPreviewActivityHelp.class);
                 startActivity(i);
-            }
-        });
+            });
 
-        Button xd = findViewById(R.id.xd);
-        xd.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
+        xd.setOnClickListener(v -> {
                 Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
                 startActivity(i);
-            }
-        });
+            });
+        printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
 
         Intent intent = getIntent();
         String image_path = intent.getStringExtra("imagePath");
@@ -67,11 +78,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
         convertBitmapToFinal();
         setImageView();
 
-        TextView textViewSlider = findViewById(R.id.textViewSlider);
-
-        SeekBar dimensionSlider = findViewById(R.id.seekbar);
-
-        Button printButton = findViewById(R.id.printButton);
 
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
         //slider overrides for dimension choice
@@ -94,8 +100,42 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
-        printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
 
+    }
+
+    // Passaggio EV3Service
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
+            mService = binder.getService();
+            ev3 = mService.GetBrick();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        // Creo intent per EV3Service
+        Intent intent = new Intent(this, EV3Service.class);
+        // Crea il bind con il service oppure crea prima il service se non presente
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onStop(){
+        super.onStop();
+        unbindService(mConnection);
+        mBound = false;
     }
 
     //FUNZIONI UTILIZZATE
@@ -134,6 +174,11 @@ public class PrintPreviewActivity extends AppCompatActivity {
         i.putExtras(b);
 
         startActivity(i);
+    }
+
+    public void printArray(EV3.Api api) {
+        PrinterManager manager = new PrinterManager(api);
+        manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(bidimensionalArray, array_size, array_size));
     }
 
 

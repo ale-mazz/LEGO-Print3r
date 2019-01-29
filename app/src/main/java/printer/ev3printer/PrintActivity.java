@@ -37,7 +37,7 @@ public class PrintActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_test);
+        setContentView(R.layout.activity_print);
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -55,19 +55,11 @@ public class PrintActivity extends AppCompatActivity {
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
 
-<<<<<<< HEAD:app/src/main/java/printer/ev3printer/TestActivity.java
-            //EV3 ev3 = new EV3(new BluetoothConnection("HAL9000").connect());
-=======
-        try {
-            EV3 ev3 = new EV3(new BluetoothConnection("EV3_Printer").connect());
->>>>>>> final-UI:app/src/main/java/printer/ev3printer/PrintActivity.java
 
-            printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
-            //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
+        printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
+        //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
 
-            biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
-
-<<<<<<< HEAD:app/src/main/java/printer/ev3printer/TestActivity.java
+        biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
     }
     // Passaggio EV3Service
@@ -81,11 +73,6 @@ public class PrintActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
-=======
-        } catch (IOException e) {
-            Log.e(TAG, "Fatal error: cannot connect to EV3_Printer");
-            e.printStackTrace();
->>>>>>> final-UI:app/src/main/java/printer/ev3printer/PrintActivity.java
         }
 
         @Override
@@ -113,6 +100,5 @@ public class PrintActivity extends AppCompatActivity {
     public void printArray(EV3.Api api) {
         PrinterManager manager = new PrinterManager(api);
         manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
-
     }
 }

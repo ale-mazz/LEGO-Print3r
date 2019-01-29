@@ -29,17 +29,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
-<<<<<<< HEAD
-    public Bitmap convertedImageBitmap;
-    public Bitmap resizedImageBitmap;
-    public boolean[] convertedImageBoolArray;
-    public boolean[][] bidimensionalArray;
-    public static int array_size = 40;
-    public static int MAX_VALUE = 60;
-    public static int MIN_VALUE = 10;
 
-=======
->>>>>>> final-UI
     public ImageView galleryImageView;
     public static Uri uri;
     public boolean image_selected = false;
@@ -52,13 +42,10 @@ public class GalleryActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Button selectImageButton = findViewById(R.id.imageSelectionButton);
-<<<<<<< HEAD
-        final Button LoadSheet = findViewById(R.id.LoadSheetButton);
-        final Button changeActivity = findViewById(R.id.changeActivity);
-=======
+
         final Button convertButton = findViewById(R.id.convertButton);
         final ImageView help = findViewById(R.id.helpGalleryActivityButton);
->>>>>>> final-UI
+
 
         galleryImageView = findViewById(R.id.normalImageView);
 
@@ -70,19 +57,10 @@ public class GalleryActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< HEAD
-        LoadSheet.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                Intent i = new Intent (GalleryActivity.this, LoadSheetActivity.class);
-                startActivity(i);
-            }
-        });
 
         // Bottone per entrare in galleria
-=======
+
         //Enter gallery
->>>>>>> final-UI
         selectImageButton.setOnClickListener(v -> OpenGallery());
 
         //Enter PrintPreviewActivity
@@ -135,11 +113,7 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        //unbindService(mConnection);
-        //mBound = false;
     }
-
-
 
     // FUNCTIONS
 

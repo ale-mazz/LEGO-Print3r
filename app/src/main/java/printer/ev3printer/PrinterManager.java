@@ -78,15 +78,8 @@ public class PrinterManager {
             wheelMotor.setSpeed(loadingSheetSpeed);
             wheelMotor.start();
             while (condition){
-                /*Future<Short> ambientValue = lightSensor.getAmbient();
-                Short currentAmbientValue = ambientValue.get();
-                Future<LightSensor.Color> colorValue = lightSensor.getColor();
-                LightSensor.Color currentColor = colorValue.get(); */
                 Future<Short> reflectedValue = lightSensor.getReflected();
                 Short currentReflected = reflectedValue.get();
-                /*System.out.println("'REFLECTED' letto: " + currentReflected);
-                System.out.println("'COLORE' letto: " + currentColor.toString());
-                System.out.println("'AMBIENT' letto: " + currentAmbientValue);*/
                 if(currentReflected < reflectedValueThreshold){
                     wheelMotor.brake();
                     condition = false;
@@ -127,21 +120,6 @@ public class PrinterManager {
                 LoadSheet();
             }
         }
-
-/*        if (redButtonPressed){
-            System.out.println("Button is pressed");
-            wheelMotor.setSpeed(loadingSheetSpeed);
-            wheelMotor.start();
-            boolean condition = true;
-            while(condition){
-                Future<Short> reflectedValue = lightSensor.getReflected();
-                Short currentReflected = reflectedValue.get();
-                if(currentReflected < reflectedValueThreshold){
-                    wheelMotor.brake();
-                    condition = false;
-                }
-            }
-        } */
     }
 
     // Vertical motor functions
