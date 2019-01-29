@@ -16,7 +16,6 @@ import it.unive.dais.legodroid.lib.plugs.TouchSensor;
 
 public class PrinterManager {
 
-    //region Variables
     EV3.Api api;
     TachoMotor wheelMotor;
     TachoMotor penMotor;
@@ -37,14 +36,11 @@ public class PrinterManager {
     private static int verticalDotMove = 40;
     private static int verticalStepBuildOutAndIn = 15;
 
+
+    private int numOfDots= 0;
+
     final String TAG = "PrinterManager";
 
-    //endregion
-
-    /**
-     * Printer manager constructor.
-     * @param brick the EV3 brick
-     */
     public PrinterManager(EV3.Api brick){
         api = brick;
         wheelMotor = brick.getTachoMotor(EV3.OutputPort.A);
@@ -53,6 +49,7 @@ public class PrinterManager {
         lightSensor = brick.getLightSensor(EV3.InputPort._2);
         touchSensor = brick.getTouchSensor(EV3.InputPort._1);
     }
+
 
     // Pen motor functions
 
@@ -72,7 +69,6 @@ public class PrinterManager {
             Log.e(TAG, "Can't go left.");
         }
     }
-
     // Wheel motor functions
 
     public void LoadSheet(){
@@ -171,6 +167,35 @@ public class PrinterManager {
         }
     }
 
+    // Testing running status
+    public void StepMoveTest(){
+        int condition = 1000;
+        boolean firstLoop = true;
+        try{
+            wheelMotor.start();
+            wheelMotor.setStepSpeed(30, 0, 100, 0, true);
+            while(condition > 0){
+                Future<Float> speedValue = wheelMotor.getSpeed();
+                Float currentSpeed = speedValue.get();
+                System.out.println("Speed: " + currentSpeed);
+                condition--;
+                if(!firstLoop && currentSpeed == 0.0){
+                    System.out.println("Speed == 0.0 - Exit while loop");
+                    condition = 0;
+                    wheelMotor.stop();
+                }
+                if(firstLoop){
+                    firstLoop = false;
+                }
+            }
+        } catch (IOException e){
+            Log.e(TAG, "Wheelmotor cannot step");
+        } catch (ExecutionException e){
+            Log.e(TAG, "Wheelmotor: execution exception");
+        } catch (InterruptedException e){
+            Log.e(TAG, "Wheelmotor: interrupted exception");
+        }
+    }
     public void StepForwardWheel(int amount){
         try{
             for(int i = 0; i < amount; i++){
@@ -194,13 +219,10 @@ public class PrinterManager {
         }
     }
 
-    /**
-     * Makes the brick move it's pen to the right by an amount.
-     * @param amount How much does the brick need to move right
-     */
     public void StepRight(int amount){
         try {
             for(int i = 0; i < amount; i++) {
+
                 penMotor.start();
                 penMotor.setStepSpeed(penMotorLeftRightSpeed, 0, penMotorStepsTime, 0, true);
                 penMotor.waitCompletion();
@@ -210,11 +232,6 @@ public class PrinterManager {
             Log.e(TAG, "Step pen motor Right doesn't respond");
         }
     }
-
-    /**
-     * Makes the brick move it's pen to the left by an amount.
-     * @param amount How much does the brick need to move left
-     */
     public void StepLeft(int amount){
         try {
             for(int i = 0; i < amount; i++) {
@@ -229,8 +246,16 @@ public class PrinterManager {
     }
 
     public void Dot(){
-        DotDown();
-        DotUp();
+        try {
+            verticalMotor.start();
+            verticalMotor.setStepPower(- verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove, verticalStepBuildOutAndIn, true);
+            verticalMotor.waitCompletion();
+            //System.out.println(verticalMotor.getPosition().get());
+            verticalMotor.setStepPower(verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove -2, verticalStepBuildOutAndIn, true);
+            verticalMotor.waitCompletion();
+        } catch (IOException e){
+            Log.e(TAG, "Not dotting");
+        }
     }
 
     public void DotDown(){
@@ -273,7 +298,9 @@ public class PrinterManager {
                 StepRight(instruction.getAmount());
                 break;
             case POINT:
-                Dot();
+                //Dot();
+                DotDown();
+                DotUp();
                 break;
             case LEFT:
                 StepLeft(instruction.getAmount());
@@ -281,16 +308,16 @@ public class PrinterManager {
         }
     }
 
-    /**
-     * Convert the list of print instruction to EV3 atomic instructions to print the full image
-     * @param list is a list of PrinterInstruction
-     */
-    public void PrintImage(List<PrinterInstruction> list){
+    public boolean PrintImage(List<PrinterInstruction> list){
+        boolean finished = false;
         if(list.size() > 0){
             for (PrinterInstruction instruction : list) {
                 ConvertInstructionToAction(instruction);
             }
+            finished = true;
         }
+        //DotUp();
         UnloadSheet();
+        return finished;
     }
 }
