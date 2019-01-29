@@ -104,6 +104,7 @@ public class PrinterManager {
     public void UnloadSheet(){
         boolean condition = true;
         try {
+            wheelMotor.waitUntilReady();
             wheelMotor.start();
             wheelMotor.setSpeed(-loadingSheetSpeed);
             while (condition){
