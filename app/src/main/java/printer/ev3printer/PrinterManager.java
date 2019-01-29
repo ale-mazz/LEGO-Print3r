@@ -102,43 +102,26 @@ public class PrinterManager {
         }
     }
     public void UnloadSheet(){
-        /*boolean condition = true;
-        try {
-            wheelMotor.start();
-            wheelMotor.setSpeed(-loadingSheetSpeed);
-            while (condition){
-                Future<Short> reflectedValue = lightSensor.getReflected();
-                Short currentReflected = reflectedValue.get();
-                System.out.println("CI SONO ARRIVATO!!!");
-                if(currentReflected > reflectedValueThreshold){
-                    Log.w("UNLOAD","There is no sheet.");
-                    wheelMotor.stop();
-                    condition = false;
-                }
-            }
-            wheelMotor.stop();
-            */
         try{
             wheelMotor.start();
             wheelMotor.setStepSpeed(-loadingSheetSpeed, 0, 1500, 0, true);
 
         }  catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
-        } /*catch (ExecutionException e){
-            Log.e(TAG, "Load sheet: execution exception");
-        } catch (InterruptedException e){
-            Log.e(TAG, "Load sheet: interrupted exception");
-        }*/
+        }
     }
 
     public void LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
-        boolean condition = true;
+
         Future<Boolean> loadButtonPresses = touchSensor.getPressed();
+
         boolean redButtonPressed = loadButtonPresses.get();
+
         if (redButtonPressed){
             System.out.println("Button is pressed");
             wheelMotor.setSpeed(loadingSheetSpeed);
             wheelMotor.start();
+            boolean condition = true;
             while(condition){
                 Future<Short> reflectedValue = lightSensor.getReflected();
                 Short currentReflected = reflectedValue.get();
