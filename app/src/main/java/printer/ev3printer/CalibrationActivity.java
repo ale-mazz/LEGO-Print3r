@@ -9,14 +9,15 @@ import android.content.pm.ActivityInfo;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 import it.unive.dais.legodroid.lib.EV3;
-import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class CalibrationActivity extends AppCompatActivity {
@@ -32,6 +33,9 @@ public class CalibrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
+        startActivity(i);
 
         Button penUp = findViewById(R.id.arrowUp);
         Button penDown = findViewById(R.id.arrowDown);
@@ -103,6 +107,19 @@ public class CalibrationActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
+
+            /*EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
+            mService = binder.getService();
+            ev3 = mService.GetBrick();
+            try{
+                if(!ev3.isCancelled())
+                    System.out.println("I'm calling the ev3 method.");
+                ev3.run(CalibrationActivity.this::loadSheet);
+            } catch (EV3.AlreadyRunningException e){
+                Log.e("EV3", "EV3 task is already running.");
+            }*/
+
+            mBound = true;
         }
 
         @Override
@@ -154,5 +171,19 @@ public class CalibrationActivity extends AppCompatActivity {
     private void dot(EV3.Api api){
         PrinterManager manager = new PrinterManager(api);
         manager.Dot();
+    }
+
+    private void loadSheet(EV3.Api api) {
+        Log.d("Load sheet method: ","Loading SHEET started.");
+        PrinterManager printerManager = new PrinterManager(api);
+        try{
+            printerManager.LoadSheetWithButton();
+        } catch(IOException e){
+
+        } catch (ExecutionException e){
+
+        } catch(InterruptedException e){
+
+        }
     }
 }

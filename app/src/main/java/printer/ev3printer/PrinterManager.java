@@ -110,7 +110,7 @@ public class PrinterManager {
         }
     }
 
-    public void LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
+    public boolean LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
 
         boolean isPressed = false;
         boolean redButtonPressed;
@@ -125,6 +125,8 @@ public class PrinterManager {
                 LoadSheet();
             }
         }
+
+        return isPressed;
     }
 
     // Vertical motor functions
