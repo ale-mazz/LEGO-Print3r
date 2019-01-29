@@ -1,4 +1,4 @@
-<resources tools:ignore="ExtraTranslation" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
     <string name="app_name">EV3 Printer</string>
     <string name="GalleryActivityHelp">In questa schermata è possibile selezionare un\'immagine dalla propria galleria premendo il pulsante "SELEZIONA IMMAGINE". \nSuccessivamente, si potrà visualizzare l\'immagine scelta e convertirla in formato stampabile premendo il pulsante "CONVERTI".</string>
     <string name="PrintPreviewActivityHelp">In questa schermata verrà visualizzata un\'anteprima dell\'immagine che verrà stampata. La dimensione dell\'immagine può essere modificata utilizzando lo slider sotto di essa (da 30x30 a 60x60 pixel). Una volta selezionata la dimensione desiderata, l\'utente può procedere alla calibratura della stampante premendo il pulsante "CALIBRA".</string>
