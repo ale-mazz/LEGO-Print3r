@@ -108,7 +108,7 @@ public class PrinterManager {
             wheelMotor.setStepSpeed(-loadingSheetSpeed, 0, 1500, 0, true);
 
         }  catch (IOException e){
-            Log.e(TAG, "Load sheet: lightSensor not working");
+            Log.e(TAG, "Load sheet: lightSensor not working.");
         }
     }
 
