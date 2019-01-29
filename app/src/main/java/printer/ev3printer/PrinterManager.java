@@ -74,6 +74,7 @@ public class PrinterManager {
     public void LoadSheet(){
         boolean condition = true;
         try {
+            System.out.println("Loading sheet: STARTED.");
             wheelMotor.setSpeed(loadingSheetSpeed);
             wheelMotor.start();
             while (condition){
@@ -113,11 +114,21 @@ public class PrinterManager {
 
     public void LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
 
-        Future<Boolean> loadButtonPresses = touchSensor.getPressed();
+        boolean isPressed = false;
+        boolean redButtonPressed;
 
-        boolean redButtonPressed = loadButtonPresses.get();
+        while (!isPressed){
+            Log.d("LoadSheetButton: ","Checking button.");
+            Future<Boolean> loadButtonPresses = touchSensor.getPressed();
+            redButtonPressed = loadButtonPresses.get();
+            if (redButtonPressed){
+                System.out.println("Button pressed.");
+                isPressed = true;
+                LoadSheet();
+            }
+        }
 
-        if (redButtonPressed){
+/*        if (redButtonPressed){
             System.out.println("Button is pressed");
             wheelMotor.setSpeed(loadingSheetSpeed);
             wheelMotor.start();
@@ -130,10 +141,10 @@ public class PrinterManager {
                     condition = false;
                 }
             }
-        }
+        } */
     }
 
-    // Vertical motor functionsb
+    // Vertical motor functions
 
     public void LowerPen(){
         try {

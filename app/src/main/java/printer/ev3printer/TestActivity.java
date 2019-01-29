@@ -22,9 +22,6 @@ import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class TestActivity extends AppCompatActivity {
 
-
-    //TODO: trovare un modo per capire se il brick sta "stampando" oppure no
-
     // Service ev3
     EV3Service mService;
     EV3 ev3;

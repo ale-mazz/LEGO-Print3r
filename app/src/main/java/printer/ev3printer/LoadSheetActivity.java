@@ -28,6 +28,7 @@ public class LoadSheetActivity extends AppCompatActivity {
     EV3 ev3;
     boolean mBound = false;
     private TouchSensor touch;
+    private boolean started = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -35,26 +36,9 @@ public class LoadSheetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_sheet);
 
-        Button back = findViewById(R.id.BackButton);
-
-        back.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick (View v){
-                Intent i = new Intent (LoadSheetActivity.this, GalleryActivity.class);
-                startActivity(i);
-            }
-        });
-
-        //Button loadSheetButton = findViewById(R.id.loadButton);
-
-        //loadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
-        while(!mService.GetBrick().isCancelled()){
-            Prelude.trap(() -> mService.GetBrick().run(this::loadSheet));
-        }
+        System.out.println("onCreate creato");
 
     }
-
-
 
     // Passaggio EV3Service
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -66,6 +50,14 @@ public class LoadSheetActivity extends AppCompatActivity {
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
             ev3 = mService.GetBrick();
+            try{
+                if(!ev3.isCancelled())
+                    System.out.println("I'm calling the ev3 method.");
+                    ev3.run(LoadSheetActivity.this::loadSheet);
+            } catch (EV3.AlreadyRunningException e){
+                Log.e("EV3", "EV3 task is already running.");
+            }
+
             mBound = true;
         }
 
@@ -78,21 +70,37 @@ public class LoadSheetActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
+
+
+        System.out.println("onStart creato");
+
         // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
         // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        System.out.println("Ho appena creato il bind con il SERVICE.");
+
     }
     @Override
     public void onStop(){
         super.onStop();
         unbindService(mConnection);
         mBound = false;
-        mService.GetBrick().cancel();
+        //mService.GetBrick().cancel();
     }
 
-    private void loadSheet(EV3.Api api) throws InterruptedException, ExecutionException, IOException {
+    private void loadSheet(EV3.Api api) {
+        Log.d("Load sheet method: ","Loading SHEET started.");
         PrinterManager printerManager = new PrinterManager(api);
-        printerManager.LoadSheetWithButton();
+        try{
+            printerManager.LoadSheetWithButton();
+        } catch(IOException e){
+
+        } catch (ExecutionException e){
+
+        } catch(InterruptedException e){
+
+        }
+
     }
 }
