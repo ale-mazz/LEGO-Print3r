@@ -107,13 +107,10 @@ public class PrinterManager {
             wheelMotor.start();
             wheelMotor.setSpeed(-loadingSheetSpeed);
             while (condition){
-                //Future<Short> ambientValue = lightSensor.getAmbient();
-                //Short currentAmbientValue = ambientValue.get();
                 Future<Short> reflectedValue = lightSensor.getReflected();
                 Short currentReflected = reflectedValue.get();
-                //System.out.println("Valore letto in espulsione: " + currentAmbientValue);
                 if(currentReflected > reflectedValueThreshold){
-                    System.out.println("THERE IS NO SHEET");
+                    Log.w("UNLOAD","There is no sheet.");
                     wheelMotor.stop();
                     condition = false;
                 }
@@ -337,6 +334,7 @@ public class PrinterManager {
                 ConvertInstructionToAction(instruction);
             }
         }
+        DotUp();
         UnloadSheet();
 
     }
