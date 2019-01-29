@@ -102,7 +102,7 @@ public class PrinterManager {
         }
     }
     public void UnloadSheet(){
-        boolean condition = true;
+        /*boolean condition = true;
         try {
             wheelMotor.start();
             wheelMotor.setSpeed(-loadingSheetSpeed);
@@ -116,13 +116,18 @@ public class PrinterManager {
                 }
             }
             wheelMotor.stop();
+            */
+        try{
+            wheelMotor.start();
+            wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, 1000, 0, true);
+
         }  catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
-        } catch (ExecutionException e){
+        } /*catch (ExecutionException e){
             Log.e(TAG, "Load sheet: execution exception");
         } catch (InterruptedException e){
             Log.e(TAG, "Load sheet: interrupted exception");
-        }
+        }*/
     }
 
     public void LoadSheetWithButton() throws IOException, ExecutionException, InterruptedException {
