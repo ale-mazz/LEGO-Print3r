@@ -48,8 +48,8 @@ public class LoadSheetActivity extends AppCompatActivity {
         //Button loadSheetButton = findViewById(R.id.loadButton);
 
         //loadSheetButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::loadSheet)));
-        while(!ev3.isCancelled()){
-            Prelude.trap(() -> ev3.run(this::loadSheet));
+        while(!mService.GetBrick().isCancelled()){
+            Prelude.trap(() -> mService.GetBrick().run(this::loadSheet));
         }
 
     }
@@ -88,7 +88,7 @@ public class LoadSheetActivity extends AppCompatActivity {
         super.onStop();
         unbindService(mConnection);
         mBound = false;
-        ev3.cancel();
+        mService.GetBrick().cancel();
     }
 
     private void loadSheet(EV3.Api api) throws InterruptedException, ExecutionException, IOException {
