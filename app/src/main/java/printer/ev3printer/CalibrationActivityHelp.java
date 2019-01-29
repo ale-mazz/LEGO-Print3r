@@ -40,11 +40,6 @@ public class CalibrationActivityHelp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        //getWindow().setLayout((int)(width*.8), (int)(height*.7));
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
@@ -57,11 +52,6 @@ public class CalibrationActivityHelp extends Activity {
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
-            // We've bound to LocalService, cast the IBinder and get LocalService instance
-            /*EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
-            mService = binder.getService();
-            ev3 = mService.GetBrick();
-            mBound = true;*/
 
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
