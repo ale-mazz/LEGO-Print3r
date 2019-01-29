@@ -109,6 +109,7 @@ public class PrinterManager {
             while (condition){
                 Future<Short> reflectedValue = lightSensor.getReflected();
                 Short currentReflected = reflectedValue.get();
+                System.out.println("CI SONO ARRIVATO!!!");
                 if(currentReflected > reflectedValueThreshold){
                     Log.w("UNLOAD","There is no sheet.");
                     wheelMotor.stop();
@@ -119,7 +120,7 @@ public class PrinterManager {
             */
         try{
             wheelMotor.start();
-            wheelMotor.setStepSpeed(-wheelMotorSpeed, 0, 1000, 0, true);
+            wheelMotor.setStepSpeed(-loadingSheetSpeed, 0, 1500, 0, true);
 
         }  catch (IOException e){
             Log.e(TAG, "Load sheet: lightSensor not working");
@@ -339,7 +340,7 @@ public class PrinterManager {
                 ConvertInstructionToAction(instruction);
             }
         }
-        DotUp();
+        //DotUp();
         UnloadSheet();
 
     }
