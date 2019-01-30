@@ -9,8 +9,8 @@
     <SeekBar
         android:id="@+id/dimensionSeekbar"
         style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="220dp"
-        android:layout_height="45dp"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -18,6 +18,7 @@
         android:thumbTint="@android:color/black"
         app:layout_constraintBottom_toTopOf="@+id/contrastSliderText"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -31,34 +32,37 @@
         app:layout_constraintBottom_toTopOf="@+id/dimensionSeekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/convertedImageView"
-        android:layout_width="311dp"
-        android:layout_height="333dp"
+        android:layout_width="323dp"
+        android:layout_height="267dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/dimensionTextView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7"
+        app:layout_constraintVertical_bias="0.402"
         app:srcCompat="@color/colorAccent" />
 
     <Button
         android:id="@+id/printButton"
-        android:layout_width="139dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/white"
         android:text="Stampa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/calibrationButton" />
 
     <ImageButton
         android:id="@+id/helpPrintPreviewActivityButton"
@@ -66,38 +70,36 @@
         android:layout_height="36dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:src="@mipmap/help_icon"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/convertedImageView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.982"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.407" />
 
     <Button
         android:id="@+id/calibrationButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="130dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@android:color/white"
         android:text="Calibra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/printButton"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.312"
         app:layout_constraintStart_toStartOf="parent" />
 
     <SeekBar
         android:id="@+id/contrastSeekBar"
         style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="220dp"
-        android:layout_height="45dp"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -111,8 +113,8 @@
     <SeekBar
         android:id="@+id/brightnessSeekBar"
         style="@android:style/Widget.DeviceDefault.Light.SeekBar"
-        android:layout_width="220dp"
-        android:layout_height="45dp"
+        android:layout_width="200dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -145,5 +147,19 @@
         app:layout_constraintBottom_toTopOf="@+id/brightnessSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.53" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
 </android.support.constraint.ConstraintLayout>

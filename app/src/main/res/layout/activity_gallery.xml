@@ -5,83 +5,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GalleryActivity"
-    tools:layout_editor_absoluteY="25dp">
+    tools:layout_editor_absoluteY="0dp">
 
     <Button
         android:id="@+id/imageSelectionButton"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="187dp"
-        android:layout_height="69dp"
+        android:layout_width="178dp"
+        android:layout_height="58dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorAccent"
         android:fontFamily="@font/simplifica"
         android:text="Seleziona Immagine"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@id/convertButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/normalImageView" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/normalImageView"
-        android:layout_width="369dp"
-        android:layout_height="387dp"
+        android:layout_width="363dp"
+        android:layout_height="375dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
         android:contentDescription="test immagine "
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/imageSelectionButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.674"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.402"
         app:srcCompat="@mipmap/caricamento_img" />
 
     <Button
         android:id="@+id/convertButton"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="124dp"
-        android:layout_height="61dp"
+        android:layout_width="117dp"
+        android:layout_height="49dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="@android:color/white"
         android:fontFamily="@font/simplifica"
         android:text="Converti"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageSelectionButton"
-        app:layout_constraintVertical_bias="0.577" />
+        app:layout_constraintTop_toBottomOf="@+id/imageSelectionButton"
+        app:layout_constraintVertical_bias="0.428" />
 
     <ImageButton
         android:id="@+id/helpGalleryActivityButton"
-        android:layout_width="41dp"
-        android:layout_height="36dp"
+        android:layout_width="44dp"
+        android:layout_height="38dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
         android:src="@mipmap/help_icon"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@id/normalImageView"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@id/guideline5" />
 
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.45" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.98" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="6dp" />
 
 </android.support.constraint.ConstraintLayout>
