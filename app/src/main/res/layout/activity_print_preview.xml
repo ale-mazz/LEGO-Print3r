@@ -49,7 +49,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline7"
         app:layout_constraintVertical_bias="0.402"
-        app:srcCompat="@color/colorAccent" />
+        app:srcCompat="@color/colorPrimary" />
 
     <Button
         android:id="@+id/printButton"
