@@ -22,10 +22,8 @@ import it.unive.dais.legodroid.lib.EV3;
 
 public class GalleryActivity extends AppCompatActivity {
 
-    // Service ev3
-    EV3Service mService;
-    EV3 ev3;
-    boolean mBound = false;
+    private EV3Service mService;
+    private boolean mBound = false;
 
     private int PICK_IMAGE_REQUEST = 1;
     public Bitmap imageSelectedBitmap;
@@ -83,19 +81,17 @@ public class GalleryActivity extends AppCompatActivity {
             }
         }
     }
-    // Passaggio EV3Service
-    private ServiceConnection mConnection = new ServiceConnection() {
 
+    //region EV3Service connection
+    private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
             // We've bound to LocalService, cast the IBinder and get LocalService instance
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
-            ev3 = mService.GetBrick();
             mBound = true;
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;
@@ -105,22 +101,18 @@ public class GalleryActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
-        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
     @Override
     public void onStop(){
         super.onStop();
     }
-
-    // FUNCTIONS
+    //endregion
 
     public void setImageView() {
         galleryImageView.setImageBitmap(imageSelectedBitmap);
     }
-
     public void SendBitmapToNextActivity() {
         if (image_selected)
         {
@@ -137,7 +129,6 @@ public class GalleryActivity extends AppCompatActivity {
         }
 
     }
-
     public void OpenGallery(){
         Intent intent = new Intent();
         intent.setType("image/*");

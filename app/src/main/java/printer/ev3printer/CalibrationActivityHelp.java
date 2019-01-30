@@ -52,6 +52,7 @@ public class CalibrationActivityHelp extends Activity {
         getWindow().setAttributes(params);
     }
 
+    //region EV3Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override
@@ -80,9 +81,7 @@ public class CalibrationActivityHelp extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
-        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
     @Override
@@ -91,6 +90,7 @@ public class CalibrationActivityHelp extends Activity {
         unbindService(mConnection);
         mBound = false;
     }
+    //endregion
 
     private void loadSheet(EV3.Api api) {
         Log.d("Load sheet method: ","Loading SHEET started.");

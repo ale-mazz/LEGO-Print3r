@@ -89,7 +89,7 @@ public class CalibrationActivity extends AppCompatActivity {
             });
     }
 
-    //region Service connection
+    //region EV3Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
 
         @Override

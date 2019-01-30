@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -20,25 +19,33 @@ import android.widget.TextView;
 import java.io.IOException;
 
 import it.unive.dais.legodroid.lib.EV3;
-import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class PrintPreviewActivity extends AppCompatActivity {
 
+
+    //region Variables
     EV3Service mService;
     EV3 ev3;
     boolean mBound;
 
-
     public Bitmap imageSelectedBitmap;
     public Bitmap convertedImageBitmap;
     public Bitmap resizedImageBitmap;
+    public Bitmap adjustedContrastBitmap;
+
     public boolean[] convertedImageBoolArray;
     public boolean[][] bidimensionalArray;
     public static int array_size = 40;
     public static int MAX_VALUE = 60;
     public static int MIN_VALUE = 30;
+    private int brightness = 0;
+    private static int MIN_BRIGHTNESS = -255;
+    private static int MAX_BRIGHTNESS = 255;
+    private int contrast = 1;
+    private static int MIN_CONTRAST = 0;
+    private static int MAX_CONTRAST = 10;
     public ImageView convertedImageView;
-
+    //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,21 +54,16 @@ public class PrintPreviewActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         TextView textViewSlider = findViewById(R.id.textViewSlider);
-        final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
         SeekBar dimensionSlider = findViewById(R.id.seekbar);
+        SeekBar brightnessSlider = findViewById(R.id.brightnessBar);
+        SeekBar contrastSlider = findViewById(R.id.contrastBar);
 
-        Button printButton = findViewById(R.id.printButton);
-        Button calibra = findViewById(R.id.calibrationButton);
+        final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
+        final Button printButton = findViewById(R.id.printButton);
+        final Button caliberButton = findViewById(R.id.calibrationButton);
 
-        help.setOnClickListener(v -> {
-                Intent i = new Intent(PrintPreviewActivity.this, PrintPreviewActivityHelp.class);
-                startActivity(i);
-            });
-
-        calibra.setOnClickListener(v -> {
-                Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
-                startActivity(i);
-            });
+        help.setOnClickListener(v -> StartPrintPreviewHelpActivity());
+        caliberButton.setOnClickListener(v -> StartCalibrationActivity());
         printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
 
         Intent intent = getIntent();
@@ -85,11 +87,9 @@ public class PrintPreviewActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
             }
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int value = progress + MIN_VALUE;
@@ -100,7 +100,40 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
-
+        brightnessSlider.setMax(500);
+        brightnessSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int value = progress + MIN_BRIGHTNESS;
+                brightness = value;
+                if (convertBitmapToFinal()) {
+                    setImageView();
+                }
+            }
+        });
+        contrastSlider.setMax(MAX_CONTRAST);
+        contrastSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                int value = progress;
+                contrast = value;
+                if (convertBitmapToFinal()) {
+                    setImageView();
+                }
+            }
+        });
     }
 
     // Passaggio EV3Service
@@ -147,12 +180,15 @@ public class PrintPreviewActivity extends AppCompatActivity {
     public boolean convertBitmapToFinal() {
 
         if (imageSelectedBitmap != null) {
+            BitmapConverter converter = new BitmapConverter();
             //Faccio il resize della bitmap
             resizedImageBitmap = getResizedBitmap(imageSelectedBitmap, array_size, array_size);
-            //Uso l'algoritmo di FS per convertire l'immagine
-            convertedImageBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(resizedImageBitmap);
 
-            BitmapConverter converter = new BitmapConverter();
+            adjustedContrastBitmap = BitmapConverter.changeBitmapContrastBrightness(resizedImageBitmap, contrast, brightness);
+            //Uso l'algoritmo di FS per convertire l'immagine
+            convertedImageBitmap = com.askjeffreyliu.floydsteinbergdithering.Utils.floydSteinbergDithering(adjustedContrastBitmap);
+
+
             convertedImageBoolArray = converter.readBitmapPixelsAsBooleans(convertedImageBitmap);
             return true;
         } else {
@@ -173,6 +209,16 @@ public class PrintPreviewActivity extends AppCompatActivity {
         i.putExtra("Array_size", array_size);
         i.putExtras(b);
 
+        startActivity(i);
+    }
+
+    public void StartPrintPreviewHelpActivity(){
+        Intent i = new Intent(PrintPreviewActivity.this, PrintPreviewActivityHelp.class);
+        startActivity(i);
+    }
+
+    public void StartCalibrationActivity(){
+        Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
         startActivity(i);
     }
 

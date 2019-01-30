@@ -6,9 +6,10 @@ public class InstructionBuilder {
     /**
      * Given a boolean array with its size, this method returns a list of Printer Instruction
      * @param array The boolean array
-     * @param width
-     * @param height
-     * @return
+     * @param width The width of the array
+     * @param height The height of the array
+     * @return an arrayList of PrinterInstruction that describe the list of atomic instruction to
+     *         print the image with the EV3Print3r
      */
     public static ArrayList<PrinterInstruction> BuildInstructionListFromBitmap(boolean[][] array, int width, int height){
         ArrayList<PrinterInstruction> list = new ArrayList<>();

@@ -20,6 +20,12 @@ public class EV3Service extends Service {
     private BluetoothConnection connection;
     private BluetoothConnection.BluetoothChannel channel = null;
 
+
+    /**
+     * The constructor of the service. When the service is created it holds
+     * the connection with the EV3 object and it has to be binded to the
+     * activities of the application
+     */
     public EV3Service() {
         System.out.println("EV3 service created");
         connection = new BluetoothConnection(legoBrickName);
@@ -50,6 +56,7 @@ public class EV3Service extends Service {
         return ev3Brick;
     }
 
+    //region Utility functions
     public void PrintBrickStatus(){
         if(ev3Brick != null){
             System.out.println("Brick PRESENTE.");
@@ -57,7 +64,6 @@ public class EV3Service extends Service {
             System.out.println("Brick ASSENTE.");
         }
     }
-
     public boolean isBrickNull(){
         if(ev3Brick == null){
             System.out.println("EV3 BRICK inside Service is NULL.");
@@ -67,8 +73,8 @@ public class EV3Service extends Service {
             return  false;
         }
     }
-
     public boolean IsBrickRunning(){
         return !ev3Brick.isCancelled();
     }
+    //endregion
 }
