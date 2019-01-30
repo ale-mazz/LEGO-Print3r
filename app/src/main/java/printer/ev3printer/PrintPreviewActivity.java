@@ -53,10 +53,12 @@ public class PrintPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print_preview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        TextView textViewSlider = findViewById(R.id.textViewSlider);
-        SeekBar dimensionSlider = findViewById(R.id.seekbar);
-        SeekBar brightnessSlider = findViewById(R.id.brightnessBar);
-        SeekBar contrastSlider = findViewById(R.id.contrastBar);
+        TextView dimensionText = findViewById(R.id.dimensionTextView);
+        TextView contrastText = findViewById(R.id.contrastSliderText);
+        TextView brightnessText = findViewById(R.id.brightnessTextView);
+        SeekBar dimensionSlider = findViewById(R.id.dimensionSeekbar);
+        SeekBar brightnessSlider = findViewById(R.id.brightnessSeekBar);
+        SeekBar contrastSlider = findViewById(R.id.contrastSeekBar);
 
         final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
         final Button printButton = findViewById(R.id.printButton);
@@ -93,14 +95,15 @@ public class PrintPreviewActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int value = progress + MIN_VALUE;
-                textViewSlider.setText(String.valueOf("Dimensione: " + value));
+                dimensionText.setText(String.valueOf("Dimensione: " + value));
                 array_size = value;
                 if (convertBitmapToFinal()) {
                     setImageView();
                 }
             }
         });
-        brightnessSlider.setMax(500);
+        brightnessSlider.setMax(MAX_BRIGHTNESS - MIN_BRIGHTNESS);
+        brightnessSlider.setProgress(MAX_BRIGHTNESS);
         brightnessSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -111,6 +114,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int value = progress + MIN_BRIGHTNESS;
+                brightnessText.setText(String.valueOf("Luminosità: " + value));
                 brightness = value;
                 if (convertBitmapToFinal()) {
                     setImageView();
@@ -118,6 +122,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
             }
         });
         contrastSlider.setMax(MAX_CONTRAST);
+        contrastSlider.setProgress(1);
         contrastSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -128,6 +133,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int value = progress;
+                contrastText.setText(String.valueOf("Contrasto: " + value));
                 contrast = value;
                 if (convertBitmapToFinal()) {
                     setImageView();
@@ -138,7 +144,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
 
     // Passaggio EV3Service
     private ServiceConnection mConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
@@ -148,7 +153,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
             ev3 = mService.GetBrick();
             mBound = true;
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             mBound = false;
