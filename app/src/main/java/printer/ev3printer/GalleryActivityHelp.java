@@ -12,14 +12,12 @@ import android.widget.TextView;
 
 public class GalleryActivityHelp extends Activity {
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("GalleryActivityHelp");
         setContentView(R.layout.activity_gallery_help);
         TextView galleryHelpText = findViewById(R.id.galleryHelpText);
-        galleryHelpText.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
 
         setOverlay();
     }
