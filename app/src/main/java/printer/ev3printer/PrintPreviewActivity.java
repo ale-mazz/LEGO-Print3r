@@ -62,11 +62,11 @@ public class PrintPreviewActivity extends AppCompatActivity {
         SeekBar brightnessSlider = findViewById(R.id.brightnessSeekBar);
         SeekBar contrastSlider = findViewById(R.id.contrastSeekBar);
 
-        final ImageView help = findViewById(R.id.helpPrintPreviewActivityButton);
+        final ImageView helpImage = findViewById(R.id.helpPrintPreviewActivityButton);
         final Button printButton = findViewById(R.id.printButton);
         final Button caliberButton = findViewById(R.id.calibrationButton);
 
-        help.setOnClickListener(v -> StartPrintPreviewHelpActivity());
+        helpImage.setOnClickListener(v -> StartPrintPreviewHelpActivity());
         caliberButton.setOnClickListener(v -> StartCalibrationActivity());
         printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
 

@@ -11,15 +11,11 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.IOException;
-
-import it.unive.dais.legodroid.lib.EV3;
 
 public class GalleryActivity extends AppCompatActivity {
 
@@ -47,13 +43,7 @@ public class GalleryActivity extends AppCompatActivity {
 
         galleryImageView = findViewById(R.id.normalImageView);
 
-        help.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                Intent i = new Intent(GalleryActivity.this, GalleryActivityHelp.class);
-                startActivity(i);
-            }
-        });
+        help.setOnClickListener(v -> OpenGalleryActivityHelp());
         // Bottone per entrare in galleria
 
         //Enter gallery
@@ -132,5 +122,10 @@ public class GalleryActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+    }
+
+    public void OpenGalleryActivityHelp(){
+        Intent i = new Intent(GalleryActivity.this, GalleryActivityHelp.class);
+        startActivity(i);
     }
 }

@@ -35,9 +35,6 @@ public class CalibrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_calibration);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
-        startActivity(i);
-
         //region Buttons declaration
         Button penUp = findViewById(R.id.arrowUp);
         Button penDown = findViewById(R.id.arrowDown);
@@ -103,7 +100,6 @@ public class CalibrationActivity extends AppCompatActivity {
 
     //region EV3Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
@@ -112,7 +108,10 @@ public class CalibrationActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
-            CheckForBluetoothConnection();
+            if(CheckForBluetoothConnection()){
+                Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
+                startActivity(i);
+            }
         }
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
@@ -158,12 +157,15 @@ public class CalibrationActivity extends AppCompatActivity {
         PrinterManager manager = new PrinterManager(api);
         manager.Dot();
     }
-    private void CheckForBluetoothConnection(){
+    //endregion
+    private boolean CheckForBluetoothConnection(){
         if(!mService.isBluetoothAvailable() || mService.isBrickNull()){
             Intent i = new Intent(CalibrationActivity.this, BluetoothErrorActivity.class);
             startActivity(i);
             finish();
+            return false;
+        } else {
+            return true;
         }
     }
-    //endregion
 }
