@@ -100,10 +100,10 @@ public class PrintActivity extends AppCompatActivity {
 
 
     public void printArray(EV3.Api api) {
-        Intent i = new Intent(PrintActivity.this, OngoingPrintActivity.class);
+        //Intent i = new Intent(PrintActivity.this, OngoingPrintActivity.class);
         PrinterManager manager = new PrinterManager(api);
         manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
-        startActivity(i);
+        //startActivity(i);
     }
 
     public void GetObjectsFromOtherActivity(){

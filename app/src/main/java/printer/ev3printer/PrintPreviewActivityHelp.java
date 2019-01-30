@@ -15,6 +15,7 @@ public class PrintPreviewActivityHelp extends Activity {
         setContentView(R.layout.activity_print_preview_help);
 
         setOverlay();
+
     }
 
     public void setOverlay(){
