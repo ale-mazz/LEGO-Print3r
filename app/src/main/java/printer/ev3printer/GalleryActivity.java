@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -30,7 +31,6 @@ public class GalleryActivity extends AppCompatActivity {
 
     public ImageView galleryImageView;
     public static Uri uri;
-    public boolean image_selected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +114,7 @@ public class GalleryActivity extends AppCompatActivity {
         galleryImageView.setImageBitmap(imageSelectedBitmap);
     }
     public void SendBitmapToNextActivity() {
-        if (image_selected)
+        if (uri != null)
         {
             Bundle b = new Bundle();
             Intent i = new Intent(GalleryActivity.this, PrintPreviewActivity.class);
@@ -134,6 +134,5 @@ public class GalleryActivity extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-        image_selected = true;
     }
 }
