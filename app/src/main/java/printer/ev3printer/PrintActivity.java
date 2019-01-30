@@ -15,6 +15,9 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.util.Prelude;
@@ -28,6 +31,7 @@ public class PrintActivity extends AppCompatActivity {
 
     boolean[] bwImageArray;
     Bitmap bwImageSelectedBitmap;
+    TextView statusText;
     boolean[][] biDimensionalArray;
     private static final String TAG = "PrintActivity";
     public int array_size;
@@ -37,8 +41,8 @@ public class PrintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
 
-        findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
+        statusText = findViewById(R.id.printStatusText);
 
 
         SetOverlay();
@@ -87,9 +91,12 @@ public class PrintActivity extends AppCompatActivity {
         PrinterManager manager = new PrinterManager(api);
         boolean sheetPresent = manager.IsSheetLoaded();
         if(sheetPresent){
-            manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
+            boolean printed = manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
+            if(printed){
+                runOnUiThread(() -> statusText.setText(String.valueOf("SUCCESSO")));
+            }
         } else {
-            System.out.println("NON C'E' IL FOGLIO");
+            runOnUiThread(() -> statusText.setText(String.valueOf("NON C'E' IL FOGLIO")));
         }
     }
 

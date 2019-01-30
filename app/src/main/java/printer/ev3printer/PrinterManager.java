@@ -139,6 +139,7 @@ public class PrinterManager {
         }catch (InterruptedException e){
 
         }
+        Log.d("PrinterManager", "Sheet is LOADED " + loaded);
         return loaded;
     }
 
@@ -268,6 +269,7 @@ public class PrinterManager {
             finished = true;
         }
         UnloadSheet();
+        System.out.println("STO RITORNANDO FINISHED");
         return finished;
     }
 }
