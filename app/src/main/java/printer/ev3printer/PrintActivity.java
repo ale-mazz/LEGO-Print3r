@@ -92,10 +92,10 @@ public class PrintActivity extends AppCompatActivity {
         if(sheetPresent){
             boolean printed = manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
             if(printed){
-                runOnUiThread(() -> statusText.setText(String.valueOf("SUCCESSO")));
+                runOnUiThread(() -> SuccessUI());
             }
         } else {
-            runOnUiThread(() -> statusText.setText(String.valueOf("NON C'E' IL FOGLIO")));
+            runOnUiThread(() -> SheetNotPresentUI());
         }
     }
 
@@ -124,4 +124,15 @@ public class PrintActivity extends AppCompatActivity {
         params.y = -20;
         getWindow().setAttributes(params);
     }
+
+    public void SuccessUI(){
+        statusText.setText(String.valueOf("SUCCESSO"));
+        statusText.setTextColor(getResources().getColor(R.color.successColor));
+    }
+
+    public void SheetNotPresentUI(){
+        statusText.setText(String.valueOf("NON C'E' IL FOGLIO"));
+        statusText.setTextColor(getResources().getColor(R.color.sheetNotPresentColor));
+    }
+
 }
