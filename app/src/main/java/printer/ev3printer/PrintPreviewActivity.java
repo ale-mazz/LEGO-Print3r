@@ -65,12 +65,12 @@ public class PrintPreviewActivity extends AppCompatActivity {
 
         final ImageView helpImage = findViewById(R.id.helpPrintPreviewActivityButton);
         final Button printButton = findViewById(R.id.printButton);
-        final Button caliberButton = findViewById(R.id.calibrationButton);
+        final Button calibrationButton = findViewById(R.id.calibrationButton);
         ImageView convertedImageView = findViewById(R.id.convertedImageView);
         //endregion
 
         helpImage.setOnClickListener(v -> StartPrintPreviewHelpActivity());
-        caliberButton.setOnClickListener(v -> StartCalibrationActivity());
+        calibrationButton.setOnClickListener(v -> StartCalibrationActivity());
         printButton.setOnClickListener(v -> GoToPrint());
 
         Intent imageIntent = getIntent();

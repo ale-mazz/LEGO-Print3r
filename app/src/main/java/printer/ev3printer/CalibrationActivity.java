@@ -1,7 +1,6 @@
 package printer.ev3printer;
 
 import android.annotation.SuppressLint;
-import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +9,9 @@ import android.content.pm.ActivityInfo;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.util.Prelude;
@@ -149,7 +144,7 @@ public class CalibrationActivity extends AppCompatActivity {
     }
     //endregion
     private  void OpenLoadingSheetActivity(){
-        Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
+        Intent i = new Intent(CalibrationActivity.this, LoadSheetActivity.class);
         startActivity(i);
     }
 

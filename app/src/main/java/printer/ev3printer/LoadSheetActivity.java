@@ -5,16 +5,12 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.RequiresApi;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -22,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import it.unive.dais.legodroid.lib.EV3;
 
-public class CalibrationActivityHelp extends Activity {
+public class LoadSheetActivity extends Activity {
 
     EV3 ev3;
     boolean mBound;
@@ -32,9 +28,9 @@ public class CalibrationActivityHelp extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("CalibrationActivityHelp");
-        setContentView(R.layout.activity_calibration_help);
-        TextView galleryHelpText = findViewById(R.id.calibrationButtonHelpText);
+        setTitle("LoadSheetActivity");
+        setContentView(R.layout.activity_load_sheet);
+        //TextView galleryHelpText = findViewById(R.id.calibrationButtonHelpText);
         setOverlay();
     }
 
@@ -56,7 +52,7 @@ public class CalibrationActivityHelp extends Activity {
             try{
                 if(!ev3.isCancelled())
                     System.out.println("I'm calling the ev3 method.");
-                ev3.run(CalibrationActivityHelp.this::loadSheet);
+                ev3.run(LoadSheetActivity.this::loadSheet);
             } catch (EV3.AlreadyRunningException e){
                 Log.e("EV3", "EV3 task is already running.");
             }
