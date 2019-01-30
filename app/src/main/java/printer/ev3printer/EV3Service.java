@@ -21,7 +21,6 @@ public class EV3Service extends Service {
     private BluetoothConnection connection;
     private BluetoothConnection.BluetoothChannel channel = null;
 
-
     /**
      * The constructor of the service. When the service is created it holds
      * the connection with the EV3 object and it has to be binded to the
@@ -29,14 +28,16 @@ public class EV3Service extends Service {
      */
     public EV3Service() {
         System.out.println("EV3 service created");
-        connection = new BluetoothConnection(legoBrickName);
         try {
-            connection = new BluetoothConnection(legoBrickName);
-            channel = connection.connect();
+            BluetoothConnection blueToothConnection = new BluetoothConnection(legoBrickName);
+            if(blueToothConnection != null){
+                connection = blueToothConnection;
+                channel = connection.connect();
+            }
         } catch (IOException exception) {
             Log.w("Service", exception);
         }
-        if (ev3Brick == null) {
+        if (ev3Brick == null && connection != null) {
             ev3Brick = new EV3(channel);
         }
     }
@@ -74,14 +75,10 @@ public class EV3Service extends Service {
             return  false;
         }
     }
-    public boolean IsBrickRunning(){
-        return !ev3Brick.isCancelled();
-    }
     //endregion
 
     public boolean isBluetoothAvailable() {
         final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         return (bluetoothAdapter != null
                 && bluetoothAdapter.isEnabled()
                 && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
