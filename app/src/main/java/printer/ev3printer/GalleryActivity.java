@@ -36,20 +36,13 @@ public class GalleryActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Button openGalleryButton = findViewById(R.id.imageSelectionButton);
-
         final Button convertButton = findViewById(R.id.convertButton);
-        final ImageView help = findViewById(R.id.helpGalleryActivityButton);
-
+        final ImageView helpImageButton = findViewById(R.id.helpGalleryActivityButton);
 
         galleryImageView = findViewById(R.id.normalImageView);
 
-        help.setOnClickListener(v -> OpenGalleryActivityHelp());
-        // Bottone per entrare in galleria
-
-        //Enter gallery
+        helpImageButton.setOnClickListener(v -> OpenGalleryActivityHelp());
         openGalleryButton.setOnClickListener(v -> OpenGallery());
-
-        //Enter PrintPreviewActivity
         convertButton.setOnClickListener(v -> SendBitmapToNextActivity());
     }
 
@@ -111,8 +104,7 @@ public class GalleryActivity extends AppCompatActivity {
             i.putExtras(b);
             startActivity(i);
         }
-        else
-        {
+        else {
             Toast.makeText(getBaseContext(), "Scegliere un'immagine" , Toast.LENGTH_SHORT ).show();
         }
 

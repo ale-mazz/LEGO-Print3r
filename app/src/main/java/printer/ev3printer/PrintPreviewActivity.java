@@ -23,7 +23,6 @@ import it.unive.dais.legodroid.lib.EV3;
 
 public class PrintPreviewActivity extends AppCompatActivity {
 
-
     //region Variables
     EV3Service mService;
     EV3 ev3;
@@ -58,6 +57,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print_preview);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        //region UI item declarations
         TextView dimensionText = findViewById(R.id.dimensionTextView);
         TextView contrastText = findViewById(R.id.contrastSliderText);
         TextView brightnessText = findViewById(R.id.brightnessTextView);
@@ -69,10 +69,11 @@ public class PrintPreviewActivity extends AppCompatActivity {
         final Button printButton = findViewById(R.id.printButton);
         final Button caliberButton = findViewById(R.id.calibrationButton);
         ImageView convertedImageView = findViewById(R.id.convertedImageView);
+        //endregion
 
         helpImage.setOnClickListener(v -> StartPrintPreviewHelpActivity());
         caliberButton.setOnClickListener(v -> StartCalibrationActivity());
-        printButton.setOnClickListener(v -> SendBitmapAndArrayToNextActivity());
+        printButton.setOnClickListener(v -> GoToPrint());
 
         Intent imageIntent = getIntent();
         String image_path = imageIntent.getStringExtra("imagePath");
@@ -88,9 +89,8 @@ public class PrintPreviewActivity extends AppCompatActivity {
         convertBitmapToFinal();
         setImageView(convertedImageView);
 
-
+        //region Sliders
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
-        //slider overrides for dimension choice
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -108,6 +108,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
+
         brightnessSlider.setMax(MAX_BRIGHTNESS - MIN_BRIGHTNESS);
         brightnessSlider.setProgress(MAX_BRIGHTNESS);
         brightnessSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -127,6 +128,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
+
         contrastSlider.setMax(MAX_CONTRAST);
         contrastSlider.setProgress(1);
         contrastSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -146,9 +148,10 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 }
             }
         });
+        //endregion
     }
 
-    // Passaggio EV3Service
+    //region EV3Service
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName className,
@@ -157,6 +160,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
             ev3 = mService.GetBrick();
+
             mBound = true;
         }
         @Override
@@ -178,6 +182,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         unbindService(mConnection);
         mBound = false;
     }
+    //endregion
 
     //FUNZIONI UTILIZZATE
 
@@ -232,7 +237,30 @@ public class PrintPreviewActivity extends AppCompatActivity {
     }
 
     public void StartCalibrationActivity(){
-        Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
+        if(CheckForBluetoothConnection()){
+            Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
+            startActivity(i);
+        }
+
+    }
+    private boolean CheckForBluetoothConnection(){
+        if(!mService.isBluetoothAvailable() || mService.isBrickNull()){
+            OpenBTErrorActivity();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void GoToPrint(){
+        if(CheckForBluetoothConnection()){
+            SendBitmapAndArrayToNextActivity();
+        }
+    }
+
+    private void OpenBTErrorActivity(){
+        Intent i = new Intent(PrintPreviewActivity.this, BluetoothErrorActivity.class);
         startActivity(i);
+        finish();
     }
 }

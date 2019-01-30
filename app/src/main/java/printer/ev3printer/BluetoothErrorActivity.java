@@ -18,7 +18,6 @@ public class BluetoothErrorActivity extends AppCompatActivity {
         TextView alertTextView = findViewById(R.id.alertTextView);
         Button exitButton = findViewById(R.id.exitButton);
 
-
         exitButton.setOnClickListener(v-> {
                 finish();
                 System.exit(0);

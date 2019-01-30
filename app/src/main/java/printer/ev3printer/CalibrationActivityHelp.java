@@ -37,7 +37,6 @@ public class CalibrationActivityHelp extends Activity {
         setContentView(R.layout.activity_gallery_help);
         TextView galleryHelpText = findViewById(R.id.galleryHelpText);
         galleryHelpText.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
-
         setOverlay();
     }
 
@@ -92,24 +91,21 @@ public class CalibrationActivityHelp extends Activity {
         PrinterManager printerManager = new PrinterManager(api);
         try{
             isPressed = printerManager.LoadSheetWithButton();
-
             if(isPressed){
                 this.finish();
             }
-
         } catch(IOException e){
-
+            Log.e("loadSheet", "IOException error.");
         } catch (ExecutionException e){
-
+            Log.e("loadSheet", "ExecutionException error.");
         } catch(InterruptedException e){
-
+            Log.e("loadSheet", "InterruptedException error.");
         }
     }
 
     public void setOverlay(){
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
