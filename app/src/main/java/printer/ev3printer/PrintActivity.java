@@ -29,7 +29,6 @@ public class PrintActivity extends AppCompatActivity {
     boolean[] bwImageArray;
     Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
-    private static final String TAG = "PrintActivity";
     public int array_size;
 
     @Override
