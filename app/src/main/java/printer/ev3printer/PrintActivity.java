@@ -21,7 +21,7 @@ import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class PrintActivity extends AppCompatActivity {
 
-    // Service ev3
+    // Service EV3
     EV3Service mService;
     EV3 ev3;
     boolean mBound = false;
@@ -36,21 +36,14 @@ public class PrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
-
-        Button printButton = findViewById(R.id.printButton);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
 
 
         SetOverlay();
         GetObjectsFromOtherActivity();
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
-
-        //printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
-
-
     }
 
     //region EV3Service connection
@@ -68,8 +61,6 @@ public class PrintActivity extends AppCompatActivity {
             mBound = true;
 
             Prelude.trap(() -> ev3.run(PrintActivity.this::printArray));
-
-
         }
 
         @Override
@@ -93,10 +84,13 @@ public class PrintActivity extends AppCompatActivity {
     //endregion
 
     public void printArray(EV3.Api api) {
-        //Intent i = new Intent(PrintActivity.this, OngoingPrintActivity.class);
         PrinterManager manager = new PrinterManager(api);
-        manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
-        //startActivity(i);
+        boolean sheetPresent = manager.IsSheetLoaded();
+        if(sheetPresent){
+            manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
+        } else {
+            System.out.println("NON C'E' IL FOGLIO");
+        }
     }
 
     public void GetObjectsFromOtherActivity(){

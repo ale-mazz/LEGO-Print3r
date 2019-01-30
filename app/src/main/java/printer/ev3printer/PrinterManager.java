@@ -37,8 +37,6 @@ public class PrinterManager {
     private static int verticalStepBuildOutAndIn = 15;
 
 
-    private int numOfDots= 0;
-
     final String TAG = "PrinterManager";
 
     public PrinterManager(EV3.Api brick){
@@ -124,6 +122,26 @@ public class PrinterManager {
         return isPressed;
     }
 
+    public boolean IsSheetLoaded(){
+        boolean loaded = false;
+        try {
+            Future<Short> reflectedValue = lightSensor.getReflected();
+            Short currentReflected = reflectedValue.get();
+
+            if(currentReflected < reflectedValueThreshold){
+                loaded = true;
+            }
+
+        } catch (IOException e){
+
+        } catch (ExecutionException e){
+
+        }catch (InterruptedException e){
+
+        }
+        return loaded;
+    }
+
     // Vertical motor functions
 
     public void LowerPen(){
@@ -143,27 +161,11 @@ public class PrinterManager {
         }
     }
 
-    // Stop motors functions
-
-    public void StopVerticalMotor(){
-        try {
-            verticalMotor.stop();
-        } catch (IOException e){
-            Log.e(TAG, "Cannot stop vertical motor");
-        }
-    }
     public void StopPenMotor(){
         try{
             penMotor.stop();
         } catch (IOException e){
             Log.e(TAG, "Cannot stop pen motor");
-        }
-    }
-    public void StopWheelMotor(){
-        try {
-            wheelMotor.stop();
-        } catch (IOException e){
-            Log.e(TAG, "Cannot stop wheel motor");
         }
     }
     public void StepForwardWheel(int amount){
@@ -178,17 +180,6 @@ public class PrinterManager {
             Log.e(TAG, "Step wheel doesn't work");
         }
     }
-    public void StepBackwardWheel(){
-        try{
-            wheelMotor.start();
-            wheelMotor.setStepSpeed(wheelMotorSpeed, 0, wheelMotorStepsTime, 0, true);
-            wheelMotor.waitCompletion();
-            wheelMotor.brake();
-        } catch (IOException e){
-            Log.e(TAG, "Step wheel doesn't work");
-        }
-    }
-
     public void StepRight(int amount){
         try {
             for(int i = 0; i < amount; i++) {

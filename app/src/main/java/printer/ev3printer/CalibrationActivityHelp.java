@@ -87,7 +87,6 @@ public class CalibrationActivityHelp extends Activity {
     //endregion
 
     private void loadSheet(EV3.Api api) {
-        Log.d("Load sheet method: ","Loading SHEET started.");
         PrinterManager printerManager = new PrinterManager(api);
         try{
             isPressed = printerManager.LoadSheetWithButton();

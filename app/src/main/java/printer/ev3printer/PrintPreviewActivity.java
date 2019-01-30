@@ -216,7 +216,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
         Bundle b = new Bundle();
         b.putBooleanArray("boolArray", convertedImageBoolArray);
         Intent i = new Intent(PrintPreviewActivity.this, PrintActivity.class);
-        // Inserisco variabili all'interno del bundle da passare
         i.putExtra("BitmapImage", convertedImageBitmap);
         i.putExtra("Array_size", array_size);
         i.putExtras(b);
