@@ -166,36 +166,6 @@ public class PrinterManager {
             Log.e(TAG, "Cannot stop wheel motor");
         }
     }
-
-    // Testing running status
-    public void StepMoveTest(){
-        int condition = 1000;
-        boolean firstLoop = true;
-        try{
-            wheelMotor.start();
-            wheelMotor.setStepSpeed(30, 0, 100, 0, true);
-            while(condition > 0){
-                Future<Float> speedValue = wheelMotor.getSpeed();
-                Float currentSpeed = speedValue.get();
-                System.out.println("Speed: " + currentSpeed);
-                condition--;
-                if(!firstLoop && currentSpeed == 0.0){
-                    System.out.println("Speed == 0.0 - Exit while loop");
-                    condition = 0;
-                    wheelMotor.stop();
-                }
-                if(firstLoop){
-                    firstLoop = false;
-                }
-            }
-        } catch (IOException e){
-            Log.e(TAG, "Wheelmotor cannot step");
-        } catch (ExecutionException e){
-            Log.e(TAG, "Wheelmotor: execution exception");
-        } catch (InterruptedException e){
-            Log.e(TAG, "Wheelmotor: interrupted exception");
-        }
-    }
     public void StepForwardWheel(int amount){
         try{
             for(int i = 0; i < amount; i++){
@@ -246,16 +216,8 @@ public class PrinterManager {
     }
 
     public void Dot(){
-        try {
-            verticalMotor.start();
-            verticalMotor.setStepPower(- verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove, verticalStepBuildOutAndIn, true);
-            verticalMotor.waitCompletion();
-            //System.out.println(verticalMotor.getPosition().get());
-            verticalMotor.setStepPower(verticalSpeed,verticalStepBuildOutAndIn,verticalDotMove -2, verticalStepBuildOutAndIn, true);
-            verticalMotor.waitCompletion();
-        } catch (IOException e){
-            Log.e(TAG, "Not dotting");
-        }
+        DotDown();
+        DotUp();
     }
 
     public void DotDown(){
@@ -298,9 +260,7 @@ public class PrinterManager {
                 StepRight(instruction.getAmount());
                 break;
             case POINT:
-                //Dot();
-                DotDown();
-                DotUp();
+                Dot();
                 break;
             case LEFT:
                 StepLeft(instruction.getAmount());
@@ -316,7 +276,6 @@ public class PrinterManager {
             }
             finished = true;
         }
-        //DotUp();
         UnloadSheet();
         return finished;
     }

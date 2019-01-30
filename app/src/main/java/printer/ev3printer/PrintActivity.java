@@ -16,10 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import java.io.IOException;
-
 import it.unive.dais.legodroid.lib.EV3;
-import it.unive.dais.legodroid.lib.comm.BluetoothConnection;
 import it.unive.dais.legodroid.lib.util.Prelude;
 
 public class PrintActivity extends AppCompatActivity {
@@ -46,10 +43,9 @@ public class PrintActivity extends AppCompatActivity {
         Button printButton = findViewById(R.id.printButton);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
 
-        setOverlay();
 
+        SetOverlay();
         GetObjectsFromOtherActivity();
-
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
         //printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
@@ -128,7 +124,7 @@ public class PrintActivity extends AppCompatActivity {
         }
     }
 
-    public void setOverlay(){
+    public void SetOverlay(){
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;

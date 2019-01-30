@@ -45,8 +45,11 @@ public class PrintPreviewActivity extends AppCompatActivity {
     private int contrast = 1;
     private static int MIN_CONTRAST = 0;
     private static int MAX_CONTRAST = 10;
-    public ImageView convertedImageView;
+
     public boolean isCalibrated = true;                         //WARNING!!!!!
+
+    //public ImageView convertedImageView;
+
     //endregion
 
     @Override
@@ -65,6 +68,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         final ImageView helpImage = findViewById(R.id.helpPrintPreviewActivityButton);
         final Button printButton = findViewById(R.id.printButton);
         final Button caliberButton = findViewById(R.id.calibrationButton);
+        ImageView convertedImageView = findViewById(R.id.convertedImageView);
 
         helpImage.setOnClickListener(v -> StartPrintPreviewHelpActivity());
         caliberButton.setOnClickListener(v -> StartCalibrationActivity());
@@ -79,10 +83,10 @@ public class PrintPreviewActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        convertedImageView = findViewById(R.id.convertedImageView);
+
         bidimensionalArray = new boolean[array_size][array_size];
         convertBitmapToFinal();
-        setImageView();
+        setImageView(convertedImageView);
 
 
         dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
@@ -100,7 +104,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 dimensionText.setText(String.valueOf("Dimensione: " + value));
                 array_size = value;
                 if (convertBitmapToFinal()) {
-                    setImageView();
+                    setImageView(convertedImageView);
                 }
             }
         });
@@ -119,7 +123,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 brightnessText.setText(String.valueOf("Luminosità: " + value));
                 brightness = value;
                 if (convertBitmapToFinal()) {
-                    setImageView();
+                    setImageView(convertedImageView);
                 }
             }
         });
@@ -138,7 +142,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
                 contrastText.setText(String.valueOf("Contrasto: " + value));
                 contrast = value;
                 if (convertBitmapToFinal()) {
-                    setImageView();
+                    setImageView(convertedImageView);
                 }
             }
         });
@@ -164,14 +168,8 @@ public class PrintPreviewActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
-        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-
-        //Intent calibResult = getIntent();
-        //isCalibrated = calibResult.getBooleanExtra("done", false);
-        //System.out.println(isCalibrated);
     }
 
     @Override
@@ -206,8 +204,8 @@ public class PrintPreviewActivity extends AppCompatActivity {
         }
     }
 
-    public void setImageView() {
-        convertedImageView.setImageBitmap(convertedImageBitmap);
+    public void setImageView(ImageView imageView) {
+        imageView.setImageBitmap(convertedImageBitmap);
     }
 
     public void SendBitmapAndArrayToNextActivity() {
@@ -237,11 +235,4 @@ public class PrintPreviewActivity extends AppCompatActivity {
         Intent i = new Intent(PrintPreviewActivity.this, CalibrationActivity.class);
         startActivity(i);
     }
-
-    public void printArray(EV3.Api api) {
-        PrinterManager manager = new PrinterManager(api);
-        manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(bidimensionalArray, array_size, array_size));
-    }
-
-
 }

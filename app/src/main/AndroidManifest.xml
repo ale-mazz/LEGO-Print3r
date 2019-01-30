@@ -18,9 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".OngoingPrintActivity"
-            android:theme="@style/AppTheme.HelpBox"/>
-        <activity
             android:name=".CalibrationActivityHelp"
             android:theme="@style/AppTheme.HelpBox" />
         <activity android:name=".LoadSheetActivity" />
