@@ -40,11 +40,6 @@ public class CalibrationActivityHelp extends Activity {
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-        int width = dm.widthPixels;
-        int height = dm.heightPixels;
-
-        //getWindow().setLayout((int)(width*.8), (int)(height*.7));
-
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.gravity = Gravity.CENTER;
         params.x = 0;
@@ -58,6 +53,7 @@ public class CalibrationActivityHelp extends Activity {
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
+
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
             ev3 = mService.GetBrick();
@@ -97,11 +93,15 @@ public class CalibrationActivityHelp extends Activity {
         PrinterManager printerManager = new PrinterManager(api);
         try{
             isPressed = printerManager.LoadSheetWithButton();
+
             if(isPressed){
                 this.finish();
             }
+
         } catch(IOException e){
-        } catch(ExecutionException e){
+
+        } catch (ExecutionException e){
+
         } catch(InterruptedException e){
 
         }

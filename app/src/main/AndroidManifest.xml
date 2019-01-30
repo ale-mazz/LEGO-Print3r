@@ -18,15 +18,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".OngoingPrintActivity"
+            android:theme="@style/AppTheme.HelpBox"/>
+        <activity
             android:name=".CalibrationActivityHelp"
             android:theme="@style/AppTheme.HelpBox" />
-        <activity android:name=".LoadSheetActivity"></activity>
+        <activity android:name=".LoadSheetActivity" />
+
         <service
             android:name=".EV3Service"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".CalibrationActivity"></activity>
+        <activity android:name=".CalibrationActivity" />
         <activity
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"

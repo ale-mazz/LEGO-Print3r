@@ -53,8 +53,6 @@ public class PrintActivity extends AppCompatActivity {
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
-
-
         printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
         //printButton.setOnClickListener(v -> findViewById(R.id.circleBar).setVisibility(View.VISIBLE));
 
@@ -99,7 +97,12 @@ public class PrintActivity extends AppCompatActivity {
 
 
     public void printArray(EV3.Api api) {
+        Intent i = new Intent(PrintActivity.this, OngoingPrintActivity.class);
         PrinterManager manager = new PrinterManager(api);
         manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
+        startActivity(i);
+        /*if(finished){
+
+        }*/
     }
 }
