@@ -26,6 +26,7 @@ public class CalibrationActivity extends AppCompatActivity {
     EV3 ev3;
     boolean mBound;
     EV3Service mService;
+    boolean done = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -43,51 +44,61 @@ public class CalibrationActivity extends AppCompatActivity {
         Button penLeft = findViewById(R.id.arrowLeft);
         Button penRight = findViewById(R.id.arrowRight);
         Button dot = findViewById(R.id.dotButton);
+        Button finishButton = findViewById(R.id.finishButton);
         //endregion
 
         penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
         penDown.setOnClickListener(v->Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
         dot.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
         penLeft.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if(event.getAction() == MotionEvent.ACTION_DOWN){  //if the button is being pressed
-                        try {
-                            ev3.run(CalibrationActivity.this::goLeft);
-                        } catch (EV3.AlreadyRunningException e) {
-                            e.printStackTrace();
-                        }
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){  //if the button is being pressed
+                    try {
+                        ev3.run(CalibrationActivity.this::goLeft);
+                    } catch (EV3.AlreadyRunningException e) {
+                        e.printStackTrace();
                     }
-                    if (event.getAction() == MotionEvent.ACTION_UP){  //if it gets released
-                        try {
-                            ev3.run(CalibrationActivity.this::stopPenMotor);
-                        } catch (EV3.AlreadyRunningException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    return false;
                 }
-            });
+                if (event.getAction() == MotionEvent.ACTION_UP){  //if it gets released
+                    try {
+                        ev3.run(CalibrationActivity.this::stopPenMotor);
+                    } catch (EV3.AlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return false;
+            }
+        });
         penRight.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {             //if the button is pressed
-                    if(event.getAction() == MotionEvent.ACTION_DOWN){
-                        try {
-                            ev3.run(CalibrationActivity.this::goRight);
-                        } catch (EV3.AlreadyRunningException e) {
-                            e.printStackTrace();
-                        }
-                    }                                                           //if it gets released
-                    if (event.getAction() == MotionEvent.ACTION_UP){
-                        try {
-                            ev3.run(CalibrationActivity.this::stopPenMotor);
-                        } catch (EV3.AlreadyRunningException e) {
-                            e.printStackTrace();
-                        }
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {             //if the button is pressed
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    try {
+                        ev3.run(CalibrationActivity.this::goRight);
+                    } catch (EV3.AlreadyRunningException e) {
+                        e.printStackTrace();
                     }
-                    return false;
+                }                                                           //if it gets released
+                if (event.getAction() == MotionEvent.ACTION_UP){
+                    try {
+                        ev3.run(CalibrationActivity.this::stopPenMotor);
+                    } catch (EV3.AlreadyRunningException e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
+                return false;
+            }
+        });
+        /*finishButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(CalibrationActivity.this, PrintPreviewActivity.class);
+                done = true;
+                i.putExtra("done", done);
+                startActivity(i);
+            }
+        });*/
     }
 
     //region EV3Service connection

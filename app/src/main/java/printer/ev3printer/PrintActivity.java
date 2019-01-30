@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -39,7 +41,16 @@ public class PrintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+<<<<<<< HEAD
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
+=======
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.x = 0;
+        params.y = -20;
+        getWindow().setAttributes(params);
+
+>>>>>>> 6bb5212733ffe56232c0e9a86392e81ed41dadc4
         Button printButton = findViewById(R.id.printButton);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
 
@@ -48,7 +59,7 @@ public class PrintActivity extends AppCompatActivity {
 
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
-        printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
+        //printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
 
 
     }
@@ -63,6 +74,13 @@ public class PrintActivity extends AppCompatActivity {
             EV3Service.LocalBinder binder = (EV3Service.LocalBinder) service;
             mService = binder.getService();
             ev3 = mService.GetBrick();
+            try{
+                if(!ev3.isCancelled())
+                    System.out.println("I'm calling the ev3 method.");
+                ev3.run(PrintActivity.this::printArray);
+            } catch (EV3.AlreadyRunningException e){
+                Log.e("EV3", "EV3 task is already running.");
+            }
             mBound = true;
         }
 
