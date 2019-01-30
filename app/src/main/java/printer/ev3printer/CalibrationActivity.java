@@ -26,7 +26,6 @@ public class CalibrationActivity extends AppCompatActivity {
     EV3 ev3;
     boolean mBound;
     EV3Service mService;
-    boolean done = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -87,15 +86,7 @@ public class CalibrationActivity extends AppCompatActivity {
                 return false;
             }
         });
-        /*finishButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                Intent i = new Intent(CalibrationActivity.this, PrintPreviewActivity.class);
-                done = true;
-                i.putExtra("done", done);
-                startActivity(i);
-            }
-        });*/
+
     }
 
     //region EV3Service connection

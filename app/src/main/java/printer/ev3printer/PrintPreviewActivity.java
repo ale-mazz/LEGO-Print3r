@@ -45,8 +45,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
     private static int MIN_CONTRAST = 0;
     private static int MAX_CONTRAST = 10;
 
-    public boolean isCalibrated = true;                         //WARNING!!!!!
-
     //public ImageView convertedImageView;
 
     //endregion
@@ -215,20 +213,15 @@ public class PrintPreviewActivity extends AppCompatActivity {
 
     public void SendBitmapAndArrayToNextActivity() {
 
-        if(isCalibrated){
-            Bundle b = new Bundle();
-            b.putBooleanArray("boolArray", convertedImageBoolArray);
-            Intent i = new Intent(PrintPreviewActivity.this, PrintActivity.class);
-            // Inserisco variabili all'interno del bundle da passare
-            i.putExtra("BitmapImage", convertedImageBitmap);
-            i.putExtra("Array_size", array_size);
-            i.putExtras(b);
+        Bundle b = new Bundle();
+        b.putBooleanArray("boolArray", convertedImageBoolArray);
+        Intent i = new Intent(PrintPreviewActivity.this, PrintActivity.class);
+        // Inserisco variabili all'interno del bundle da passare
+        i.putExtra("BitmapImage", convertedImageBitmap);
+        i.putExtra("Array_size", array_size);
+        i.putExtras(b);
 
-            startActivity(i);
-        }
-        else{
-            Toast.makeText(getBaseContext(), "Devi prima calibrare la stampante" , Toast.LENGTH_SHORT ).show();
-        }
+        startActivity(i);
     }
 
     public void StartPrintPreviewHelpActivity(){
