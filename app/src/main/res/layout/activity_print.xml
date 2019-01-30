@@ -26,7 +26,6 @@
 
 
     <TextView
-        android:background="activity_print"
         android:id="@+id/printStatusText"
         android:layout_width="221dp"
         android:layout_height="51dp"
