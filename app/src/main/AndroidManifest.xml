@@ -26,7 +26,6 @@
         <activity
             android:name=".CalibrationActivityHelp"
             android:theme="@style/AppTheme.HelpBox" />
-        <activity android:name=".LoadSheetActivity" />
 
         <service
             android:name=".EV3Service"
@@ -58,9 +57,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".BluetoothErrorActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".GalleryActivity" />
-        <activity android:name=".StartActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

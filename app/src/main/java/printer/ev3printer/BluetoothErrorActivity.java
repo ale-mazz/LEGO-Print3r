@@ -14,10 +14,7 @@ public class BluetoothErrorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth_error);
 
-        ImageView alertImageView = findViewById(R.id.alertImageView);
-        TextView alertTextView = findViewById(R.id.alertTextView);
         Button exitButton = findViewById(R.id.exitButton);
-
 
         exitButton.setOnClickListener(v-> {
                 finish();

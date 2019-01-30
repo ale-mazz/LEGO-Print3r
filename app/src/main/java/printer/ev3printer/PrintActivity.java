@@ -29,14 +29,14 @@ public class PrintActivity extends AppCompatActivity {
     boolean[] bwImageArray;
     Bitmap bwImageSelectedBitmap;
     boolean[][] biDimensionalArray;
-    private static final String TAG = Prelude.ReTAG("MainActivity");
+    private static final String TAG = "PrintActivity";
     public int array_size;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
 
@@ -66,13 +66,9 @@ public class PrintActivity extends AppCompatActivity {
 
             CheckForBluetoothConnection();
             mBound = true;
-            try{
-                if(!ev3.isCancelled()){
-                    ev3.run(PrintActivity.this::printArray);
-                }
-            } catch (EV3.AlreadyRunningException e){
-                Log.e("EV3", "EV3 task is already running.");
-            }
+
+            Prelude.trap(() -> ev3.run(PrintActivity.this::printArray));
+
 
         }
 
@@ -85,9 +81,7 @@ public class PrintActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        // Creo intent per EV3Service
         Intent intent = new Intent(this, EV3Service.class);
-        // Crea il bind con il service oppure crea prima il service se non presente
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
     @Override
@@ -97,7 +91,6 @@ public class PrintActivity extends AppCompatActivity {
         mBound = false;
     }
     //endregion
-
 
     public void printArray(EV3.Api api) {
         //Intent i = new Intent(PrintActivity.this, OngoingPrintActivity.class);

@@ -19,23 +19,9 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Intent mySuperIntent = new Intent(SplashActivity.this, GalleryActivity.class);
-            /*Intent i = new Intent(SplashActivity.this, BluetoothErrorActivity.class);
-            BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-            if (!isBluetoothAvailable()) {
-                startActivity(i);
-                finish();
-            } else { */
-                startActivity(mySuperIntent);
-                finish();
-            //}
+            startActivity(mySuperIntent);
+            finish();
+
         }, SPLASH_TIME);
-    }
-
-    public boolean isBluetoothAvailable() {
-        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
-        return (bluetoothAdapter != null
-                && bluetoothAdapter.isEnabled()
-                && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
     }
 }

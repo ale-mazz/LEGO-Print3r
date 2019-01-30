@@ -99,10 +99,7 @@ public class CalibrationActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
-            if(CheckForBluetoothConnection()){
-                Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
-                startActivity(i);
-            }
+            OpenLoadingSheetActivity();
         }
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
@@ -149,14 +146,8 @@ public class CalibrationActivity extends AppCompatActivity {
         manager.Dot();
     }
     //endregion
-    private boolean CheckForBluetoothConnection(){
-        if(!mService.isBluetoothAvailable() || mService.isBrickNull()){
-            Intent i = new Intent(CalibrationActivity.this, BluetoothErrorActivity.class);
-            startActivity(i);
-            finish();
-            return false;
-        } else {
-            return true;
-        }
+    private  void OpenLoadingSheetActivity(){
+        Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
+        startActivity(i);
     }
 }
