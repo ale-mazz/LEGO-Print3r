@@ -87,10 +87,7 @@ public class CalibrationActivityHelp extends Activity {
     private void loadSheet(EV3.Api api) {
         PrinterManager printerManager = new PrinterManager(api);
         try{
-            isPressed = printerManager.LoadSheetWithButton();
-            if(isPressed){
-                this.finish();
-            }
+            printerManager.LoadSheetWithButton();
         } catch(IOException e){
             Log.e("loadSheet", "IOException error.");
         } catch (ExecutionException e){
