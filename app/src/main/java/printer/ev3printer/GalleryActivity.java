@@ -54,8 +54,6 @@ public class GalleryActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
         // Bottone per entrare in galleria
 
         //Enter gallery

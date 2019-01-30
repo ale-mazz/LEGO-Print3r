@@ -79,8 +79,7 @@ public class BitmapConverter {
      * @param brightness -255..255 0 is default
      * @return new bitmap
      */
-    public static Bitmap changeBitmapContrastBrightness(Bitmap bmp, float contrast, float brightness)
-    {
+    public static Bitmap changeBitmapContrastBrightness(Bitmap bmp, float contrast, float brightness) {
         ColorMatrix cm = new ColorMatrix(new float[]
                 {
                         contrast, 0, 0, 0, brightness,
