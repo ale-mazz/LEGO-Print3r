@@ -35,7 +35,9 @@
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"
             android:theme="@style/AppTheme.HelpBox" />
-        <activity android:name=".PrintActivity" />
+        <activity
+            android:name=".PrintActivity"
+            android:theme="@style/AppTheme.HelpBox"/>
         <activity android:name=".PrintPreviewActivity" />
         <activity
             android:name=".GalleryActivityHelp"

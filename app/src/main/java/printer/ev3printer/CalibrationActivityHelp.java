@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -45,6 +46,11 @@ public class CalibrationActivityHelp extends Activity {
         params.x = 0;
         params.y = -20;
         getWindow().setAttributes(params);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(getBaseContext(), "Devi prima inserire un foglio" , Toast.LENGTH_SHORT ).show();
     }
 
     //region EV3Service connection

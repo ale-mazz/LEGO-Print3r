@@ -136,5 +136,4 @@ public class GalleryActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
         image_selected = true;
     }
-
 }
