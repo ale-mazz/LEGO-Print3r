@@ -34,11 +34,6 @@ public class LoadSheetActivity extends Activity {
         setOverlay();
     }
 
-    @Override
-    public void onBackPressed() {
-        Toast.makeText(getBaseContext(), "Devi prima inserire un foglio" , Toast.LENGTH_SHORT ).show();
-    }
-
     //region EV3Service connection
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -83,7 +78,10 @@ public class LoadSheetActivity extends Activity {
     private void loadSheet(EV3.Api api) {
         PrinterManager printerManager = new PrinterManager(api);
         try{
-            printerManager.LoadSheetWithButton();
+            isPressed = printerManager.LoadSheetWithButton();
+            if(isPressed){
+                this.finish();
+            }
         } catch(IOException e){
             Log.e("loadSheet", "IOException error.");
         } catch (ExecutionException e){
