@@ -1,6 +1,7 @@
 package printer.ev3printer;
 
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -100,6 +101,7 @@ public class CalibrationActivity extends AppCompatActivity {
             mService = binder.getService();
             ev3 = mService.GetBrick();
             mBound = true;
+            CheckForBluetoothConnection();
         }
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
@@ -145,18 +147,11 @@ public class CalibrationActivity extends AppCompatActivity {
         PrinterManager manager = new PrinterManager(api);
         manager.Dot();
     }
-
-    private void loadSheet(EV3.Api api) {
-        Log.d("Load sheet method: ","Loading SHEET started.");
-        PrinterManager printerManager = new PrinterManager(api);
-        try{
-            printerManager.LoadSheetWithButton();
-        } catch(IOException e){
-
-        } catch (ExecutionException e){
-
-        } catch(InterruptedException e){
-
+    private void CheckForBluetoothConnection(){
+        if(!mService.isBluetoothAvailable() || mService.isBrickNull()){
+            Intent i = new Intent(CalibrationActivity.this, BluetoothErrorActivity.class);
+            startActivity(i);
+            finish();
         }
     }
     //endregion

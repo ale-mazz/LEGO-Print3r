@@ -37,26 +37,19 @@ public class PrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
-        findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
         Button printButton = findViewById(R.id.printButton);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
 
-        Intent intent = getIntent();
-        bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
-        array_size = intent.getIntExtra("Array_size", 0);
-        Bundle b = this.getIntent().getExtras();
-        if (b != null) {
-            bwImageArray = b.getBooleanArray("boolArray");
-        }
 
+        GetObjectsFromOtherActivity();
 
         bitmapImageView.setImageBitmap(bwImageSelectedBitmap);
 
         printButton.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::printArray)));
 
-        biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
 
     }
 
@@ -101,8 +94,16 @@ public class PrintActivity extends AppCompatActivity {
         PrinterManager manager = new PrinterManager(api);
         manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
         startActivity(i);
-        /*if(finished){
+    }
 
-        }*/
+    public void GetObjectsFromOtherActivity(){
+        Intent intent = getIntent();
+        bwImageSelectedBitmap = intent.getParcelableExtra("BitmapImage");
+        array_size = intent.getIntExtra("Array_size", 0);
+        Bundle b = this.getIntent().getExtras();
+        if (b != null) {
+            bwImageArray = b.getBooleanArray("boolArray");
+        }
+        biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
     }
 }

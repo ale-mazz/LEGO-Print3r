@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
-
     private static int SPLASH_TIME = 2000;
 
     @Override
@@ -20,15 +19,15 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Intent mySuperIntent = new Intent(SplashActivity.this, GalleryActivity.class);
-            Intent i = new Intent(SplashActivity.this, BluetoothErrorActivity.class);
+            /*Intent i = new Intent(SplashActivity.this, BluetoothErrorActivity.class);
             BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
             if (!isBluetoothAvailable()) {
                 startActivity(i);
                 finish();
-            } else {
+            } else { */
                 startActivity(mySuperIntent);
                 finish();
-            }
+            //}
         }, SPLASH_TIME);
     }
 

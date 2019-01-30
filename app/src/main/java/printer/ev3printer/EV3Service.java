@@ -1,6 +1,7 @@
 package printer.ev3printer;
 
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -77,4 +78,13 @@ public class EV3Service extends Service {
         return !ev3Brick.isCancelled();
     }
     //endregion
+
+    public boolean isBluetoothAvailable() {
+        final BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+        return (bluetoothAdapter != null
+                && bluetoothAdapter.isEnabled()
+                && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
+    }
+
 }

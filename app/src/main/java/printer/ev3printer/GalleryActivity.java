@@ -39,7 +39,7 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        final Button selectImageButton = findViewById(R.id.imageSelectionButton);
+        final Button openGalleryButton = findViewById(R.id.imageSelectionButton);
 
         final Button convertButton = findViewById(R.id.convertButton);
         final ImageView help = findViewById(R.id.helpGalleryActivityButton);
@@ -59,7 +59,7 @@ public class GalleryActivity extends AppCompatActivity {
         // Bottone per entrare in galleria
 
         //Enter gallery
-        selectImageButton.setOnClickListener(v -> OpenGallery());
+        openGalleryButton.setOnClickListener(v -> OpenGallery());
 
         //Enter PrintPreviewActivity
         convertButton.setOnClickListener(v -> SendBitmapToNextActivity());
