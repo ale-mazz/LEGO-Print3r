@@ -33,7 +33,6 @@ public class PrintActivity extends AppCompatActivity {
     Bitmap bwImageSelectedBitmap;
     TextView statusText;
     boolean[][] biDimensionalArray;
-    private static final String TAG = "PrintActivity";
     public int array_size;
 
     @Override

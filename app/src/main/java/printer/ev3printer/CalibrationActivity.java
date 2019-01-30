@@ -46,6 +46,8 @@ public class CalibrationActivity extends AppCompatActivity {
         penUp.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::verticalMotorUp)));
         penDown.setOnClickListener(v->Prelude.trap(() -> ev3.run(this::verticalMotorDown)));
         dot.setOnClickListener(v -> Prelude.trap(() -> ev3.run(this::dot)));
+        finishButton.setOnClickListener(v -> finished());
+
         penLeft.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -148,6 +150,12 @@ public class CalibrationActivity extends AppCompatActivity {
     //endregion
     private  void OpenLoadingSheetActivity(){
         Intent i = new Intent(CalibrationActivity.this, CalibrationActivityHelp.class);
+        startActivity(i);
+    }
+
+    public void finished(){
+        Intent i = new Intent(CalibrationActivity.this, PrintPreviewActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
 }
