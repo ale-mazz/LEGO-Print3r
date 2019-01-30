@@ -38,14 +38,7 @@ public class CalibrationActivityHelp extends Activity {
         TextView galleryHelpText = findViewById(R.id.galleryHelpText);
         galleryHelpText.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -20;
-        getWindow().setAttributes(params);
+        setOverlay();
     }
 
     @Override
@@ -111,5 +104,16 @@ public class CalibrationActivityHelp extends Activity {
         } catch(InterruptedException e){
 
         }
+    }
+
+    public void setOverlay(){
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.x = 0;
+        params.y = -20;
+        getWindow().setAttributes(params);
     }
 }

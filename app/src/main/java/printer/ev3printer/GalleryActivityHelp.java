@@ -21,6 +21,10 @@ public class GalleryActivityHelp extends Activity {
         TextView galleryHelpText = findViewById(R.id.galleryHelpText);
         galleryHelpText.setJustificationMode(Layout.JUSTIFICATION_MODE_INTER_WORD);
 
+        setOverlay();
+    }
+
+    public void setOverlay(){
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -35,5 +39,4 @@ public class GalleryActivityHelp extends Activity {
         params.y = -20;
         getWindow().setAttributes(params);
     }
-
 }

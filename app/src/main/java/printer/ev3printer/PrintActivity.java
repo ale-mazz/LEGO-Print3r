@@ -41,19 +41,12 @@ public class PrintActivity extends AppCompatActivity {
         setContentView(R.layout.activity_print);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-<<<<<<< HEAD
         findViewById(R.id.circleBar).setVisibility(View.INVISIBLE);
-=======
-        WindowManager.LayoutParams params = getWindow().getAttributes();
-        params.gravity = Gravity.CENTER;
-        params.x = 0;
-        params.y = -20;
-        getWindow().setAttributes(params);
 
->>>>>>> 6bb5212733ffe56232c0e9a86392e81ed41dadc4
         Button printButton = findViewById(R.id.printButton);
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
 
+        setOverlay();
 
         GetObjectsFromOtherActivity();
 
@@ -123,5 +116,13 @@ public class PrintActivity extends AppCompatActivity {
             bwImageArray = b.getBooleanArray("boolArray");
         }
         biDimensionalArray = BitmapConverter.unidimensionalToBidimensional(bwImageArray, array_size);
+    }
+
+    public void setOverlay(){
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.gravity = Gravity.CENTER;
+        params.x = 0;
+        params.y = -20;
+        getWindow().setAttributes(params);
     }
 }

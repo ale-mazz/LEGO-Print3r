@@ -14,6 +14,10 @@ public class PrintPreviewActivityHelp extends Activity {
         setTitle("PrintPreviewActivityHelp");
         setContentView(R.layout.activity_print_preview_help);
 
+        setOverlay();
+    }
+
+    public void setOverlay(){
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
 
@@ -28,5 +32,4 @@ public class PrintPreviewActivityHelp extends Activity {
         params.y = -20;
         getWindow().setAttributes(params);
     }
-
 }
