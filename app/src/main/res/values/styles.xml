@@ -22,8 +22,8 @@
     </style>
 
     <style name="galleryToast">
-        <item name="android:background">@color/colorPrimary</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="colorBackground">#000</item>
+        <item name="textColor">#fff</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
