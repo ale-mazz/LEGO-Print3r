@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.402"
-        app:srcCompat="@mipmap/caricamento_img" />
+        app:srcCompat="@drawable/caricamento_img" />
 
     <Button
         android:id="@+id/convertButton"
