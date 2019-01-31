@@ -10,7 +10,7 @@
 
 
     <TextView
-        android:id="@+id/calibrationButtonHelpText"
+        android:id="@+id/loadSheetText"
         android:layout_width="258dp"
         android:layout_height="334dp"
         android:layout_marginStart="8dp"
@@ -19,6 +19,8 @@
         android:layout_marginBottom="8dp"
         android:text="@string/sheetcalibration"
         android:textColor="#FFFF"
+        android:fontFamily="heroregular"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
