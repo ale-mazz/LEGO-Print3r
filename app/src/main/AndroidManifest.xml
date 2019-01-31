@@ -38,7 +38,6 @@
         <activity
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.HelpBox" />
         <activity
             android:name=".PrintActivity"
@@ -49,7 +48,6 @@
         <activity
             android:name=".GalleryActivityHelp"
             android:label="GalleryActivityHelp"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.HelpBox">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
