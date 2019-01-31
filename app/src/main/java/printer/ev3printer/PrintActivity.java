@@ -4,20 +4,14 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import it.unive.dais.legodroid.lib.EV3;
 import it.unive.dais.legodroid.lib.util.Prelude;
@@ -90,12 +84,13 @@ public class PrintActivity extends AppCompatActivity {
         PrinterManager manager = new PrinterManager(api);
         boolean sheetPresent = manager.IsSheetLoaded();
         if(sheetPresent){
+            runOnUiThread(() -> OnPrintingUI());
             boolean printed = manager.PrintImage(InstructionBuilder.BuildInstructionListFromBitmap(biDimensionalArray, array_size, array_size));
             if(printed){
-                runOnUiThread(() -> SuccessUI());
+                runOnUiThread(() -> OnSuccessUI());
             }
         } else {
-            runOnUiThread(() -> SheetNotPresentUI());
+            runOnUiThread(() -> OnSheetNotPresentUI());
         }
     }
 
@@ -125,14 +120,18 @@ public class PrintActivity extends AppCompatActivity {
         getWindow().setAttributes(params);
     }
 
-    public void SuccessUI(){
+    public void OnSuccessUI(){
         statusText.setText(String.valueOf("SUCCESSO"));
         statusText.setTextColor(getResources().getColor(R.color.successColor));
     }
 
-    public void SheetNotPresentUI(){
+    public void OnSheetNotPresentUI(){
         statusText.setText(String.valueOf("NON C'E' IL FOGLIO"));
         statusText.setTextColor(getResources().getColor(R.color.sheetNotPresentColor));
+    }
+
+    public void OnPrintingUI(){
+        statusText.setText(String.valueOf("STAMPA IN CORSO"));
     }
 
 }
