@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class PrintActivity extends AppCompatActivity {
     TextView statusText;
     ProgressBar circleBar;
     ImageView bitmapImageView;
+    Button homeButton;
 
     boolean[][] biDimensionalArray;
     public int array_size;
@@ -44,7 +46,8 @@ public class PrintActivity extends AppCompatActivity {
         bitmapImageView = findViewById(R.id.convertedImageView);
         statusText = findViewById(R.id.printStatusText);
         circleBar = findViewById(R.id.circleBar);
-
+        homeButton = findViewById(R.id.homeButton);
+        homeButton.setVisibility(View.GONE);
 
         SetOverlay();
         GetObjectsFromOtherActivity();
@@ -132,14 +135,17 @@ public class PrintActivity extends AppCompatActivity {
         circleBar.setVisibility(View.GONE);
         statusText.setText(String.valueOf("SUCCESSO"));
         bitmapImageView.setImageResource(R.drawable.success);
+        homeButton.setVisibility(View.VISIBLE);
     }
 
     public void OnSheetNotPresentUI(){
+        homeButton.setVisibility(View.GONE);
         statusText.setText(String.valueOf("NON C'E' IL FOGLIO"));
         circleBar.setVisibility(View.GONE);
     }
 
     public void OnPrintingUI(){
+        homeButton.setVisibility(View.GONE);
         statusText.setText(String.valueOf("STAMPA IN CORSO"));
         circleBar.setVisibility(View.VISIBLE);
     }

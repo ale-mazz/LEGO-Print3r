@@ -28,12 +28,9 @@ public class EV3Service extends Service {
      */
     public EV3Service() {
         System.out.println("EV3 service created");
-        try {
-            BluetoothConnection blueToothConnection = new BluetoothConnection(legoBrickName);
-            if(blueToothConnection != null){
-                connection = blueToothConnection;
+        try{
+                connection = new BluetoothConnection(legoBrickName);
                 channel = connection.connect();
-            }
         } catch (IOException exception) {
             Log.w("Service", exception);
         }
