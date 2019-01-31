@@ -1,10 +1,8 @@
 package printer.ev3printer;
 
-import android.util.DebugUtils;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;

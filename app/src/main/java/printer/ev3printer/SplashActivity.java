@@ -1,6 +1,5 @@
 package printer.ev3printer;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;

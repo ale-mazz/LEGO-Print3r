@@ -12,7 +12,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
