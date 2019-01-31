@@ -44,8 +44,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
     private static int MIN_CONTRAST = 1;
     private static int MAX_CONTRAST = 10;
 
-    //public ImageView convertedImageView;
-
     //endregion
 
     @Override
@@ -77,7 +75,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         //region Sliders
         dimensionSlider.setMax(MAX_ARRAY_SIZE - MIN_ARRAY_SIZE);
         dimensionSlider.setProgress(array_size - MIN_ARRAY_SIZE);
-        dimensionText.setText(String.valueOf("Dimensione: " + (array_size - MIN_ARRAY_SIZE)));
+        dimensionText.setText(String.valueOf("Dimensione: " + (array_size)));
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
