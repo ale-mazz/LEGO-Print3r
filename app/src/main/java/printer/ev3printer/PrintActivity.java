@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -38,6 +39,7 @@ public class PrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         bitmapImageView = findViewById(R.id.convertedImageView);
         statusText = findViewById(R.id.printStatusText);
@@ -129,13 +131,11 @@ public class PrintActivity extends AppCompatActivity {
     public void OnSuccessUI(){
         circleBar.setVisibility(View.GONE);
         statusText.setText(String.valueOf("SUCCESSO"));
-        statusText.setTextColor(getResources().getColor(R.color.successColor));
         bitmapImageView.setImageResource(R.drawable.success);
     }
 
     public void OnSheetNotPresentUI(){
         statusText.setText(String.valueOf("NON C'E' IL FOGLIO"));
-        statusText.setTextColor(getResources().getColor(R.color.sheetNotPresentColor));
         circleBar.setVisibility(View.GONE);
     }
 

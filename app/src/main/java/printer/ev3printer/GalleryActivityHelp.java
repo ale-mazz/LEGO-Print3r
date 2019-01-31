@@ -1,6 +1,7 @@
 package printer.ev3printer;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -17,7 +18,7 @@ public class GalleryActivityHelp extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("GalleryActivityHelp");
         setContentView(R.layout.activity_gallery_help);
-        TextView galleryHelpText = findViewById(R.id.galleryHelpText);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setOverlay();
     }

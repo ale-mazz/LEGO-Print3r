@@ -1,6 +1,7 @@
 package printer.ev3printer;
 
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ public class PrintPreviewActivityHelp extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("PrintPreviewActivityHelp");
         setContentView(R.layout.activity_print_preview_help);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setOverlay();
 

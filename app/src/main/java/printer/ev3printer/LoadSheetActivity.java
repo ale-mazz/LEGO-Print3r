@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
@@ -30,7 +31,7 @@ public class LoadSheetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("LoadSheetActivity");
         setContentView(R.layout.activity_load_sheet);
-        //TextView galleryHelpText = findViewById(R.id.calibrationButtonHelpText);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setOverlay();
     }
 
