@@ -135,6 +135,7 @@ public class PrintActivity extends AppCompatActivity {
         statusText.setText(String.valueOf("SUCCESSO"));
         bitmapImageView.setImageResource(R.drawable.success);
         homeButton.setVisibility(View.VISIBLE);
+        bitmapImageView.setBackgroundResource(R.drawable.solidWhite);
     }
 
     public void OnSheetNotPresentUI(){
