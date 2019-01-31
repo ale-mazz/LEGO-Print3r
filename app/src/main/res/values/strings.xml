@@ -5,7 +5,7 @@
     <string name="XYcalibration">1) Se non è già stato fatto, premere il pulsante rosso del brick EV3_Printer per caricare un foglio.\n\n2) Usare le frecce destra e sinistra fino a fare arrivare il braccio a fine corsa nel lato sinistro. \n\n3) Usare le frecce su e giù seguite dal pulsante Punto per alzare o abbassare il braccio in modo che disegni un punto di dimensioni accettabili.\n\n4) Una volta finito, premere il pulsante indietro del vostro dispositivo.</string>
     <string name="sheetcalibration">1) Premere il pulsante rosso situato nel brick EV3 per caricare un foglio. \n\n 2)Questo procedimento potrà essere eseguito nella schermata successiva, ma è consigliato farlo ora.</string>
     <string name="ongoingcalibration">Stampa in corso.</string>
-    <string name="bluetootherror">Nessuna connessione Bluetooth rilevata. Si prega di attivare il Bluetooth dalle impostazioni del dispositivo e verificare di essere connessi a EV3_Printer.</string>
+    <string name="bluetootherror">Nessuna connessione Bluetooth rilevata. Si prega di chiudere l\'applicazione, attivare il Bluetooth dalle impostazioni del dispositivo e verificare di essere connessi a EV3_Printer.</string>
     <string name="punto">Punto</string>
     <string name="bluetoothalert">Warning: in order to use the app, you must connect to the EV3_Printer via bluetooth</string>
     <string name="esci">Esci</string>
