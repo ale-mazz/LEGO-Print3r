@@ -46,6 +46,7 @@ public class PrintActivity extends AppCompatActivity {
         statusText = findViewById(R.id.printStatusText);
         circleBar = findViewById(R.id.circleBar);
         homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(v -> HomeButtonPressed());
         homeButton.setVisibility(View.GONE);
 
         SetOverlay();
@@ -147,6 +148,12 @@ public class PrintActivity extends AppCompatActivity {
         homeButton.setVisibility(View.GONE);
         statusText.setText(String.valueOf("STAMPA IN CORSO"));
         circleBar.setVisibility(View.VISIBLE);
+    }
+
+    public void HomeButtonPressed(){
+        Intent i = new Intent(PrintActivity.this, GalleryActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
 }
