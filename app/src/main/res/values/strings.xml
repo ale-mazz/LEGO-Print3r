@@ -4,7 +4,7 @@
     <string name="PrintPreviewActivityHelp">In questa schermata verrà visualizzata un\'anteprima dell\'immagine che verrà stampata. La dimensione dell\'immagine può essere modificata utilizzando lo slider sotto di essa (da 30x30 a 60x60 pixel). Una volta selezionata la dimensione desiderata, l\'utente può procedere alla calibratura della stampante premendo il pulsante "CALIBRA".</string>
     <string name="XYcalibration">Usare le frecce destra e sinistra fino a fare arrivare il braccio a fine corsa nel lato sinistro. Usare le frecce su e giù seguite dal pulsante Punto per alzare o abbassare il braccio in modo che disegni un punto di dimensioni accettabili.</string>
     <string name="sheetcalibration">Premere il pulsante rosso situato nel brick EV3 per caricare il foglio.</string>
-    <string name="ongoingcalibration">Attendere, stampa in corso.</string>
+    <string name="ongoingcalibration">Stampa in corso.</string>
     <string name="bluetootherror">Nessuna connessione Bluetooth rilevata. Si prega di attivare il Bluetooth dalle impostazioni del dispositivo e verificare di essere connessi a EV3_Printer.</string>
     <string name="punto">Punto</string>
     <string name="bluetoothalert">Alert: in order to use the app, you must connect to the EV3_Printer via bluetooth</string>
