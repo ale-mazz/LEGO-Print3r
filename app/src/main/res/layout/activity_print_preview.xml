@@ -29,7 +29,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Dimensione: 30"
+        android:text="@string/dimensione"
         app:layout_constraintBottom_toTopOf="@+id/dimensionSeekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -39,6 +39,7 @@
 
     <ImageView
         android:id="@+id/convertedImageView"
+        android:contentDescription="@string/ditheringpreview"
         android:layout_width="323dp"
         android:layout_height="267dp"
         android:layout_marginStart="8dp"
@@ -60,13 +61,14 @@
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/white"
-        android:text="Stampa"
+        android:text="@string/stampa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/calibrationButton" />
 
     <ImageButton
         android:id="@+id/helpPrintPreviewActivityButton"
+        android:contentDescription="@string/help"
         android:layout_width="41dp"
         android:layout_height="36dp"
         android:layout_alignParentTop="true"
@@ -90,7 +92,7 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/white"
-        android:text="Calibra"
+        android:text="@string/calibra"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/printButton"
         app:layout_constraintHorizontal_bias="0.312"
@@ -132,7 +134,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Contrasto: 0"
+        android:text="@string/contrasto"
         app:layout_constraintBottom_toTopOf="@+id/contrastSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -144,7 +146,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Luminosità: 0"
+        android:text="@string/luminosità"
         app:layout_constraintBottom_toTopOf="@+id/brightnessSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

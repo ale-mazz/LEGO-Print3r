@@ -105,7 +105,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="0dp"
         android:background="@color/colorPrimary"
-        android:text="Punto"
+        android:text="@string/punto"
         app:layout_constraintBottom_toTopOf="@id/arrowDown"
         app:layout_constraintEnd_toStartOf="@+id/arrowRight"
         app:layout_constraintHorizontal_bias="0.493"

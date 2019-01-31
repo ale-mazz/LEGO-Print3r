@@ -9,6 +9,7 @@
 
     <ImageView
         android:id="@+id/alertImageView"
+        android:contentDescription="@string/bluetoothalert"
         android:layout_width="277dp"
         android:layout_height="300dp"
         android:layout_marginStart="8dp"
@@ -49,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="60dp"
         android:background="@android:color/white"
-        android:text="Esci"
+        android:text="@string/esci"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
