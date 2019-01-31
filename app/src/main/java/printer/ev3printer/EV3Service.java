@@ -49,7 +49,6 @@ public class EV3Service extends Service {
 
     public class LocalBinder extends Binder {
         EV3Service getService() {
-            // Return this instance of LocalService so clients can call public methods
             return EV3Service.this;
         }
     }
@@ -68,10 +67,8 @@ public class EV3Service extends Service {
     }
     public boolean isBrickNull(){
         if(ev3Brick == null){
-            System.out.println("EV3 BRICK inside Service is NULL.");
             return  true;
         } else{
-            System.out.println("EV3 BRICK PRESENT inside Service.");
             return  false;
         }
     }
@@ -82,6 +79,10 @@ public class EV3Service extends Service {
         return (bluetoothAdapter != null
                 && bluetoothAdapter.isEnabled()
                 && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
+    }
+
+    public boolean IsConnectionValid(){
+        return isBluetoothAvailable() && isBrickNull();
     }
 
 }

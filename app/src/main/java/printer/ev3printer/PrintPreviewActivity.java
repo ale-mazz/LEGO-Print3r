@@ -78,7 +78,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         //region Sliders
         dimensionSlider.setMax(MAX_ARRAY_SIZE - MIN_ARRAY_SIZE);
         dimensionSlider.setProgress(array_size - MIN_ARRAY_SIZE);
-        dimensionText.setText(String.valueOf(array_size - MIN_ARRAY_SIZE));
+        dimensionText.setText(String.valueOf("Dimensione: " + (array_size - MIN_ARRAY_SIZE)));
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
