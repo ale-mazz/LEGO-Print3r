@@ -30,7 +30,6 @@ public class LoadSheetActivity extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("LoadSheetActivity");
         setContentView(R.layout.activity_load_sheet);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setOverlay();
     }
 

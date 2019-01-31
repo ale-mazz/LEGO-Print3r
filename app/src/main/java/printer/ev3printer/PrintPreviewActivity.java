@@ -52,7 +52,6 @@ public class PrintPreviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print_preview);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //region UI item declarations
         TextView dimensionText = findViewById(R.id.dimensionTextView);

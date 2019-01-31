@@ -25,23 +25,32 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoadSheetActivity"
-            android:theme="@style/AppTheme.HelpBox" />
+            android:theme="@style/AppTheme.HelpBox"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".EV3Service"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".CalibrationActivity" />
+        <activity
+            android:name=".CalibrationActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".PrintPreviewActivityHelp"
             android:label="PrintPreviewActivityHelp"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.HelpBox" />
-        <activity android:name=".PrintActivity"/>
-        <activity android:name=".PrintPreviewActivity" />
+        <activity
+            android:name=".PrintActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".PrintPreviewActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GalleryActivityHelp"
             android:label="GalleryActivityHelp"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.HelpBox">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -54,9 +63,15 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".BluetoothErrorActivity" />
-        <activity android:name=".GalleryActivity" />
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".BluetoothErrorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GalleryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

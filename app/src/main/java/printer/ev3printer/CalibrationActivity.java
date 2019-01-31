@@ -27,7 +27,6 @@ public class CalibrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calibration);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         //region Buttons declaration
         Button penUp = findViewById(R.id.arrowUp);

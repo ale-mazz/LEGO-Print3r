@@ -41,7 +41,6 @@ public class PrintActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         bitmapImageView = findViewById(R.id.convertedImageView);
         statusText = findViewById(R.id.printStatusText);

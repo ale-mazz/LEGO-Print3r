@@ -14,7 +14,6 @@ public class GalleryActivityHelp extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("GalleryActivityHelp");
         setContentView(R.layout.activity_gallery_help);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setOverlay();
     }

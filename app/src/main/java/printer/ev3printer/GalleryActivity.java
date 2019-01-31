@@ -34,7 +34,6 @@ public class GalleryActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final Button openGalleryButton = findViewById(R.id.imageSelectionButton);
         final Button convertButton = findViewById(R.id.convertButton);

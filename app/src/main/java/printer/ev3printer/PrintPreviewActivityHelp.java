@@ -14,7 +14,6 @@ public class PrintPreviewActivityHelp extends Activity {
         super.onCreate(savedInstanceState);
         setTitle("PrintPreviewActivityHelp");
         setContentView(R.layout.activity_print_preview_help);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setOverlay();
 
