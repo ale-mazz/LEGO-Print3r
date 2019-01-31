@@ -13,5 +13,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        app:srcCompat="@mipmap/logo_ev3" />
+        app:srcCompat="@drawable/logo_ev3" />
 </android.support.constraint.ConstraintLayout>
