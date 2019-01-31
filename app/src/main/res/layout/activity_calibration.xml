@@ -83,9 +83,9 @@
     <TextView
         android:id="@+id/sheetCalibration"
         android:layout_width="165dp"
-        android:layout_height="55dp"
+        android:layout_height="149dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/sheetcalibration"
