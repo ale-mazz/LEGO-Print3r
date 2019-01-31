@@ -21,6 +21,6 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(mySuperIntent);
             finish();
 
-        }, SPLASH_TIME);
+        },SPLASH_TIME);
     }
 }
