@@ -11,7 +11,7 @@
         android:id="@+id/imageSelectionButton"
         style="@style/Widget.AppCompat.Button"
         android:layout_width="178dp"
-        android:layout_height="65dp"
+        android:layout_height="76dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
