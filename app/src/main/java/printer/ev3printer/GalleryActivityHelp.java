@@ -2,14 +2,10 @@ package printer.ev3printer;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 public class GalleryActivityHelp extends Activity {
 

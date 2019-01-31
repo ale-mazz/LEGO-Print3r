@@ -1,6 +1,5 @@
 package printer.ev3printer;
 
-import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -22,6 +21,6 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(mySuperIntent);
             finish();
 
-        }, SPLASH_TIME);
+        },SPLASH_TIME);
     }
 }
