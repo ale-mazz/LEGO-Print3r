@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -136,7 +135,7 @@ public class PrintActivity extends AppCompatActivity {
         statusText.setText(String.valueOf("SUCCESSO"));
         bitmapImageView.setImageResource(R.drawable.success);
         homeButton.setVisibility(View.VISIBLE);
-        bitmapImageView.setBackgroundResource(R.drawable.solidWhite);
+        bitmapImageView.setBackgroundResource(R.drawable.solidwhite);
     }
 
     public void OnSheetNotPresentUI(){

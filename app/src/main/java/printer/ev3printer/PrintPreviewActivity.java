@@ -41,7 +41,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
     private static int MIN_BRIGHTNESS = -255;
     private static int MAX_BRIGHTNESS = 255;
     private int contrast = 1;
-    private static int MIN_CONTRAST = 0;
+    private static int MIN_CONTRAST = 1;
     private static int MAX_CONTRAST = 10;
 
     //public ImageView convertedImageView;
@@ -117,7 +117,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         });
 
         contrastSlider.setMax(MAX_CONTRAST);
-        contrastSlider.setProgress(MIN_CONTRAST + 1);
+        contrastSlider.setProgress(MIN_CONTRAST);
         contrastSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {

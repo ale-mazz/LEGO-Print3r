@@ -17,6 +17,7 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             Intent mySuperIntent = new Intent(SplashActivity.this, GalleryActivity.class);
+            mySuperIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(mySuperIntent);
             finish();
 
