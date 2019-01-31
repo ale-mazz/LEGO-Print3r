@@ -51,7 +51,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="40dp"
-        android:background="@android:color/white"
+        android:background="@color/colorPrimary"
         android:fontFamily="heroregular"
         android:text="@string/esci"
         android:textSize="18sp"
