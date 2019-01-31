@@ -28,18 +28,17 @@
     <TextView
         android:id="@+id/printStatusText"
         android:layout_width="218dp"
-        android:layout_height="39dp"
+        android:layout_height="61dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="48dp"
-        android:fontFamily="@font/primeregular"
+        android:fontFamily="@font/heroregular"
         android:text="@string/ongoingcalibration"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <android.support.constraint.Guideline

@@ -80,9 +80,4 @@ public class EV3Service extends Service {
                 && bluetoothAdapter.isEnabled()
                 && bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON);
     }
-
-    public boolean IsConnectionValid(){
-        return isBluetoothAvailable() && isBrickNull();
-    }
-
 }
