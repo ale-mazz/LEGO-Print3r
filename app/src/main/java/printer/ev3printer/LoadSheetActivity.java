@@ -70,6 +70,8 @@ public class LoadSheetActivity extends Activity {
     @Override
     public void onStop(){
         super.onStop();
+        ev3.cancel();
+
         unbindService(mConnection);
         mBound = false;
     }
@@ -87,7 +89,7 @@ public class LoadSheetActivity extends Activity {
         } catch (ExecutionException e){
             Log.e("loadSheet", "ExecutionException error.");
         } catch(InterruptedException e){
-            Log.e("loadSheet", "InterruptedException error.");
+            Log.d("loadSheet", "Interrupted");
         }
     }
 
