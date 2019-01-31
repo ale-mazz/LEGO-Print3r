@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -28,16 +27,16 @@ public class PrintPreviewActivity extends AppCompatActivity {
     EV3 ev3;
     boolean mBound;
 
-    public Bitmap imageSelectedBitmap;
-    public Bitmap convertedImageBitmap;
-    public Bitmap resizedImageBitmap;
-    public Bitmap adjustedContrastBitmap;
+    private Bitmap imageSelectedBitmap;
+    private Bitmap convertedImageBitmap;
+    private Bitmap resizedImageBitmap;
+    private Bitmap adjustedContrastBitmap;
 
-    public boolean[] convertedImageBoolArray;
-    public boolean[][] bidimensionalArray;
-    public static int array_size = 40;
-    public static int MAX_VALUE = 60;
-    public static int MIN_VALUE = 30;
+    private boolean[] convertedImageBoolArray;
+    private boolean[][] bidimensionalArray;
+    private static int array_size = 40;
+    private static int MAX_ARRAY_SIZE = 60;
+    private static int MIN_ARRAY_SIZE = 30;
     private int brightness = 0;
     private static int MIN_BRIGHTNESS = -255;
     private static int MAX_BRIGHTNESS = 255;
@@ -73,22 +72,13 @@ public class PrintPreviewActivity extends AppCompatActivity {
         calibrationButton.setOnClickListener(v -> StartCalibrationActivity());
         printButton.setOnClickListener(v -> GoToPrint());
 
-        Intent imageIntent = getIntent();
-        String image_path = imageIntent.getStringExtra("imagePath");
-        Uri fileUri = Uri.parse(image_path);
-        try {
-            System.out.println(fileUri.toString());
-            imageSelectedBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        bidimensionalArray = new boolean[array_size][array_size];
-        convertBitmapToFinal();
+        GetImageFromPreviousActivity();
         setImageView(convertedImageView);
 
         //region Sliders
-        dimensionSlider.setMax(MAX_VALUE - MIN_VALUE);
+        dimensionSlider.setMax(MAX_ARRAY_SIZE - MIN_ARRAY_SIZE);
+        dimensionSlider.setProgress(array_size - MIN_ARRAY_SIZE);
+        dimensionText.setText(String.valueOf(array_size - MIN_ARRAY_SIZE));
         dimensionSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -98,7 +88,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
             }
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                int value = progress + MIN_VALUE;
+                int value = progress + MIN_ARRAY_SIZE;
                 dimensionText.setText(String.valueOf("Dimensione: " + value));
                 array_size = value;
                 if (convertBitmapToFinal()) {
@@ -128,7 +118,7 @@ public class PrintPreviewActivity extends AppCompatActivity {
         });
 
         contrastSlider.setMax(MAX_CONTRAST);
-        contrastSlider.setProgress(1);
+        contrastSlider.setProgress(MIN_CONTRAST + 1);
         contrastSlider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
@@ -209,6 +199,21 @@ public class PrintPreviewActivity extends AppCompatActivity {
 
     public void setImageView(ImageView imageView) {
         imageView.setImageBitmap(convertedImageBitmap);
+    }
+
+    public void GetImageFromPreviousActivity(){
+        Intent imageIntent = getIntent();
+        String image_path = imageIntent.getStringExtra("imagePath");
+        Uri fileUri = Uri.parse(image_path);
+        try {
+            System.out.println(fileUri.toString());
+            imageSelectedBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), fileUri);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        bidimensionalArray = new boolean[array_size][array_size];
+        convertBitmapToFinal();
     }
 
     public void SendBitmapAndArrayToNextActivity() {

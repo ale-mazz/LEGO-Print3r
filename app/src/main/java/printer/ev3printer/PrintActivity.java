@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import it.unive.dais.legodroid.lib.EV3;
@@ -26,6 +28,8 @@ public class PrintActivity extends AppCompatActivity {
     boolean[] bwImageArray;
     Bitmap bwImageSelectedBitmap;
     TextView statusText;
+    ProgressBar circleBar;
+
     boolean[][] biDimensionalArray;
     public int array_size;
 
@@ -36,6 +40,7 @@ public class PrintActivity extends AppCompatActivity {
 
         ImageView bitmapImageView = findViewById(R.id.convertedImageView);
         statusText = findViewById(R.id.printStatusText);
+        circleBar = findViewById(R.id.circleBar);
 
 
         SetOverlay();
@@ -121,6 +126,7 @@ public class PrintActivity extends AppCompatActivity {
     }
 
     public void OnSuccessUI(){
+        circleBar.setVisibility(View.GONE);
         statusText.setText(String.valueOf("SUCCESSO"));
         statusText.setTextColor(getResources().getColor(R.color.successColor));
     }
@@ -128,10 +134,12 @@ public class PrintActivity extends AppCompatActivity {
     public void OnSheetNotPresentUI(){
         statusText.setText(String.valueOf("NON C'E' IL FOGLIO"));
         statusText.setTextColor(getResources().getColor(R.color.sheetNotPresentColor));
+        circleBar.setVisibility(View.GONE);
     }
 
     public void OnPrintingUI(){
         statusText.setText(String.valueOf("STAMPA IN CORSO"));
+        circleBar.setVisibility(View.VISIBLE);
     }
 
 }
