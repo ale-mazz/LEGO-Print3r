@@ -31,7 +31,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/dimensione"
         android:fontFamily="@font/heroregular"
-
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/dimensionSeekbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -64,6 +64,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/white"
         android:fontFamily="@font/heroregular"
+        android:textSize="18sp"
         android:text="@string/stampa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +98,7 @@
         android:backgroundTint="@android:color/white"
         android:text="@string/calibra"
         android:fontFamily="@font/heroregular"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/printButton"
         app:layout_constraintHorizontal_bias="0.312"
@@ -140,6 +142,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/contrasto"
         android:fontFamily="@font/heroregular"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/contrastSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -153,6 +156,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/luminosità"
         android:fontFamily="@font/heroregular"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/brightnessSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
