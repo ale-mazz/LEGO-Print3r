@@ -29,6 +29,7 @@ public class PrintActivity extends AppCompatActivity {
     Bitmap bwImageSelectedBitmap;
     TextView statusText;
     ProgressBar circleBar;
+    ImageView bitmapImageView;
 
     boolean[][] biDimensionalArray;
     public int array_size;
@@ -38,7 +39,7 @@ public class PrintActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_print);
 
-        ImageView bitmapImageView = findViewById(R.id.convertedImageView);
+        bitmapImageView = findViewById(R.id.convertedImageView);
         statusText = findViewById(R.id.printStatusText);
         circleBar = findViewById(R.id.circleBar);
 
@@ -129,6 +130,7 @@ public class PrintActivity extends AppCompatActivity {
         circleBar.setVisibility(View.GONE);
         statusText.setText(String.valueOf("SUCCESSO"));
         statusText.setTextColor(getResources().getColor(R.color.successColor));
+        bitmapImageView.setImageResource(R.drawable.success);
     }
 
     public void OnSheetNotPresentUI(){

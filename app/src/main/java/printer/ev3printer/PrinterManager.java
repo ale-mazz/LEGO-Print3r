@@ -25,6 +25,7 @@ public class PrinterManager {
 
     private static int loadingSheetSpeed = -60;
     private static int reflectedValueThreshold = 3;
+    private static int sheetDetectionValue = 5;
     private static int verticalSpeed = 30;
     private static int verticalDistanceInTime = 10;
 
@@ -128,7 +129,7 @@ public class PrinterManager {
             Future<Short> reflectedValue = lightSensor.getReflected();
             Short currentReflected = reflectedValue.get();
 
-            if(currentReflected < reflectedValueThreshold){
+            if(currentReflected < sheetDetectionValue){
                 loaded = true;
             }
 
