@@ -105,7 +105,7 @@ public class GalleryActivity extends AppCompatActivity {
             startActivity(i);
         }
         else {
-            StyleableToast.makeText(this, "Selezionare un'immagine", R.style.galleryToast).show();
+            StyleableToast.makeText(this, "Selezionare un'immagine prima di procedere.", R.style.galleryToast).show();
         }
 
     }
