@@ -12,10 +12,10 @@
     <string name="gallerydescription">Preview of the selected image</string>
     <string name="converti">Converti</string>
     <string name="calibra">Calibra</string>
-    <string name="contrasto">Contrasto: 0</string>
+    <string name="contrasto">Contrasto: 1</string>
     <string name="help">Button to show help on this screen</string>
     <string name="printpreview">Preview of the image being printed</string>
-    <string name="dimensione">Dimensione: 30</string>
+    <string name="dimensione">Dimensione: 40</string>
     <string name="ditheringpreview">Preview of the image about to be printed</string>
     <string name="stampa">Stampa</string>
     <string name="selezionaimmagine">Seleziona immagine</string>
